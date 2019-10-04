@@ -281,6 +281,13 @@ $AdvMenuBtn.height      = 35
 $AdvMenuBtn.location    = New-Object System.Drawing.Point(790,200)
 $AdvMenuBtn.Font        = 'Microsoft Sans Serif,10'
 
+$HelloWorldBtn          = New-Object system.Windows.Forms.Button
+$HelloWorldBtn.text     = "Hello World!"
+$HelloWorldBtn.width    = 110
+$HelloWorldBtn.height   = 35
+$HelloWorldBtn.location = New-Object System.Drawing.Point(920,200)
+$HelloWorldBtn.Font     = 'Microsoft Sans Serif,10'
+
 $Form.controls.AddRange(@($SysInfBtn))
 $Form.controls.AddRange(@($ProcsBtn))
 $Form.controls.AddRange(@($PhysMemBtn))
@@ -320,6 +327,7 @@ $Form.controls.AddRange(@($UserProfBtn))
 $Form.controls.AddRange(@($OneForAll))
 $Form.controls.AddRange(@($OutputLocBtn))
 $Form.controls.AddRange(@($AdvMenuBtn))
+$Form.controls.AddRange(@($HelloWorldBtn))
 
 $SysInfBtn.Add_Click({ System-Info })
 $ProcsBtn.Add_Click({ Active-Processes })
@@ -360,9 +368,10 @@ $UserProfBtn.Add_Click({ User-Profiles })
 $OneForAll.Add_Click({ OneForAll })
 $OutputLocBtn.Add_Click({ Output-Location })
 $AdvMenuBtn.Add_Click({ Advanced-Menu })
+$HelloWorldBtn.Add_Click({ Hello-World })
 
 function System-Info {}
-function Active-Processes {}
+function Active-Processes { Get-Process | Out-File .\RunningProcesses.txt }
 function PhysicalMemory-Image {}
 function Disk-Image {}
 function Screenshot {}
@@ -391,7 +400,7 @@ function Shellbags {}
 function ShimCache {}
 function System-Restore-Points {}
 function SRUM {}
-function Windows-Services {}
+function Windows-Services { Get-Service | Out-File .\RunningServices.txt }
 function Timezone-Info {}
 function User-Accounts {}
 function UserAssist {}
@@ -400,5 +409,6 @@ function User-Profiles {}
 function OneForAll {}
 function Output-Location {}
 function Advanced-Menu {}
+function Hello-World { echo "Hello World!" | Out-File .\HelloWorld.txt }
 
 [void]$Form.ShowDialog()
