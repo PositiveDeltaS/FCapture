@@ -412,17 +412,21 @@ function Advanced-Menu {}
 function Hello-World { 
 
 	$saveText = "Hello World!"
-	$saveLocation = ".\HelloWorld.txt"
+	$fileName = "HellowWorld.txt"
+	$saveLocation = ".\" + $fileName
 
 	$success = Hello-World-Helper $saveText $saveLocation
 	
 	if(!$success)
 	{
-		[System.Windows.Forms.MessageBox]::Show('Failed to Save Text File')
+		[System.Windows.Forms.MessageBox]::
+			Show('Failed to save text file ' + '"' + $fileName + '"' + " to " + '"' + $saveLocation + '"')
+		
 	}
 	else
 	{
-		[System.Windows.Forms.MessageBox]::Show('Successfully saved file.')
+		[System.Windows.Forms.MessageBox]::
+			Show('Successfully saved file ' + '"' + $fileName + '"'+ " to " + '"' + $saveLocation + '"')
 	}
 	
 }
