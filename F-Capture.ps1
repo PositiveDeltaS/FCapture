@@ -409,6 +409,22 @@ function User-Profiles {}
 function OneForAll {}
 function Output-Location {}
 function Advanced-Menu {}
-function Hello-World { echo "Hello World!" | Out-File .\HelloWorld.txt }
+function Hello-World { 
+	$proc = echo "Hello World!" | Out-File .\HelloWorld.txt
+	
+	<# Wait for process to finish #>
+	$proc.WaitForExit()
+	
+	<# Check if file exists and return Error code / Alert user #>
+	if(!(Test-Path ".\HelloWorld.txt"))
+	{
+		[System.Windows.Forms.MessageBox]::Show('Failed to Save Text File')
+	}
+	else
+	{
+		[System.Windows.Forms.MessageBox]::Show('Successfully saved file.')
+	}
+	
+	}
 
 [void]$Form.ShowDialog()
