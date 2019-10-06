@@ -418,17 +418,24 @@ function Hello-World {
 	$fileName = "HelloWorld.txt"
 	$saveLocation = ".\" + $fileName
 
-	$success = Hello-World-Helper $saveText $saveLocation
-	
-	if(!$success)
-	{	
-		Check-Log-Add-Filename-Wrapper $FAIL_LOG $fileName
+	if(Test-Path $saveLocation)
+	{
+		$debugMSG = $saveLocation + " already exists"
+		Add-Log $DEBUG_LOG $debugMSG
 	}
 	else
 	{
-		Check-Log-Add-Filename-Wrapper $SUCCESS_LOG $fileName
+		$success = Hello-World-Helper $saveText $saveLocation
+		
+		if(!$success)
+		{	
+			Check-Log-Add-Filename-Wrapper $FAIL_LOG $fileName
+		}
+		else
+		{
+			Check-Log-Add-Filename-Wrapper $SUCCESS_LOG $fileName
+		}
 	}
-	
 }
 
 
