@@ -410,13 +410,15 @@ function OneForAll {}
 function Output-Location {}
 function Advanced-Menu {}
 function Hello-World { 
-	$proc = echo "Hello World!" | Out-File .\HelloWorld.txt
-	
+	<#$proc = Start-Process echo "Hello World!" | Out-File .\HelloWorld.txt#>
+	echo "Hello World!" | Out-File .\HelloWorld.txt
 	<# Wait for process to finish #>
-	$proc.WaitForExit()
+	<#$proc.WaitForExit()#>
 	
 	<# Check if file exists and return Error code / Alert user #>
-	if(!(Test-Path ".\HelloWorld.txt"))
+	$fileExists = Test-Path ".\HelloWorld.txt"
+	
+	if(!$fileExists)
 	{
 		[System.Windows.Forms.MessageBox]::Show('Failed to Save Text File')
 	}
