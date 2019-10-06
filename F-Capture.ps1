@@ -447,21 +447,24 @@ function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 #Add filename to specified log 
 function Add-Log([string]$logFilePath, [string]$strToAppend)
 {
+	#check if log exists
 	if(!(Test-Path $logFilePath))
 	{
-		#creates new file with string as first entry
+		#creates new log file w/ logfilepath with str as first entry
 		echo $strToAppend | Out-File $logFilePath
 	}
-	else{
-		#Adds string to newline
+	else
+	{
+		#Adds str to newline
 		Add-Content $logFilePath $strToAppend
 	}
 }
 
 
-#Check if file is in success/failure log#
+#Check if filename is in the specified logfile 
 function Check-If-File-Logged([string]$logFilePath, [string]$searchFileName)
 {
+	#if the log exists
 	if((Test-Path $logFilePath))
 	{
 		#iterate through all lines in file and check if match 
@@ -473,20 +476,28 @@ function Check-If-File-Logged([string]$logFilePath, [string]$searchFileName)
 			} 
 		}
 	}
+	else
+	{
+		$debugMSG = "File " + $logFilePath + " does not exist."
+		Add-Log $DEBUG_LOG $debugMSG
+	}
 	return 0
 }
+
 
 #Wrapper to check if file name already exists in the log and appends it if not
 function Check-Log-Add-Filename-Wrapper([string]$logFilePath, [string]$fileName)
 {
+	#Add to log if not already in log
 	if(!(Check-If-File-Logged $logFilePath $fileName))
 	{
 		Add-Log $logFilePath $fileName
 	}
-	else{
+	else
+	{
 			$debugMSG = "File " + $fileName + " already logged in " + $logFilePath
 			Add-Log $DEBUG_LOG $debugMSG
-		}
+	}
 }
 
 
