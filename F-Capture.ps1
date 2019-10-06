@@ -425,6 +425,6 @@ function Hello-World {
 		[System.Windows.Forms.MessageBox]::Show('Successfully saved file.')
 	}
 	
-	}
+}
 
 [void]$Form.ShowDialog()
