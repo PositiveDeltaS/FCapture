@@ -412,7 +412,7 @@ function Advanced-Menu {}
 function Hello-World { 
 
 	$saveText = "Hello World!"
-	$fileName = "HellowWorld.txt"
+	$fileName = "HelloWorld.txt"
 	$saveLocation = ".\" + $fileName
 
 	$success = Hello-World-Helper $saveText $saveLocation
@@ -422,11 +422,14 @@ function Hello-World {
 		[System.Windows.Forms.MessageBox]::
 			Show('Failed to save text file ' + '"' + $fileName + '"' + " to " + '"' + $saveLocation + '"')
 		
+		Add-Failure $fileName $saveLocation
 	}
 	else
 	{
 		[System.Windows.Forms.MessageBox]::
 			Show('Successfully saved file ' + '"' + $fileName + '"'+ " to " + '"' + $saveLocation + '"')
+	
+		Add-Success $fileName $saveLocation
 	}
 	
 }
@@ -439,6 +442,41 @@ function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 	$success = Test-Path $saveLocation
 
 	return $success
+}
+
+<#Add filename to success log#>
+function Add-Success([string]$fileName)
+{
+	$formattedFileName = $fileName + ", "
+	if(!(Test-Path ".\success.csv"))
+	{
+		echo $formattedFileName | Out-File ".\success.csv"
+	}
+	else{
+		Add-Content ".\success.csv" $formattedFileName
+	}
+
+}
+
+<#Add filename to failure log#>
+function Add-Failure([string]$fileName)
+{
+	$formattedFileName = $fileName + ", "
+	if(!(Test-Path ".\fail.csv"))
+	{
+		echo $formattedFileName | Out-File ".\fail.csv"
+	}
+	else{
+		Add-Content ".\fail.csv" $formattedFileName
+	}
+
+}
+
+<#Check if file is in success/failure log#>
+function Check-If-File-Logged([string]$logName, [string]$fileName)
+{
+
+
 }
 
 [void]$Form.ShowDialog()
