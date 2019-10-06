@@ -1,4 +1,7 @@
 # Template for F-Capture
+$global:DEBUG_LOG= ".\debugLog.txt"
+$global:SUCCESS_LOG=".\success.txt"
+$global:FAIL_LOG=".\fail.txt"
 
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
@@ -418,21 +421,17 @@ function Hello-World {
 	$success = Hello-World-Helper $saveText $saveLocation
 	
 	if(!$success)
-	{
-		[System.Windows.Forms.MessageBox]::
-			Show('Failed to save text file ' + '"' + $fileName + '"' + " to " + '"' + $saveLocation + '"')
-		
-		Add-Failure $fileName $saveLocation
+	{	
+		Check-Log-Add-Filename-Wrapper $FAIL_LOG $fileName
 	}
 	else
 	{
-		[System.Windows.Forms.MessageBox]::
-			Show('Successfully saved file ' + '"' + $fileName + '"'+ " to " + '"' + $saveLocation + '"')
-	
-		Add-Success $fileName $saveLocation
+		Check-Log-Add-Filename-Wrapper $SUCCESS_LOG $fileName
 	}
 	
 }
+
+
 function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 {
 	<#For future implementations, we need to be waiting until the process finishes
@@ -444,39 +443,51 @@ function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 	return $success
 }
 
-<#Add filename to success log#>
-function Add-Success([string]$fileName)
+
+#Add filename to specified log 
+function Add-Log([string]$logFilePath, [string]$strToAppend)
 {
-	$formattedFileName = $fileName + ", "
-	if(!(Test-Path ".\success.csv"))
+	if(!(Test-Path $logFilePath))
 	{
-		echo $formattedFileName | Out-File ".\success.csv"
+		#creates new file with string as first entry
+		echo $strToAppend | Out-File $logFilePath
 	}
 	else{
-		Add-Content ".\success.csv" $formattedFileName
+		#Adds string to newline
+		Add-Content $logFilePath $strToAppend
 	}
-
 }
 
-<#Add filename to failure log#>
-function Add-Failure([string]$fileName)
+
+#Check if file is in success/failure log#
+function Check-If-File-Logged([string]$logFilePath, [string]$searchFileName)
 {
-	$formattedFileName = $fileName + ", "
-	if(!(Test-Path ".\fail.csv"))
+	if((Test-Path $logFilePath))
 	{
-		echo $formattedFileName | Out-File ".\fail.csv"
+		#iterate through all lines in file and check if match 
+		foreach($log in Get-Content $logFilePath)
+		{
+			if($log -like $searchFileName)
+			{
+				return 1
+			} 
+		}
+	}
+	return 0
+}
+
+#Wrapper to check if file name already exists in the log and appends it if not
+function Check-Log-Add-Filename-Wrapper([string]$logFilePath, [string]$fileName)
+{
+	if(!(Check-If-File-Logged $logFilePath $fileName))
+	{
+		Add-Log $logFilePath $fileName
 	}
 	else{
-		Add-Content ".\fail.csv" $formattedFileName
-	}
-
+			$debugMSG = "File " + $fileName + " already logged in " + $logFilePath
+			Add-Log $DEBUG_LOG $debugMSG
+		}
 }
 
-<#Check if file is in success/failure log#>
-function Check-If-File-Logged([string]$logName, [string]$fileName)
-{
-
-
-}
 
 [void]$Form.ShowDialog()
