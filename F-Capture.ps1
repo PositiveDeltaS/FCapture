@@ -418,23 +418,15 @@ function Hello-World {
 	$fileName = "HelloWorld.txt"
 	$saveLocation = ".\" + $fileName
 
-	if(Test-Path $saveLocation)
-	{
-		$debugMSG = $saveLocation + " already exists"
-		Add-Log $DEBUG_LOG $debugMSG
+	$success = Hello-World-Helper $saveText $saveLocation
+	
+	if(!$success)
+	{	
+		Check-And-Add-Log $FAIL_LOG $fileName
 	}
 	else
 	{
-		$success = Hello-World-Helper $saveText $saveLocation
-		
-		if(!$success)
-		{	
-			Check-Log-Add-Filename-Wrapper $FAIL_LOG $fileName
-		}
-		else
-		{
-			Check-Log-Add-Filename-Wrapper $SUCCESS_LOG $fileName
-		}
+		Check-And-Add-Log $SUCCESS_LOG $fileName
 	}
 }
 
@@ -444,6 +436,12 @@ function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 	<#For future implementations, we need to be waiting until the process finishes
 		before checking if the file exists#>
 		
+	if(Test-Path $saveLocation)
+	{
+		$debugMSG = $saveLocation + " already exists"
+		Add-Log $DEBUG_LOG $debugMSG
+	}
+	
 	echo $saveText | Out-File $saveLocation
 	$success = Test-Path $saveLocation
 
@@ -471,7 +469,7 @@ function Add-Log([string]$logFilePath, [string]$msgToLog)
 
 
 #Check if filename is in the specified logfile 
-function Check-If-File-Logged([string]$logFilePath, [string]$searchFileName)
+function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 {
 	#if the log exists
 	if((Test-Path $logFilePath))
@@ -479,7 +477,8 @@ function Check-If-File-Logged([string]$logFilePath, [string]$searchFileName)
 		#iterate through all lines in file and check if match 
 		foreach($log in Get-Content $logFilePath)
 		{
-			if($log -like $searchFileName)
+		#Match uses regex to str match 
+			if($log -Match $entryToSearch)
 			{
 				return 1
 			} 
@@ -495,17 +494,17 @@ function Check-If-File-Logged([string]$logFilePath, [string]$searchFileName)
 
 
 #Wrapper to check if file name already exists in the log and appends it if not
-function Check-Log-Add-Filename-Wrapper([string]$logFilePath, [string]$fileName)
+function Check-And-Add-Log([string]$logFilePath, [string]$entryToSearch)
 {
 	#Add to log if not already in log
-	if(!(Check-If-File-Logged $logFilePath $fileName))
+	if(!(Search-For-Log-Entry $logFilePath $entryToSearch))
 	{
-		Add-Log $logFilePath $fileName
+		Add-Log $logFilePath $entryToSearch
 	}
 	else
 	{
-			$debugMSG = "File " + $fileName + " already logged in " + $logFilePath
-			Add-Log $DEBUG_LOG $debugMSG
+		$debugMSG = "File " + $entryToSearch + " already logged in " + $logFilePath
+		Add-Log $DEBUG_LOG $debugMSG
 	}
 }
 
