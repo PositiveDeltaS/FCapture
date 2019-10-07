@@ -452,18 +452,20 @@ function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 
 
 #Add filename to specified log 
-function Add-Log([string]$logFilePath, [string]$strToAppend)
+function Add-Log([string]$logFilePath, [string]$msgToLog)
 {
+	$datedMessage = "{0} - {1}" -f (Get-Date), $msgToLog
+	
 	#check if log exists
 	if(!(Test-Path $logFilePath))
 	{
 		#creates new log file w/ logfilepath with str as first entry
-		echo $strToAppend | Out-File $logFilePath
+		echo $datedMessage | Out-File $logFilePath
 	}
 	else
 	{
 		#Adds str to newline
-		Add-Content $logFilePath $strToAppend
+		Add-Content $logFilePath $datedMessage
 	}
 }
 
