@@ -422,11 +422,11 @@ function Hello-World {
 	
 	if(!$success)
 	{	
-		Check-And-Add-Log $FAIL_LOG $fileName
+		Search-And-Add-Log-Entry $FAIL_LOG $fileName
 	}
 	else
 	{
-		Check-And-Add-Log $SUCCESS_LOG $fileName
+		Search-And-Add-Log-Entry $SUCCESS_LOG $fileName
 	}
 }
 
@@ -439,7 +439,7 @@ function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 	if(Test-Path $saveLocation)
 	{
 		$debugMSG = $saveLocation + " already exists"
-		Add-Log $DEBUG_LOG $debugMSG
+		Add-Log-Entry $DEBUG_LOG $debugMSG
 	}
 	
 	echo $saveText | Out-File $saveLocation
@@ -449,8 +449,8 @@ function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 }
 
 
-#Add filename to specified log 
-function Add-Log([string]$logFilePath, [string]$msgToLog)
+#Add message to specified log w/ date, typically a filename
+function Add-Log-Entry([string]$logFilePath, [string]$msgToLog)
 {
 	$datedMessage = "{0} - {1}" -f (Get-Date), $msgToLog
 	
@@ -487,24 +487,24 @@ function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 	else
 	{
 		$debugMSG = "File " + $logFilePath + " does not exist."
-		Add-Log $DEBUG_LOG $debugMSG
+		Add-Log-Entry $DEBUG_LOG $debugMSG
 	}
 	return 0
 }
 
 
 #Wrapper to check if file name already exists in the log and appends it if not
-function Check-And-Add-Log([string]$logFilePath, [string]$entryToSearch)
+function Search-And-Add-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 {
 	#Add to log if not already in log
 	if(!(Search-For-Log-Entry $logFilePath $entryToSearch))
 	{
-		Add-Log $logFilePath $entryToSearch
+		Add-Log-Entry $logFilePath $entryToSearch
 	}
 	else
 	{
 		$debugMSG = "File " + $entryToSearch + " already logged in " + $logFilePath
-		Add-Log $DEBUG_LOG $debugMSG
+		Add-Log-Entry $DEBUG_LOG $debugMSG
 	}
 }
 
