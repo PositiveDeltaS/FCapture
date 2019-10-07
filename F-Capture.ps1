@@ -468,7 +468,7 @@ function Add-Log-Entry([string]$logFilePath, [string]$msgToLog)
 }
 
 
-#Check if filename is in the specified logfile 
+#Check if entry is in the specified log file 
 function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 {
 	#if the log exists
@@ -493,7 +493,7 @@ function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 }
 
 
-#Wrapper to check if file name already exists in the log and appends it if not
+#Wrapper to check if log entry already exists in the specified log and appends it if not
 function Search-And-Add-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 {
 	#Add to log if not already in log
