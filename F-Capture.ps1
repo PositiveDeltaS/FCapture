@@ -475,10 +475,10 @@ function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 	if((Test-Path $logFilePath))
 	{
 		#iterate through all lines in file and check if match 
-		foreach($log in Get-Content $logFilePath)
+		foreach($logEntry in Get-Content $logFilePath)
 		{
 		#Match uses regex to str match 
-			if($log -Match $entryToSearch)
+			if($logEntry -Match $entryToSearch)
 			{
 				return 1
 			} 
@@ -486,7 +486,7 @@ function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 	}
 	else
 	{
-		$debugMSG = "File " + $logFilePath + " does not exist."
+		$debugMSG = "Log file " + $logFilePath + " does not exist. Search Aborted."
 		Add-Log-Entry $DEBUG_LOG $debugMSG
 	}
 	return 0
