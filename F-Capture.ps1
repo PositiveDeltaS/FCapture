@@ -1,4 +1,7 @@
 # Template for F-Capture
+$global:DEBUG_LOG= ".\debugLog.txt"
+$global:SUCCESS_LOG=".\success.txt"
+$global:FAIL_LOG=".\fail.txt"
 
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
@@ -281,6 +284,13 @@ $AdvMenuBtn.height      = 35
 $AdvMenuBtn.location    = New-Object System.Drawing.Point(790,200)
 $AdvMenuBtn.Font        = 'Microsoft Sans Serif,10'
 
+$HelloWorldBtn          = New-Object system.Windows.Forms.Button
+$HelloWorldBtn.text     = "Hello World!"
+$HelloWorldBtn.width    = 110
+$HelloWorldBtn.height   = 35
+$HelloWorldBtn.location = New-Object System.Drawing.Point(920,200)
+$HelloWorldBtn.Font     = 'Microsoft Sans Serif,10'
+
 $Form.controls.AddRange(@($SysInfBtn))
 $Form.controls.AddRange(@($ProcsBtn))
 $Form.controls.AddRange(@($PhysMemBtn))
@@ -320,6 +330,7 @@ $Form.controls.AddRange(@($UserProfBtn))
 $Form.controls.AddRange(@($OneForAll))
 $Form.controls.AddRange(@($OutputLocBtn))
 $Form.controls.AddRange(@($AdvMenuBtn))
+$Form.controls.AddRange(@($HelloWorldBtn))
 
 $SysInfBtn.Add_Click({ System-Info })
 $ProcsBtn.Add_Click({ Active-Processes })
@@ -360,9 +371,10 @@ $UserProfBtn.Add_Click({ User-Profiles })
 $OneForAll.Add_Click({ OneForAll })
 $OutputLocBtn.Add_Click({ Output-Location })
 $AdvMenuBtn.Add_Click({ Advanced-Menu })
+$HelloWorldBtn.Add_Click({ Hello-World })
 
 function System-Info {}
-function Active-Processes {}
+function Active-Processes { Get-Process | Out-File .\RunningProcesses.txt }
 function PhysicalMemory-Image {}
 function Disk-Image {}
 function Screenshot {}
@@ -391,7 +403,7 @@ function Shellbags {}
 function ShimCache {}
 function System-Restore-Points {}
 function SRUM {}
-function Windows-Services {}
+function Windows-Services { Get-Service | Out-File .\RunningServices.txt }
 function Timezone-Info {}
 function User-Accounts {}
 function UserAssist {}
@@ -400,5 +412,101 @@ function User-Profiles {}
 function OneForAll {}
 function Output-Location {}
 function Advanced-Menu {}
+function Hello-World { 
+
+	$saveText = "Hello World!"
+	$fileName = "HelloWorld.txt"
+	$saveLocation = ".\" + $fileName
+
+	$success = Hello-World-Helper $saveText $saveLocation
+	
+	if(!$success)
+	{	
+		Search-And-Add-Log-Entry $FAIL_LOG $fileName
+	}
+	else
+	{
+		Search-And-Add-Log-Entry $SUCCESS_LOG $fileName
+	}
+}
+
+
+function Hello-World-Helper([string]$saveText, [string]$saveLocation)
+{
+	<#For future implementations, we need to be waiting until the process finishes
+		before checking if the file exists#>
+		
+	if(Test-Path $saveLocation)
+	{
+		$debugMSG = $saveLocation + " already exists"
+		Add-Log-Entry $DEBUG_LOG $debugMSG
+	}
+	
+	echo $saveText | Out-File $saveLocation
+	$success = Test-Path $saveLocation
+
+	return $success
+}
+
+
+#Add message to specified log w/ date, typically a filename
+function Add-Log-Entry([string]$logFilePath, [string]$msgToLog)
+{
+	$datedMessage = "{0} - {1}" -f (Get-Date), $msgToLog
+	
+	#check if log exists
+	if(!(Test-Path $logFilePath))
+	{
+		#creates new log file w/ logfilepath with str as first entry
+		echo $datedMessage | Out-File $logFilePath
+	}
+	else
+	{
+		#Adds str to newline
+		Add-Content $logFilePath $datedMessage
+	}
+}
+
+
+#Check if entry is in the specified log file 
+function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
+{
+	#if the log exists
+	if((Test-Path $logFilePath))
+	{
+		#iterate through all lines in file and check if match 
+		foreach($logEntry in Get-Content $logFilePath)
+		{
+		#Match uses regex to str match 
+			if($logEntry -Match $entryToSearch)
+			{
+				return 1
+			} 
+		}
+	}
+	else
+	{
+		$debugMSG = "Log file " + $logFilePath + " does not exist. Search Aborted."
+		Add-Log-Entry $DEBUG_LOG $debugMSG
+	}
+	return 0
+}
+
+
+#Wrapper to check if log entry already exists in the specified log and appends it if not
+function Search-And-Add-Log-Entry([string]$logFilePath, [string]$entryToSearch)
+{
+	#Add to log if not already in log
+	if(!(Search-For-Log-Entry $logFilePath $entryToSearch))
+	{
+		Add-Log-Entry $logFilePath $entryToSearch
+	}
+	else
+	{
+		$debugMSG = "File " + $entryToSearch + " already logged in " + $logFilePath
+		Add-Log-Entry $DEBUG_LOG $debugMSG
+	}
+}
+
 
 [void]$Form.ShowDialog()
