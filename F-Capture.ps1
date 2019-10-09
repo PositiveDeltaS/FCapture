@@ -2,6 +2,7 @@
 $global:DEBUG_LOG= ".\debugLog.txt"
 $global:SUCCESS_LOG=".\success.txt"
 $global:FAIL_LOG=".\fail.txt"
+$global:OUTPUT_DIR=".\"
 
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
@@ -377,17 +378,17 @@ function System-Info {}
 function Active-Processes
 {
     $filename = "ActiveProcesses.txt"
-    $saveLocation = ".\" + $fileName
+    $saveLocation = $OUTPUT_DIR + $fileName
 
     $success = Active-Processes-Helper $saveLocation
 	
 	if(!$success)
 	{	
-		Search-And-Add-Log-Entry $FAIL_LOG $fileName
+		Search-And-Add-Log-Entry $FAIL_LOG ("Created " + $fileName)
 	}
 	else
 	{
-		Search-And-Add-Log-Entry $SUCCESS_LOG $fileName
+		Search-And-Add-Log-Entry $SUCCESS_LOG ("Created " + $fileName)
 	}
 }
 
@@ -436,17 +437,17 @@ function SRUM {}
 function Windows-Services
 {
     $filename = "RunningServices.txt"
-    $saveLocation = ".\" + $fileName
+    $saveLocation = $OUTPUT_DIR + $fileName
 
     $success = Windows-Services-Helper $saveLocation
 	
 	if(!$success)
 	{	
-		Search-And-Add-Log-Entry $FAIL_LOG $fileName
+		Search-And-Add-Log-Entry $FAIL_LOG ("Created " + $fileName)
 	}
 	else
 	{
-		Search-And-Add-Log-Entry $SUCCESS_LOG $fileName
+		Search-And-Add-Log-Entry $SUCCESS_LOG ("Created " + $fileName)
 	}
 }
 
@@ -470,23 +471,51 @@ function UserAssist {}
 function Record-User-Actions {}
 function User-Profiles {}
 function OneForAll {}
-function Output-Location {}
+
+function Output-Location
+{
+    $FolderBrowser = New-Object System.Windows.Forms.FolderBrowserDialog -Property @{
+        SelectedPath = $global:OUTPUT_DIR
+    }
+
+    [void]$FolderBrowser.ShowDialog()
+
+    $global:OUTPUT_DIR = $FolderBrowser.SelectedPath
+
+    $success = $OUTPUT_DIR -eq $FolderBrowser.SelectedPath
+
+    # Folder browser selection doesn't add '\', so we add it manually
+    if ($OUTPUT_DIR -notmatch '.+?\\$') # Avoid adding extra backslashes
+    {
+        $global:OUTPUT_DIR = $OUTPUT_DIR + "\"
+	}
+
+	if(!$success)
+	{	
+		Search-And-Add-Log-Entry $FAIL_LOG "Tried to change output directory"
+	}
+	else
+	{
+		Search-And-Add-Log-Entry $SUCCESS_LOG ("Changed output directory to " + $OUTPUT_DIR)
+	}
+}
+
 function Advanced-Menu {}
 function Hello-World { 
 
 	$saveText = "Hello World!"
 	$fileName = "HelloWorld.txt"
-	$saveLocation = ".\" + $fileName
+	$saveLocation = $OUTPUT_DIR + $fileName
 
 	$success = Hello-World-Helper $saveText $saveLocation
 	
 	if(!$success)
 	{	
-		Search-And-Add-Log-Entry $FAIL_LOG $fileName
+		Search-And-Add-Log-Entry $FAIL_LOG ("Created " + $fileName)
 	}
 	else
 	{
-		Search-And-Add-Log-Entry $SUCCESS_LOG $fileName
+		Search-And-Add-Log-Entry $SUCCESS_LOG ("Created " + $fileName)
 	}
 }
 
