@@ -374,7 +374,37 @@ $AdvMenuBtn.Add_Click({ Advanced-Menu })
 $HelloWorldBtn.Add_Click({ Hello-World })
 
 function System-Info {}
-function Active-Processes { Get-Process | Out-File .\RunningProcesses.txt }
+function Active-Processes
+{
+    $filename = "ActiveProcesses.txt"
+    $saveLocation = ".\" + $fileName
+
+    $success = Active-Processes-Helper $saveLocation
+	
+	if(!$success)
+	{	
+		Search-And-Add-Log-Entry $FAIL_LOG $fileName
+	}
+	else
+	{
+		Search-And-Add-Log-Entry $SUCCESS_LOG $fileName
+	}
+}
+
+function Active-Processes-Helper([string]$saveLocation)
+{	
+	if(Test-Path $saveLocation)
+	{
+		$debugMSG = $saveLocation + " already exists"
+		Add-Log-Entry $DEBUG_LOG $debugMSG
+	}
+	
+	Get-Process | Out-File -filepath $saveLocation
+	$success = Test-Path $saveLocation
+
+	return $success
+}
+
 function PhysicalMemory-Image {}
 function Disk-Image {}
 function Screenshot {}
@@ -403,7 +433,37 @@ function Shellbags {}
 function ShimCache {}
 function System-Restore-Points {}
 function SRUM {}
-function Windows-Services { Get-Service | Out-File .\RunningServices.txt }
+function Windows-Services
+{
+    $filename = "RunningServices.txt"
+    $saveLocation = ".\" + $fileName
+
+    $success = Windows-Services-Helper $saveLocation
+	
+	if(!$success)
+	{	
+		Search-And-Add-Log-Entry $FAIL_LOG $fileName
+	}
+	else
+	{
+		Search-And-Add-Log-Entry $SUCCESS_LOG $fileName
+	}
+}
+
+function Windows-Services-Helper([string]$saveLocation)
+{	
+	if(Test-Path $saveLocation)
+	{
+		$debugMSG = $saveLocation + " already exists"
+		Add-Log-Entry $DEBUG_LOG $debugMSG
+	}
+	
+	Get-Service | Where-Object {$_.Status -eq "Running"} | Out-File -filepath $saveLocation
+	$success = Test-Path $saveLocation
+
+	return $success
+}
+
 function Timezone-Info {}
 function User-Accounts {}
 function UserAssist {}
