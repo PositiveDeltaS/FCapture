@@ -11,16 +11,18 @@ function Output-Location
 	if(Assert-Path-Is-Removeable-Device $selectedOutputPath)
 	{
 		# Folder browser selection doesn't add '\', so we add it manually
+		
+		$global:OUTPUT_DIR = $selectedOutputPath
+		$success = $OUTPUT_DIR -eq $selectedOutputPath
+		
 		if ($selectedOutputPath -notmatch '.+?\\$') # Avoid adding extra backslashes
 		{
 			$global:OUTPUT_DIR = $selectedOutputPath + "\"
 		}
 		
-		$global:OUTPUT_DIR = $selectedOutputPath
-		$success = $OUTPUT_DIR -eq $selectedOutputPath
-		
 		Add-Log-Entry $DEBUG_LOG $OUTPUT_DIR
 		
+		<#
 		if(!$success)
 		{	
 			Search-And-Add-Log-Entry $FAIL_LOG "Tried to change output directory"
@@ -30,6 +32,7 @@ function Output-Location
 			$completeStr = "Changed output directory to " + $OUTPUT_DIR
 			Search-And-Add-Log-Entry $SUCCESS_LOG $completeStr
 		}
+		#>
 	}
 }
 
