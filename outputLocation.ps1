@@ -33,6 +33,8 @@ function Output-Location
 			Search-And-Add-Log-Entry $SUCCESS_LOG $completeStr
 		}
 		#>
+		
+		Write-Host "Fix string before checking and adding to log"
 	}
 }
 
