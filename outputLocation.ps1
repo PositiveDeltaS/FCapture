@@ -1,3 +1,11 @@
+
+
+<#
+When writing to the output directory, for text 
+and csv the filenames will likely need to be appended
+to the output_dir.
+#>
+
 function Output-Location
 {
     $FolderBrowser = New-Object System.Windows.Forms.FolderBrowserDialog -Property @{
@@ -39,6 +47,10 @@ function Output-Location
 	else{
 		Write-Host "Failed to choose a removeable drive path"
 	}
+	
+	
+	
+	Test-Output-Location
 }
 
 
@@ -94,6 +106,31 @@ function Assert-Path-Is-Removeable-Device([string]$filePath)
 
 function Assert-Path-Helper()
 {
+
+
+}
+
+
+
+function Test-Output-Location()
+{
+
+	$testSTR = "This is a test"
+	
+	$saveLocation = $OUTPUT_DIR + "saveTest.txt"
+	
+	
+	Write-Host $saveLocation
+	
+	if(Test-Path $OUTPUT_DIR)
+	{
+		echo $testSTR | Out-File $saveLocation
+	}
+	else
+	{
+		Write-Host "Didn't find path to testt" 
+	
+	}
 
 
 }
