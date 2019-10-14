@@ -11,53 +11,25 @@ function Output-Location
     $FolderBrowser = New-Object System.Windows.Forms.FolderBrowserDialog -Property @{
         SelectedPath = $global:OUTPUT_DIR
     }
-
     [void]$FolderBrowser.ShowDialog()
-
 	$selectedOutputPath = $FolderBrowser.SelectedPath
 	
 	if(Assert-Path-Is-Removeable-Device $selectedOutputPath)
 	{
 		# Folder browser selection doesn't add '\', so we add it manually
 		Write-Host "Successfully selected removeable output destination"
-		$global:OUTPUT_DIR = $selectedOutputPath
-		$success = $OUTPUT_DIR -eq $selectedOutputPath
-		
 		if ($selectedOutputPath -notmatch '.+?\\$') # Avoid adding extra backslashes
 		{
 			$global:OUTPUT_DIR = $selectedOutputPath + "\"
 		}
 		
-		Add-Log-Entry $DEBUG_LOG $OUTPUT_DIR
-		
-		<#
-		if(!$success)
-		{	
-			Search-And-Add-Log-Entry $FAIL_LOG "Tried to change output directory"
-		}
-		else
-		{
-			$completeStr = "Changed output directory to " + $OUTPUT_DIR
-			Search-And-Add-Log-Entry $SUCCESS_LOG $completeStr
-		}
-		#>
-		
-		Write-Host "Fix string before checking and adding to log"
+		$global:OUTPUT_DIR = $selectedOutputPath
+		$outputLogMsg = "Selected Output Directory : " + $OUTPUT_DIR
+		Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
 	}
 	else{
-		Write-Host "Failed to choose a removeable drive path"
+		Add-Log-Entry $FAIL_LOG "Failed to change output directory"
 	}
-	
-	
-	
-	Test-Output-Location
-}
-
-
-function Output-Location-Helper()
-{
-
-
 }
 
 
@@ -70,11 +42,9 @@ function Assert-Path-Is-Removeable-Device([string]$filePath)
 {
 	Write-Host "Selected Path: ", $filePath
 	$success = $false
+	
 	#qualifier is the drive use -NoQualifier to remove drive name w/ split 
-	$fp = Split-Path -Path $filePath -NoQualifier
-
-	Write-Host "Trimmed Path: ", $fp
-
+	$trimmedPath = Split-Path -Path $filePath -NoQualifier
 	$removabledrives = @([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" })
 
 	if($removabledrives.Count -eq 0)
@@ -83,31 +53,19 @@ function Assert-Path-Is-Removeable-Device([string]$filePath)
 	}
 	else
 	{
-		Write-Host "External Drive Count: " ,$removabledrives.Count
-		Write-Host "External Drives: ", $removabledrives
+		Write-Host "External Drives Found: ", $removabledrives
 		$removabledrives | ForEach-Object {
-			#Removes "\" at the beginning of drive name string before prepending
-			$testPath = $_.Name.Trim("\") + $fp
+			$testPath = $_.Name.Trim("\") + $trimmedPath #remove "\" at end of string 
 			$out = [string]::Format("Testing Drive : {0}   Path : {1} ", $_.Name, $testPath)
 			Write-Host $out
 			if(Test-Path $testPath)
 			{
 				Write-Host "Found path : ", $testPath
-				Write-Host "Drive : ", $_.Name
 				$success = $true
 			}
 		}
 	}
-	
 	return $success
-
-}
-
-
-function Assert-Path-Helper()
-{
-
-
 }
 
 
