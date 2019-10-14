@@ -1,7 +1,7 @@
 # Template for F-Capture
 . .\helloworld.ps1
 . .\outputLocation.ps1
-
+. .\copyToOutputDir.ps1
 
 $global:DEBUG_LOG= ".\debugLog.txt"
 $global:SUCCESS_LOG=".\success.txt"
