@@ -1,20 +1,29 @@
 
 
 <#
+********NOTE!**********
 When writing to the output directory, for text 
 and csv the filenames will likely need to be appended
 to the output_dir.
 #>
 
+
+<#
+Creates a file browser window for the user to select the global
+output destination. Checks if destination is on a removeable drive
+and fails to change output destiantion if not.
+#>
 function Output-Location
 {
+	#Create our file browser to select the output destination
     $FolderBrowser = New-Object System.Windows.Forms.FolderBrowserDialog -Property @{
         SelectedPath = $global:OUTPUT_DIR
     }
     [void]$FolderBrowser.ShowDialog()
 	$selectedOutputPath = $FolderBrowser.SelectedPath
 	
-	if(Assert-Path-Is-Removeable-Device $selectedOutputPath)
+	#Make sure the selected path is useable
+	if(Assert-Path-Is-On-Removeable-Device $selectedOutputPath)
 	{
 		# Folder browser selection doesn't add '\', so we add it manually
 		Write-Host "Successfully selected removeable output destination"
@@ -33,43 +42,43 @@ function Output-Location
 }
 
 
+#insert removeable media to help test this
 
-#https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/split-path?view=powershell-6
-#https://community.idera.com/database-tools/powershell/ask_the_experts/f/learn_powershell_from_don_jones-24/20609/test-path-for-folder-on-removable-drive-root
-#$testFile = [regex]::Escape($filePath)
-#insert removeable media to help test this 
-function Assert-Path-Is-Removeable-Device([string]$filePath)
+<#
+Asserts that the file path is located on a removeable device.
+Removes drive name from selected path, then prepends each removeable 
+drive name found and tests that path to ensure that the selected path is 
+found on a removeable device.
+#>
+function Assert-Path-Is-On-Removeable-Device([string]$filePath)
 {
-	Write-Host "Selected Path: ", $filePath
 	$success = $false
 	
-	#qualifier is the drive use -NoQualifier to remove drive name w/ split 
+	#-NoQualifier removes drive name from string
 	$trimmedPath = Split-Path -Path $filePath -NoQualifier
 	$removabledrives = @([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" })
 
-	if($removabledrives.Count -eq 0)
-	{
-		Write-Host "No removeable media"
-	}
-	else
-	{
-		Write-Host "External Drives Found: ", $removabledrives
-		$removabledrives | ForEach-Object {
-			$testPath = $_.Name.Trim("\") + $trimmedPath #remove "\" at end of string 
-			$out = [string]::Format("Testing Drive : {0}   Path : {1} ", $_.Name, $testPath)
-			Write-Host $out
-			if(Test-Path $testPath)
-			{
-				Write-Host "Found path : ", $testPath
-				$success = $true
-			}
+	#Check each removeable drive for the path
+	$removabledrives | ForEach-Object {
+		#Prepend the drive name to the trimmed path
+		$testPath = $_.Name.Trim("\") + $trimmedPath #remove "\" at end of string 
+		$out = [string]::Format("Testing Drive : {0}   Path : {1} ", $_.Name, $testPath)
+		Write-Host $out
+		if(Test-Path $testPath)
+		{
+			Write-Host "Found path : ", $testPath
+			$success = $true
 		}
 	}
 	return $success
 }
 
 
-
+<#
+Simple output test, saves text file to 
+specified location and tests to ensure that 
+the text file is found there.
+#>
 function Test-Output-Location()
 {
 
@@ -86,8 +95,15 @@ function Test-Output-Location()
 	}
 	else
 	{
-		Write-Host "Didn't find path to testt" 
-	
+		Write-Host "Didn't find output path to test" 
+	}
+	if(Test-Path $saveLocation)
+	{
+		Write-Host "Successful output location test"
+	}
+	else
+	{
+		Write-Host "Failed output location test"
 	}
 
 
