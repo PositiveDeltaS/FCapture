@@ -1,4 +1,4 @@
-function packet-capture-start
+function Packet-Capture-Start
 {	
 	$output = ".\Output\packet-capture.etl"
 	try
@@ -8,11 +8,19 @@ function packet-capture-start
 	}
 	catch
 	{
-		Search-And-Add-Log-Entry $FAIL_LOG "PhysicalMemory-Image"
+		Search-And-Add-Log-Entry $FAIL_LOG "Packet-Capture-Start"
 	}
 }
 
-function packet-capture-stop
+function Packet-Capture-Stop
 {
-	netsh trace stop
+	try
+	{
+		netsh trace stop
+		Search-And-Add-Log-Entry $SUCCESS_LOG "Packet-Capture-Stop"
+	}
+	catch
+	{
+		Search-And-Add-Log-Entry $FAIL_LOG "Packet-Capture-Stop"
+	}
 }
