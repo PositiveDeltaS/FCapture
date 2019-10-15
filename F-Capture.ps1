@@ -2,6 +2,7 @@
 . .\helloworld.ps1
 . .\outputLocation.ps1
 . .\copyToOutputDir.ps1
+. .\peripheralDevices.ps1
 
 $global:DEBUG_LOG= ".\debugLog.txt"
 $global:SUCCESS_LOG=".\success.txt"
@@ -386,7 +387,6 @@ function Disk-Image {}
 function Screenshot {}
 function Browser-Cookies {}
 function Browser-History {}
-function Peripheral-Devices {}
 function Scan-Registry {}
 function Image-Scan {}
 function Record-Registry {}
