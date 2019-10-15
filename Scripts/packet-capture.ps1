@@ -4,7 +4,7 @@ function Packet-Capture-Start
 	try
 	{
 		netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=no traceFile=$output
-		Search-And-Add-Log-Entry $SUCCESS_LOG "PhysicalMemory-Image"
+		Search-And-Add-Log-Entry $SUCCESS_LOG "Packet-Capture-Start"
 	}
 	catch
 	{
