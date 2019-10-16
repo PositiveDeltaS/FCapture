@@ -3,6 +3,7 @@ $global:DEBUG_LOG= ".\debugLog.txt"
 $global:SUCCESS_LOG=".\success.txt"
 $global:FAIL_LOG=".\fail.txt"
 
+Add-Type -AssemblyName System.Drawing
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
@@ -378,19 +379,22 @@ function Active-Processes { Get-Process | Out-File .\RunningProcesses.txt }
 function PhysicalMemory-Image {}
 function Disk-Image {}
 function Screenshot {
+$activeProgramNum = (Get-Process | Where-Object {$_.MainWindowTitle -ne ""} | Select-Object MainWindowTitle).Count
+
 param([Switch]$OfWindow)
     begin {
+        Add-Type -AssemblyName System.Windows.Forms
         Add-Type -AssemblyName System.Drawing
         $jpegCodec = [Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | 
             Where-Object { $_.FormatDescription -eq "JPEG" }
     }
     process {
         Start-Sleep -Milliseconds 250
-        if ($OfWindow) {            
+        #if ($OfWindow) {            
             [Windows.Forms.Sendkeys]::SendWait("%{PrtSc}")        
-        } else {
-            [Windows.Forms.Sendkeys]::SendWait("{PrtSc}")        
-        }
+        #} else {
+        #    [Windows.Forms.Sendkeys]::SendWait("{PrtSc}")        
+        #}
         Start-Sleep -Milliseconds 250
         $bitmap = [Windows.Forms.Clipboard]::GetImage()    
         $ep = New-Object Drawing.Imaging.EncoderParameters  
