@@ -4,6 +4,7 @@
 $global:DEBUG_LOG= ".\debugLog.txt"
 $global:SUCCESS_LOG=".\success.txt"
 $global:FAIL_LOG=".\fail.txt"
+$global:OUTPUT_DIR=".\output.txt"
 
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
@@ -300,6 +301,14 @@ $NetConProfBtn.height   = 35
 $NetConProfBtn.location = New-Object System.Drawing.Point(1050,200)
 $NetConProfBtn.Font     = 'Microsoft Sans Serif,10'
 
+$OutputDirTextBox            = New-Object system.Windows.Forms.TextBox
+$OutputDirTextBox.multiline  = $false
+$OutputDirTextBox.width      = 240
+$OutputDirTextBox.height     = 35
+$OutputDirTextBox.enabled    = $false
+$OutputDirTextBox.location   = New-Object System.Drawing.Point(400,255)
+$OutputDirTextBox.Font       = 'Microsoft Sans Serif,12'
+
 $Form.controls.AddRange(@($SysInfBtn))
 $Form.controls.AddRange(@($ProcsBtn))
 $Form.controls.AddRange(@($PhysMemBtn))
@@ -341,6 +350,7 @@ $Form.controls.AddRange(@($OutputLocBtn))
 $Form.controls.AddRange(@($AdvMenuBtn))
 $Form.controls.AddRange(@($HelloWorldBtn))
 $Form.controls.AddRange(@($NetConProfBtn))
+$Form.controls.AddRange(@($OutputDirTextBox))
 
 $SysInfBtn.Add_Click({ System-Info })
 $ProcsBtn.Add_Click({ Active-Processes })
