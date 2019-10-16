@@ -1,1 +1,0 @@
-function Windows-Services { Get-Service | Out-File .\RunningServices.txt }

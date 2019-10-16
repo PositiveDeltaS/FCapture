@@ -1,1 +1,0 @@
-function Net-Connection-Profile { Get-NetConnectionProfile | Select * | Out-File .\NetProfiles.txt }

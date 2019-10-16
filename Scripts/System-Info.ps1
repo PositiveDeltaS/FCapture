@@ -1,1 +1,0 @@
-function System-Info { Get-ComputerInfo | Out-File .\ComputerInfo.txt }

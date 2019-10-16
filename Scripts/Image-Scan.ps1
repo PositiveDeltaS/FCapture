@@ -1,1 +1,0 @@
-function Image-Scan {}

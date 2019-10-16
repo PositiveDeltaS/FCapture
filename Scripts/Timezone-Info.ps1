@@ -1,1 +1,0 @@
-function Timezone-Info { Get-TimeZone | Out-File .\Timezone.txt }

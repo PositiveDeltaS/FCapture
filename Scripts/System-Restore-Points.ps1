@@ -1,1 +1,0 @@
-function System-Restore-Points { Get-ComputerRestorePoint | Select * | Out-File .\SystemRestore.txt}
