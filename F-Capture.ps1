@@ -1,3 +1,5 @@
+. .\Scripts\~IMPORTS.ps1
+
 # Template for F-Capture
 $global:DEBUG_LOG= ".\debugLog.txt"
 $global:SUCCESS_LOG=".\success.txt"
@@ -87,7 +89,7 @@ $RegBtn.width           = 110
 $RegBtn.height          = 35
 $RegBtn.location        = New-Object System.Drawing.Point(270,65)
 $RegBtn.Font            = 'Microsoft Sans Serif,10'
-					    
+
 $EventBtn               = New-Object system.Windows.Forms.Button
 $EventBtn.text          = "Event Logs"
 $EventBtn.width         = 110
@@ -143,28 +145,28 @@ $DLLBtn.width           = 110
 $DLLBtn.height          = 35
 $DLLBtn.location        = New-Object System.Drawing.Point(270,110)
 $DLLBtn.Font            = 'Microsoft Sans Serif,10'
-					    
+
 $LNKBtn                 = New-Object system.Windows.Forms.Button
 $LNKBtn.text            = "LNK Files"
 $LNKBtn.width           = 110
 $LNKBtn.height          = 35
 $LNKBtn.location        = New-Object System.Drawing.Point(400,110)
 $LNKBtn.Font            = 'Microsoft Sans Serif,10'
-					    
+
 $MRUBtn                 = New-Object system.Windows.Forms.Button
 $MRUBtn.text            = "MRU Info"
 $MRUBtn.width           = 110
 $MRUBtn.height          = 35
 $MRUBtn.location        = New-Object System.Drawing.Point(530,110)
 $MRUBtn.Font            = 'Microsoft Sans Serif,10'
-					    
+
 $SwapBtn                = New-Object system.Windows.Forms.Button
 $SwapBtn.text           = "Swap Files"
 $SwapBtn.width          = 110
 $SwapBtn.height         = 35
 $SwapBtn.location       = New-Object System.Drawing.Point(660,110)
 $SwapBtn.Font           = 'Microsoft Sans Serif,10'
-					    
+
 $PFBtn                  = New-Object system.Windows.Forms.Button
 $PFBtn.text             = "Prefetch Files"
 $PFBtn.width            = 110
@@ -291,6 +293,13 @@ $HelloWorldBtn.height   = 35
 $HelloWorldBtn.location = New-Object System.Drawing.Point(920,200)
 $HelloWorldBtn.Font     = 'Microsoft Sans Serif,10'
 
+$NetConProfBtn          = New-Object system.Windows.Forms.Button
+$NetConProfBtn.text     = "Net Connection Profiles"
+$NetConProfBtn.width    = 110
+$NetConProfBtn.height   = 35
+$NetConProfBtn.location = New-Object System.Drawing.Point(1050,200)
+$NetConProfBtn.Font     = 'Microsoft Sans Serif,10'
+
 $Form.controls.AddRange(@($SysInfBtn))
 $Form.controls.AddRange(@($ProcsBtn))
 $Form.controls.AddRange(@($PhysMemBtn))
@@ -331,6 +340,7 @@ $Form.controls.AddRange(@($OneForAll))
 $Form.controls.AddRange(@($OutputLocBtn))
 $Form.controls.AddRange(@($AdvMenuBtn))
 $Form.controls.AddRange(@($HelloWorldBtn))
+$Form.controls.AddRange(@($NetConProfBtn))
 
 $SysInfBtn.Add_Click({ System-Info })
 $ProcsBtn.Add_Click({ Active-Processes })
@@ -372,166 +382,6 @@ $OneForAll.Add_Click({ OneForAll })
 $OutputLocBtn.Add_Click({ Output-Location })
 $AdvMenuBtn.Add_Click({ Advanced-Menu })
 $HelloWorldBtn.Add_Click({ Hello-World })
-
-function System-Info {}
-function Active-Processes { Get-Process | Out-File .\RunningProcesses.txt }
-function PhysicalMemory-Image {}
-function Disk-Image {}
-function Screenshot {
-param([Switch]$OfWindow)
-    begin {
-        Add-Type -AssemblyName System.Drawing
-        $jpegCodec = [Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | 
-            Where-Object { $_.FormatDescription -eq "JPEG" }
-    }
-    process {
-        Start-Sleep -Milliseconds 250
-        if ($OfWindow) {            
-            [Windows.Forms.Sendkeys]::SendWait("%{PrtSc}")        
-        } else {
-            [Windows.Forms.Sendkeys]::SendWait("{PrtSc}")        
-        }
-        Start-Sleep -Milliseconds 250
-        $bitmap = [Windows.Forms.Clipboard]::GetImage()    
-        $ep = New-Object Drawing.Imaging.EncoderParameters  
-        $ep.Param[0] = New-Object Drawing.Imaging.EncoderParameter ([System.Drawing.Imaging.Encoder]::Quality, [long]100)  
-        $screenCapturePathBase = "$pwd\ScreenCapture"
-        $c = 0
-        while (Test-Path "${screenCapturePathBase}${c}.jpg") {
-            $c++
-        }
-        $bitmap.Save("${screenCapturePathBase}${c}.jpg", $jpegCodec, $ep)
-    }
-}
-function Browser-Cookies {}
-function Browser-History {}
-function Peripheral-Devices {}
-function Scan-Registry {}
-function Image-Scan {}
-function Record-Registry {}
-function Event-Logs {}
-function AmCache {}
-function Startup-Programs {}
-function File-Associations {}
-function Installed-Programs {}
-function Jump-List {}
-function KeyWord-Search {}
-function DLL {}
-function LNK {}
-function MRU {}
-function Swap-Files {}
-function Prefetch {}
-function Recycle-Bin {}
-function Remote-Desktop {}
-function Scheduled-Tasks {}
-function Shellbags {}
-function ShimCache {}
-function System-Restore-Points {}
-function SRUM {}
-function Windows-Services { Get-Service | Out-File .\RunningServices.txt }
-function Timezone-Info {}
-function User-Accounts {}
-function UserAssist {}
-function Record-User-Actions {}
-function User-Profiles {}
-function OneForAll {}
-function Output-Location {}
-function Advanced-Menu {}
-function Hello-World { 
-
-	$saveText = "Hello World!"
-	$fileName = "HelloWorld.txt"
-	$saveLocation = ".\" + $fileName
-
-	$success = Hello-World-Helper $saveText $saveLocation
-	
-	if(!$success)
-	{	
-		Search-And-Add-Log-Entry $FAIL_LOG $fileName
-	}
-	else
-	{
-		Search-And-Add-Log-Entry $SUCCESS_LOG $fileName
-	}
-}
-
-
-function Hello-World-Helper([string]$saveText, [string]$saveLocation)
-{
-	<#For future implementations, we need to be waiting until the process finishes
-		before checking if the file exists#>
-		
-	if(Test-Path $saveLocation)
-	{
-		$debugMSG = $saveLocation + " already exists"
-		Add-Log-Entry $DEBUG_LOG $debugMSG
-	}
-	
-	echo $saveText | Out-File $saveLocation
-	$success = Test-Path $saveLocation
-
-	return $success
-}
-
-
-#Add message to specified log w/ date, typically a filename
-function Add-Log-Entry([string]$logFilePath, [string]$msgToLog)
-{
-	$datedMessage = "{0} - {1}" -f (Get-Date), $msgToLog
-	
-	#check if log exists
-	if(!(Test-Path $logFilePath))
-	{
-		#creates new log file w/ logfilepath with str as first entry
-		echo $datedMessage | Out-File $logFilePath
-	}
-	else
-	{
-		#Adds str to newline
-		Add-Content $logFilePath $datedMessage
-	}
-}
-
-
-#Check if entry is in the specified log file 
-function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
-{
-	#if the log exists
-	if((Test-Path $logFilePath))
-	{
-		#iterate through all lines in file and check if match 
-		foreach($logEntry in Get-Content $logFilePath)
-		{
-		#Match uses regex to str match 
-			if($logEntry -Match $entryToSearch)
-			{
-				return 1
-			} 
-		}
-	}
-	else
-	{
-		$debugMSG = "Log file " + $logFilePath + " does not exist. Search Aborted."
-		Add-Log-Entry $DEBUG_LOG $debugMSG
-	}
-	return 0
-}
-
-
-#Wrapper to check if log entry already exists in the specified log and appends it if not
-function Search-And-Add-Log-Entry([string]$logFilePath, [string]$entryToSearch)
-{
-	#Add to log if not already in log
-	if(!(Search-For-Log-Entry $logFilePath $entryToSearch))
-	{
-		Add-Log-Entry $logFilePath $entryToSearch
-	}
-	else
-	{
-		$debugMSG = "File " + $entryToSearch + " already logged in " + $logFilePath
-		Add-Log-Entry $DEBUG_LOG $debugMSG
-	}
-}
-
+$NetConProfBtn.Add_Click({ Net-Connection-Profile})
 
 [void]$Form.ShowDialog()
