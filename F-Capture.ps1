@@ -380,6 +380,7 @@ $OneForAll.Add_Click({ OneForAll })
 $OutputLocBtn.Add_Click({ Output-Location })
 $AdvMenuBtn.Add_Click({ Advanced-Menu })
 $HelloWorldBtn.Add_Click({ Hello-World })
+
 $NetConProfBtn.Add_Click({ NetConnectionProfile})
 
 function System-Info { Get-ComputerInfo | Out-File .\ComputerInfo.txt }
@@ -422,7 +423,6 @@ function OneForAll {}
 function Output-Location {}
 function Advanced-Menu {}
 function Hello-World { 
-_
 	$saveText = "Hello World!"
 	$fileName = "HelloWorld.txt"
 	$saveLocation = ".\" + $fileName
@@ -516,6 +516,8 @@ function Search-And-Add-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 		Add-Log-Entry $DEBUG_LOG $debugMSG
 	}
 }
+
 function NetConnectionProfile { Get-NetConnectionProfile | Select * | Out-File .\NetProfiles.txt }
+
 
 [void]$Form.ShowDialog()
