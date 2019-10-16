@@ -1,0 +1,1 @@
+function User-Accounts { Get-LocalUser | Select * | Out-File .\Userlist.txt}
