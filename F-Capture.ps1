@@ -1,8 +1,9 @@
 # Template for F-Capture
-. .\helloworld.ps1
+. .\logging.ps1
 . .\outputLocation.ps1
 . .\copyToOutputDir.ps1
 . .\peripheralDevices.ps1
+. .\browserHistory.ps1
 
 $global:DEBUG_LOG= ".\debugLog.txt"
 $global:SUCCESS_LOG=".\success.txt"
@@ -386,7 +387,6 @@ function PhysicalMemory-Image {}
 function Disk-Image {}
 function Screenshot {}
 function Browser-Cookies {}
-function Browser-History {}
 function Scan-Registry {}
 function Image-Scan {}
 function Record-Registry {}
