@@ -40,5 +40,3 @@
 . .\Scripts\User-Accounts.ps1
 . .\Scripts\User-Assist-Info.ps1
 . .\Scripts\User-Profiles.ps1
-. .\Scripts\OutputLocation.ps1
-. .\Scripts\CopyToOutputDir.ps1
