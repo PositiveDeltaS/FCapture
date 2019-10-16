@@ -1,0 +1,1 @@
+function Active-Processes { Get-Process | Out-File .\RunningProcesses.txt }
