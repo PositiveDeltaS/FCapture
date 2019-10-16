@@ -1,2 +1,0 @@
-# FCapture
-Forensics collection tool
