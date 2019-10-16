@@ -1,7 +1,7 @@
 function Hello-World { 
 	$saveText = "Hello World!"
 	$fileName = "HelloWorld.txt"
-	$saveLocation = ".\" + $fileName
+	$saveLocation = $OUTPUT_DIR + $fileName
 
 	$success = Hello-World-Helper $saveText $saveLocation
 	
