@@ -1,8 +1,14 @@
 # Template for F-Capture
+. .\helloworld.ps1
+. .\outputLocation.ps1
+. .\copyToOutputDir.ps1
+. .\peripheralDevices.ps1
+
 $global:DEBUG_LOG= ".\debugLog.txt"
 $global:SUCCESS_LOG=".\success.txt"
 $global:FAIL_LOG=".\fail.txt"
-$global:OUTPUT_DIR=".\"
+$global:OUTPUT_DIR=".\output.txt"
+
 
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
@@ -375,43 +381,12 @@ $AdvMenuBtn.Add_Click({ Advanced-Menu })
 $HelloWorldBtn.Add_Click({ Hello-World })
 
 function System-Info {}
-function Active-Processes
-{
-    $filename = "ActiveProcesses.txt"
-    $saveLocation = $OUTPUT_DIR + $fileName
-
-    $success = Active-Processes-Helper $saveLocation
-	
-	if(!$success)
-	{	
-		Search-And-Add-Log-Entry $FAIL_LOG ("Created " + $fileName)
-	}
-	else
-	{
-		Search-And-Add-Log-Entry $SUCCESS_LOG ("Created " + $fileName)
-	}
-}
-
-function Active-Processes-Helper([string]$saveLocation)
-{	
-	if(Test-Path $saveLocation)
-	{
-		$debugMSG = $saveLocation + " already exists"
-		Add-Log-Entry $DEBUG_LOG $debugMSG
-	}
-	
-	Get-Process | Out-File -filepath $saveLocation
-	$success = Test-Path $saveLocation
-
-	return $success
-}
-
+function Active-Processes { Get-Process | Out-File .\RunningProcesses.txt }
 function PhysicalMemory-Image {}
 function Disk-Image {}
 function Screenshot {}
 function Browser-Cookies {}
 function Browser-History {}
-function Peripheral-Devices {}
 function Scan-Registry {}
 function Image-Scan {}
 function Record-Registry {}
@@ -434,168 +409,15 @@ function Shellbags {}
 function ShimCache {}
 function System-Restore-Points {}
 function SRUM {}
-function Windows-Services
-{
-    $filename = "RunningServices.txt"
-    $saveLocation = $OUTPUT_DIR + $fileName
-
-    $success = Windows-Services-Helper $saveLocation
-	
-	if(!$success)
-	{	
-		Search-And-Add-Log-Entry $FAIL_LOG ("Created " + $fileName)
-	}
-	else
-	{
-		Search-And-Add-Log-Entry $SUCCESS_LOG ("Created " + $fileName)
-	}
-}
-
-function Windows-Services-Helper([string]$saveLocation)
-{	
-	if(Test-Path $saveLocation)
-	{
-		$debugMSG = $saveLocation + " already exists"
-		Add-Log-Entry $DEBUG_LOG $debugMSG
-	}
-	
-	Get-Service | Where-Object {$_.Status -eq "Running"} | Out-File -filepath $saveLocation
-	$success = Test-Path $saveLocation
-
-	return $success
-}
-
+function Windows-Services { Get-Service | Out-File .\RunningServices.txt }
 function Timezone-Info {}
 function User-Accounts {}
 function UserAssist {}
 function Record-User-Actions {}
 function User-Profiles {}
 function OneForAll {}
-
-function Output-Location
-{
-    $FolderBrowser = New-Object System.Windows.Forms.FolderBrowserDialog -Property @{
-        SelectedPath = $global:OUTPUT_DIR
-    }
-
-    [void]$FolderBrowser.ShowDialog()
-
-    $global:OUTPUT_DIR = $FolderBrowser.SelectedPath
-
-    $success = $OUTPUT_DIR -eq $FolderBrowser.SelectedPath
-
-    # Folder browser selection doesn't add '\', so we add it manually
-    if ($OUTPUT_DIR -notmatch '.+?\\$') # Avoid adding extra backslashes
-    {
-        $global:OUTPUT_DIR = $OUTPUT_DIR + "\"
-	}
-
-	if(!$success)
-	{	
-		Search-And-Add-Log-Entry $FAIL_LOG "Tried to change output directory"
-	}
-	else
-	{
-		Search-And-Add-Log-Entry $SUCCESS_LOG ("Changed output directory to " + $OUTPUT_DIR)
-	}
-}
-
+#function Output-Location {}
 function Advanced-Menu {}
-function Hello-World { 
-
-	$saveText = "Hello World!"
-	$fileName = "HelloWorld.txt"
-	$saveLocation = $OUTPUT_DIR + $fileName
-
-	$success = Hello-World-Helper $saveText $saveLocation
-	
-	if(!$success)
-	{	
-		Search-And-Add-Log-Entry $FAIL_LOG ("Created " + $fileName)
-	}
-	else
-	{
-		Search-And-Add-Log-Entry $SUCCESS_LOG ("Created " + $fileName)
-	}
-}
-
-
-function Hello-World-Helper([string]$saveText, [string]$saveLocation)
-{
-	<#For future implementations, we need to be waiting until the process finishes
-		before checking if the file exists#>
-		
-	if(Test-Path $saveLocation)
-	{
-		$debugMSG = $saveLocation + " already exists"
-		Add-Log-Entry $DEBUG_LOG $debugMSG
-	}
-	
-	echo $saveText | Out-File $saveLocation
-	$success = Test-Path $saveLocation
-
-	return $success
-}
-
-
-#Add message to specified log w/ date, typically a filename
-function Add-Log-Entry([string]$logFilePath, [string]$msgToLog)
-{
-	$datedMessage = "{0} - {1}" -f (Get-Date), $msgToLog
-	
-	#check if log exists
-	if(!(Test-Path $logFilePath))
-	{
-		#creates new log file w/ logfilepath with str as first entry
-		echo $datedMessage | Out-File $logFilePath
-	}
-	else
-	{
-		#Adds str to newline
-		Add-Content $logFilePath $datedMessage
-	}
-}
-
-
-#Check if entry is in the specified log file 
-function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
-{
-	#if the log exists
-	if((Test-Path $logFilePath))
-	{
-		#iterate through all lines in file and check if match 
-		foreach($logEntry in Get-Content $logFilePath)
-		{
-		#Match uses regex to str match 
-			if($logEntry -Match $entryToSearch)
-			{
-				return 1
-			} 
-		}
-	}
-	else
-	{
-		$debugMSG = "Log file " + $logFilePath + " does not exist. Search Aborted."
-		Add-Log-Entry $DEBUG_LOG $debugMSG
-	}
-	return 0
-}
-
-
-#Wrapper to check if log entry already exists in the specified log and appends it if not
-function Search-And-Add-Log-Entry([string]$logFilePath, [string]$entryToSearch)
-{
-	#Add to log if not already in log
-	if(!(Search-For-Log-Entry $logFilePath $entryToSearch))
-	{
-		Add-Log-Entry $logFilePath $entryToSearch
-	}
-	else
-	{
-		$debugMSG = "File " + $entryToSearch + " already logged in " + $logFilePath
-		Add-Log-Entry $DEBUG_LOG $debugMSG
-	}
-}
 
 
 [void]$Form.ShowDialog()
