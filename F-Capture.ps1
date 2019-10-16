@@ -291,6 +291,13 @@ $HelloWorldBtn.height   = 35
 $HelloWorldBtn.location = New-Object System.Drawing.Point(920,200)
 $HelloWorldBtn.Font     = 'Microsoft Sans Serif,10'
 
+$NetConProfBtn          = New-Object system.Windows.Forms.Button
+$NetConProfBtn.text     = "Net Connection Profiles"
+$NetConProfBtn.width    = 110
+$NetConProfBtn.height   = 35
+$NetConProfBtn.location = New-Object System.Drawing.Point(1050,200)
+$NetConProfBtn.Font     = 'Microsoft Sans Serif,10'
+
 $Form.controls.AddRange(@($SysInfBtn))
 $Form.controls.AddRange(@($ProcsBtn))
 $Form.controls.AddRange(@($PhysMemBtn))
@@ -331,6 +338,7 @@ $Form.controls.AddRange(@($OneForAll))
 $Form.controls.AddRange(@($OutputLocBtn))
 $Form.controls.AddRange(@($AdvMenuBtn))
 $Form.controls.AddRange(@($HelloWorldBtn))
+$Form.controls.AddRange(@($NetConProfBtn))
 
 $SysInfBtn.Add_Click({ System-Info })
 $ProcsBtn.Add_Click({ Active-Processes })
@@ -373,7 +381,9 @@ $OutputLocBtn.Add_Click({ Output-Location })
 $AdvMenuBtn.Add_Click({ Advanced-Menu })
 $HelloWorldBtn.Add_Click({ Hello-World })
 
-function System-Info {}
+$NetConProfBtn.Add_Click({ NetConnectionProfile})
+
+function System-Info { Get-ComputerInfo | Out-File .\ComputerInfo.txt }
 function Active-Processes { Get-Process | Out-File .\RunningProcesses.txt }
 function PhysicalMemory-Image {}
 function Disk-Image {}
@@ -386,12 +396,12 @@ function Image-Scan {}
 function Record-Registry {}
 function Event-Logs {}
 function AmCache {}
-function Startup-Programs {}
+function Startup-Programs {  Get-CimInstance Win32_StartupCommand | Select-Object Name, Command, Location, User | Format-List | Out-File .\StartupPrograms.txt }
 function File-Associations {}
-function Installed-Programs {}
+function Installed-Programs {  Get-ItemProperty HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion, Publisher, InstallDate | Format-Table -AutoSize }
 function Jump-List {}
 function KeyWord-Search {}
-function DLL {}
+function DLL { Get-ChildItem C:\Windows -include *.dll -recurse | ForEach-Object {"{0}" -f [System.Diagnostics.FileVersionInfo]::GetVersionInfo($_)} | Out-File .\DllList.txt }
 function LNK {}
 function MRU {}
 function Swap-Files {}
@@ -401,11 +411,11 @@ function Remote-Desktop {}
 function Scheduled-Tasks {}
 function Shellbags {}
 function ShimCache {}
-function System-Restore-Points {}
+function System-Restore-Points { Get-ComputerRestorePoint | Select * | Out-File .\SystemRestore.txt}
 function SRUM {}
 function Windows-Services { Get-Service | Out-File .\RunningServices.txt }
-function Timezone-Info {}
-function User-Accounts {}
+function Timezone-Info { Get-TimeZone | Out-File .\Timezone.txt }
+function User-Accounts { Get-LocalUser | Select * | Out-File .\Userlist.txt}
 function UserAssist {}
 function Record-User-Actions {}
 function User-Profiles {}
@@ -413,7 +423,6 @@ function OneForAll {}
 function Output-Location {}
 function Advanced-Menu {}
 function Hello-World { 
-
 	$saveText = "Hello World!"
 	$fileName = "HelloWorld.txt"
 	$saveLocation = ".\" + $fileName
@@ -507,6 +516,8 @@ function Search-And-Add-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 		Add-Log-Entry $DEBUG_LOG $debugMSG
 	}
 }
+
+function NetConnectionProfile { Get-NetConnectionProfile | Select * | Out-File .\NetProfiles.txt }
 
 
 [void]$Form.ShowDialog()
