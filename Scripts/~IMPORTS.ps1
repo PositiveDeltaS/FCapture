@@ -17,6 +17,7 @@
 . .\Scripts\MRU-Info.ps1
 . .\Scripts\Net-Connection-Profiles.ps1
 . .\Scripts\OneForAll.ps1
+. .\Scripts\Packet-Capture.ps1
 . .\Scripts\Peripheral-Devices.ps1
 . .\Scripts\Prefetch-Files.ps1
 . .\Scripts\Record-Registry.ps1
