@@ -1,6 +1,6 @@
 function PhysicalMemory-Image {
 	$winPMem = ".\Tools\WinPmem\winpmem_v3.3.rc3.exe"
-	$outputFile = " -o .\Output\physical-memory-image.raw"
+	$outputFile = " -o " + $OUTPUT_DIR + "physical-memory-image.raw"
 	$options = " --format raw" 
 
 	$run = $winPMem + $outputFile + $options
