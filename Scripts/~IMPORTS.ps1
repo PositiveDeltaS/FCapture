@@ -28,7 +28,6 @@
 . .\Scripts\Scan-Registry.ps1
 . .\Scripts\Scheduled-Tasks.ps1
 . .\Scripts\Screenshot.ps1
-. .\Scripts\Set-Output-Location.ps1
 . .\Scripts\Shellbags.ps1
 . .\Scripts\ShimCache.ps1
 . .\Scripts\Startup-Items.ps1
