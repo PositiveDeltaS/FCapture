@@ -9,24 +9,24 @@ $global:OUTPUT_DIR=".\output.txt"
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
-$Form					= New-Object system.Windows.Forms.Form
-$Form.ClientSize		= '1200,800'
-$Form.text				= "F-Capture"
-$Form.TopMost			= $false
+$Form                   = New-Object system.Windows.Forms.Form
+$Form.ClientSize        = '1200,800'
+$Form.text              = "F-Capture"
+$Form.TopMost           = $false
 
-$SysInfBtn				= New-Object system.Windows.Forms.Button
-$SysInfBtn.text			= "System Information"
-$SysInfBtn.width		= 110
-$SysInfBtn.height		= 35
-$SysInfBtn.location		= New-Object System.Drawing.Point(10,10)
-$SysInfBtn.Font			= 'Microsoft Sans Serif,10'
+$SysInfBtn              = New-Object system.Windows.Forms.Button
+$SysInfBtn.text         = "System Information"
+$SysInfBtn.width        = 110
+$SysInfBtn.height       = 35
+$SysInfBtn.location     = New-Object System.Drawing.Point(10,10)
+$SysInfBtn.Font         = 'Microsoft Sans Serif,10'
 
-$ProcsBtn				= New-Object system.Windows.Forms.Button
-$ProcsBtn.text			= "Active Processes"
-$ProcsBtn.width			= 110
-$ProcsBtn.height		= 35
-$ProcsBtn.location		= New-Object System.Drawing.Point(140,10)
-$ProcsBtn.Font			= 'Microsoft Sans Serif,10'
+$ProcsBtn               = New-Object system.Windows.Forms.Button
+$ProcsBtn.text          = "Active Processes"
+$ProcsBtn.width         = 110
+$ProcsBtn.height        = 35
+$ProcsBtn.location      = New-Object System.Drawing.Point(140,10)
+$ProcsBtn.Font          = 'Microsoft Sans Serif,10'
 
 $PhysMemBtn             = New-Object system.Windows.Forms.Button
 $PhysMemBtn.text        = "Image RAM"
@@ -90,7 +90,7 @@ $RegBtn.width           = 110
 $RegBtn.height          = 35
 $RegBtn.location        = New-Object System.Drawing.Point(270,65)
 $RegBtn.Font            = 'Microsoft Sans Serif,10'
-					    
+
 $EventBtn               = New-Object system.Windows.Forms.Button
 $EventBtn.text          = "Event Logs"
 $EventBtn.width         = 110
@@ -146,28 +146,28 @@ $DLLBtn.width           = 110
 $DLLBtn.height          = 35
 $DLLBtn.location        = New-Object System.Drawing.Point(270,110)
 $DLLBtn.Font            = 'Microsoft Sans Serif,10'
-					    
+
 $LNKBtn                 = New-Object system.Windows.Forms.Button
 $LNKBtn.text            = "LNK Files"
 $LNKBtn.width           = 110
 $LNKBtn.height          = 35
 $LNKBtn.location        = New-Object System.Drawing.Point(400,110)
 $LNKBtn.Font            = 'Microsoft Sans Serif,10'
-					    
+
 $MRUBtn                 = New-Object system.Windows.Forms.Button
 $MRUBtn.text            = "MRU Info"
 $MRUBtn.width           = 110
 $MRUBtn.height          = 35
 $MRUBtn.location        = New-Object System.Drawing.Point(530,110)
 $MRUBtn.Font            = 'Microsoft Sans Serif,10'
-					    
+
 $SwapBtn                = New-Object system.Windows.Forms.Button
 $SwapBtn.text           = "Swap Files"
 $SwapBtn.width          = 110
 $SwapBtn.height         = 35
 $SwapBtn.location       = New-Object System.Drawing.Point(660,110)
 $SwapBtn.Font           = 'Microsoft Sans Serif,10'
-					    
+
 $PFBtn                  = New-Object system.Windows.Forms.Button
 $PFBtn.text             = "Prefetch Files"
 $PFBtn.width            = 110
