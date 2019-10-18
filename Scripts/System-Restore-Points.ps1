@@ -1,1 +1,1 @@
-function System-Restore-Points { Get-ComputerRestorePoint | Select * | Out-File .\SystemRestore.txt}
+function System-Restore-Points { Get-ComputerRestorePoint | Select * | Out-File "$global:OUTPUT_DIR\SystemRestore.txt"}

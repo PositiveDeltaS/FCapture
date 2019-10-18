@@ -1,7 +1,7 @@
 function Active-Processes
 {
     $filename = "ActiveProcesses.txt"
-    $saveLocation = $OUTPUT_DIR + $fileName
+    $saveLocation = "$global:OUTPUT_DIR\$filename"
 
     $success = Active-Processes-Helper $saveLocation
 	
@@ -23,7 +23,7 @@ function Active-Processes-Helper([string]$saveLocation)
 		Add-Log-Entry $DEBUG_LOG $debugMSG
 	}
 	
-	Get-Process | Out-File -filepath $saveLocation
+	Get-Process | Out-File $saveLocation
 	$success = Test-Path $saveLocation
 
 	return $success
