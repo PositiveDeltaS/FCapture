@@ -25,15 +25,11 @@ function Output-Location
 	#Make sure the selected path is useable
 	if(Assert-Path-Is-On-Removeable-Device $selectedOutputPath)
 	{
+        # Set global directory location for other scripts to use
         $global:OUTPUT_DIR = $selectedOutputPath
 
-		# Folder browser selection doesn't add '\', so we add it manually
 		Write-Host "Successfully selected removeable output destination"
-		if ($OUTPUT_DIR -notmatch '.+?\\$') # Avoid adding extra backslashes
-		{
-			$global:OUTPUT_DIR = $global:OUTPUT_DIR + "\"
-		}
-
+		
 		$outputLogMsg = "Selected Output Directory : " + $OUTPUT_DIR
 		Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
     
