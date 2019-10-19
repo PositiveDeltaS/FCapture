@@ -1,1 +1,1 @@
-function System-Info { Get-ComputerInfo | Out-File .\ComputerInfo.txt }
+function System-Info { Get-ComputerInfo | Out-File "$global:OUTPUT_DIR\SystemInfo.txt" }

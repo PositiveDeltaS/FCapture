@@ -1,6 +1,6 @@
 function Packet-Capture-Start
 {	
-	$output = ".\Output\packet-capture.etl"
+	$output = "$global:OUTPUT_DIR\packet-capture.etl"
 	try
 	{
 		netsh trace start scenario=NetConnection capture=yes report=yes persistent=no maxsize=1024 correlation=no traceFile=$output
