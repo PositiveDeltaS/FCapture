@@ -56,8 +56,8 @@ function Assert-Path-Is-On-Removable-Device([string]$filePath)
 {
 	# -Qualifier removes everything except drive name from string
 	$pathRoot = Split-Path -Path $filePath -Qualifier # Example: "E:\1\2" -> "E:"
-    # Get an array of the list of removable drives, then just take the Name property for each drive
-	$removableDrives = @([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" }).Name
+    # Get an array of every removable drive, then just take the Name property for each drive
+	$removableDrives = ([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" }).Name
 
 	# Check that the chosen drive name matches the name of a removable drive
     # Trim the '\' off the drive names so that -match will work
