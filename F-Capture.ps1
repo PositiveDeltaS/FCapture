@@ -357,7 +357,6 @@ $Form.controls.AddRange(@($OutputLocBtn))
 $Form.controls.AddRange(@($AdvMenuBtn))
 $Form.controls.AddRange(@($HelloWorldBtn))
 $Form.controls.AddRange(@($NetConProfBtn))
-$Form.controls.AddRange(@($OutputDirTextBox))
 
 # Add functions to their respective button's event handler
 $SysInfBtn.Add_Click({ System-Info })

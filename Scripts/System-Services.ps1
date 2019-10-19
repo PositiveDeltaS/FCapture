@@ -4,9 +4,9 @@ function Windows-Services
     $saveLocation = "$global:OUTPUT_DIR\$filename"
 
     $success = Windows-Services-Helper $saveLocation
-	
+
 	if(!$success)
-	{	
+	{
 		Search-And-Add-Log-Entry $FAIL_LOG ("Created " + $fileName)
 	}
 	else
@@ -16,13 +16,13 @@ function Windows-Services
 }
 
 function Windows-Services-Helper([string]$saveLocation)
-{	
+{
 	if(Test-Path $saveLocation)
 	{
 		$debugMSG = $saveLocation + " already exists"
 		Add-Log-Entry $DEBUG_LOG $debugMSG
 	}
-	
+
 	Get-Service | Where-Object {$_.Status -eq "Running"} | Out-File -filepath $saveLocation
 	$success = Test-Path $saveLocation
 
