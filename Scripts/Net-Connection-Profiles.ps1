@@ -1,0 +1,1 @@
+function Net-Connection-Profile { Get-NetConnectionProfile | Select * | Out-File "$global:OUTPUT_DIR\NetProfiles.txt" }

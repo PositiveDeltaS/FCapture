@@ -1,0 +1,1 @@
+function User-Accounts { Get-LocalUser | Select * | Out-File "$global:OUTPUT_DIR\Userlist.txt" }

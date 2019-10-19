@@ -1,0 +1,1 @@
+function Timezone-Info { Get-TimeZone | Out-File "$global:OUTPUT_DIR\Timezone.txt" }
