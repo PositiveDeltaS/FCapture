@@ -1,9 +1,9 @@
 function PhysicalMemory-Image {
-	$winPMem = ".\Tools\WinPmem\winpmem_v3.3.rc3.exe"
-	$outputFile = " -o " + $OUTPUT_DIR + "physical-memory-image.raw"
-	$options = " --format raw" 
-
-	$run = $winPMem + $outputFile + $options
+	$winPMem = "$PSScriptRoot\..\Tools\WinPmem\winpmem_v3.3.rc3.exe"
+	
+	$outputFile =  "physical-memory-image.aff4"
+	$options = " -o " + $global:OUTPUT_DIR + $outputFile
+	$run = $winPMem + $options
 	
 	try 
 	{
