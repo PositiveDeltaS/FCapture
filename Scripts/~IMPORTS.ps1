@@ -40,4 +40,3 @@
 . "$PSScriptRoot\User-Assist-Info.ps1"
 . "$PSScriptRoot\User-Profiles.ps1"
 . "$PSScriptRoot\OutputLocation.ps1"
-. "$PSScriptRoot\CopyToOutputDir.ps1"
