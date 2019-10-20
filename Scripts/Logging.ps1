@@ -1,12 +1,12 @@
 function Hello-World { 
 	$saveText = "Hello World!"
 	$fileName = "HelloWorld.txt"
-	$saveLocation = $OUTPUT_DIR + $fileName
+	$saveLocation = "$global:OUTPUT_DIR\$filename"
 
 	$success = Hello-World-Helper $saveText $saveLocation
-	
+
 	if(!$success)
-	{	
+	{
 		Search-And-Add-Log-Entry $FAIL_LOG $fileName
 	}
 	else
@@ -20,13 +20,13 @@ function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 {
 	<#For future implementations, we need to be waiting until the process finishes
 		before checking if the file exists#>
-		
+
 	if(Test-Path $saveLocation)
 	{
 		$debugMSG = $saveLocation + " already exists"
 		Add-Log-Entry $DEBUG_LOG $debugMSG
 	}
-	
+
 	echo $saveText | Out-File $saveLocation
 	$success = Test-Path $saveLocation
 
@@ -38,7 +38,7 @@ function Hello-World-Helper([string]$saveText, [string]$saveLocation)
 function Add-Log-Entry([string]$logFilePath, [string]$msgToLog)
 {
 	$datedMessage = "{0} - {1}" -f (Get-Date), $msgToLog
-	
+
 	#check if log exists
 	if(!(Test-Path $logFilePath))
 	{
@@ -53,20 +53,20 @@ function Add-Log-Entry([string]$logFilePath, [string]$msgToLog)
 }
 
 
-#Check if entry is in the specified log file 
+#Check if entry is in the specified log file
 function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 {
 	#if the log exists
 	if((Test-Path $logFilePath))
 	{
-		#iterate through all lines in file and check if match 
+		#iterate through all lines in file and check if match
 		foreach($logEntry in Get-Content $logFilePath)
 		{
-		#Match uses regex to str match 
+		#Match uses regex to str match
 			if($logEntry -Match $entryToSearch)
 			{
 				return 1
-			} 
+			}
 		}
 	}
 	else

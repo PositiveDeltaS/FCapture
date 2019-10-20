@@ -1,1 +1,1 @@
-function DLL { Get-ChildItem C:\Windows -include *.dll -recurse | ForEach-Object {"{0}" -f [System.Diagnostics.FileVersionInfo]::GetVersionInfo($_)} | Out-File .\DllList.txt }
+function DLL { Get-ChildItem C:\Windows -include *.dll -recurse | ForEach-Object {"{0}" -f [System.Diagnostics.FileVersionInfo]::GetVersionInfo($_)} | Out-File "$global:OUTPUT_DIR\DllList.txt" }
