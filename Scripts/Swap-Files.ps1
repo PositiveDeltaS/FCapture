@@ -1,7 +1,7 @@
 function Swap-Files {
 	$winPMem = "$PSScriptRoot\..\Tools\WinPmem\winpmem_v3.3.rc3.exe"
 	
-	$outputFile =  "physical-memory-image-with-swap-files.aff4"
+	$outputFile =  "\physical-memory-image-with-swap-files.aff4"
 	$pageFiles = ""
 	
 	try
