@@ -14,11 +14,17 @@ $global:OUTPUT_DIR  = "$PSScriptRoot"
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
+# Create elements to use when setting up main form
+$Icon = New-Object System.Drawing.Icon ("$PSScriptRoot\Resources\FCAP.ICO")
+
 # Create main form and button elements
 $Form                   = New-Object system.Windows.Forms.Form
 $Form.ClientSize        = '1200,800'
 $Form.text              = "F-Capture"
 $Form.TopMost           = $false
+$Form.StartPosition     = "CenterScreen"
+$Form.BackColor         = "Black"
+$Form.Icon              = $Icon
 
 $SysInfBtn              = New-Object system.Windows.Forms.Button
 $SysInfBtn.text         = "System Information"
