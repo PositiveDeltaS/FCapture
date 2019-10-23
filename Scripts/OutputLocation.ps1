@@ -30,11 +30,17 @@ function Output-Location
 
 		Write-Host "Successfully selected removable output destination"
 		
-		$outputLogMsg = "Selected Output Directory : " + $OUTPUT_DIR
+		$outputLogMsg = "Selected Output Directory : $OUTPUT_DIR"
 		Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
     
-        # Update Output Directory Textbox in GUI
-        $OutputDirTextBox.text = $OUTPUT_DIR
+        # Update Output Directory text in GUI
+        $OutDirComboBox.text = $OUTPUT_DIR
+
+        # Add the new directory to the list of options in dropdown, if not already there
+        if(!$OutDirComboBox.Items.Contains($OutDirComboBox.text))
+        {
+            $OutDirComboBox.Items.Add($OUTPUT_DIR)
+        }
 	}
 	else
     {
@@ -43,6 +49,19 @@ function Output-Location
 	}
 }
 
+# Executed if the user clicked the dropdown and then clicked on a location
+function Changed-OutDir-In-Box()
+{
+    # Assuming that if the directory chosen is in the dropdown, it must have
+    # made it through the Output-Location checks and is therefore a valid location
+    $global:OUTPUT_DIR = $OutDirComboBox.text
+
+    # Log change and inform of change in console
+    Write-Host "Successfully selected removable output destination"
+		
+	$outputLogMsg = "Selected Output Directory : $OUTPUT_DIR"
+	Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
+}
 
 #insert removable media to help test this
 

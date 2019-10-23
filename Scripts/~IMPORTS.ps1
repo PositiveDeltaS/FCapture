@@ -41,3 +41,7 @@
 . "$PSScriptRoot\User-Profiles.ps1"
 . "$PSScriptRoot\OutputLocation.ps1"
 . "$PSScriptRoot\Putty.ps1"
+. "$PSScriptRoot\AutoRun-Items.ps1"
+. "$PSScriptRoot\Filesystem-Info.ps1"
+. "$PSScriptRoot\Network-Interfaces.ps1"
+. "$PSScriptRoot\Network-Share-Info.ps1"
