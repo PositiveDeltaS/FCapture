@@ -10,8 +10,8 @@ to the output_dir.
 
 <#
 Creates a file browser window for the user to select the global
-output destination. Checks if destination is on a removeable drive
-and fails to change output destiantion if not.
+output destination. Checks if destination is on a removable drive
+and fails to change output destination if not.
 #>
 function Output-Location
 {
@@ -23,17 +23,13 @@ function Output-Location
 	$selectedOutputPath = $FolderBrowser.SelectedPath
 	
 	#Make sure the selected path is useable
-	if(Assert-Path-Is-On-Removeable-Device $selectedOutputPath)
+	if(Assert-Path-Is-On-Removable-Device $selectedOutputPath)
 	{
+        # Set global directory location for other scripts to use
         $global:OUTPUT_DIR = $selectedOutputPath
 
-		# Folder browser selection doesn't add '\', so we add it manually
-		Write-Host "Successfully selected removeable output destination"
-		if ($OUTPUT_DIR -notmatch '.+?\\$') # Avoid adding extra backslashes
-		{
-			$global:OUTPUT_DIR = $global:OUTPUT_DIR + "\"
-		}
-
+		Write-Host "Successfully selected removable output destination"
+		
 		$outputLogMsg = "Selected Output Directory : " + $OUTPUT_DIR
 		Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
     
@@ -42,39 +38,34 @@ function Output-Location
 	}
 	else
     {
+        Write-Host "Selected output destination was on local machine"
 		Add-Log-Entry $FAIL_LOG "Failed to change output directory"
 	}
 }
 
 
-#insert removeable media to help test this
+#insert removable media to help test this
 
 <#
-Asserts that the file path is located on a removeable device.
-Removes drive name from selected path, then prepends each removeable 
-drive name found and tests that path to ensure that the selected path is 
-found on a removeable device.
+Asserts that the file path is located on a removable device.
+Takes drive name from selected path, then compares it to the
+array of removable drive names to ensure that the selected
+path is located on a removable device.
 #>
-function Assert-Path-Is-On-Removeable-Device([string]$filePath)
+function Assert-Path-Is-On-Removable-Device([string]$filePath)
 {
-	$success = $false
-	
-	#-NoQualifier removes drive name from string
-	$trimmedPath = Split-Path -Path $filePath -NoQualifier
-	$removabledrives = @([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" })
+	# -Qualifier removes everything except drive name from string
+	$pathRoot = Split-Path -Path $filePath -Qualifier # Example: "E:\1\2" -> "E:"
+    # Get an array of every removable drive, then just take the Name property for each drive
+	$removableDrives = ([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" }).Name
 
-	#Check each removeable drive for the path
-	$removabledrives | ForEach-Object {
-		#Prepend the drive name to the trimmed path
-		$testPath = $_.Name.Trim("\") + $trimmedPath #remove "\" at end of string 
-		$out = [string]::Format("Testing Drive : {0}   Path : {1} ", $_.Name, $testPath)
-		Write-Host $out
-		if(Test-Path $testPath)
-		{
-			Write-Host "Found path : ", $testPath
-			$success = $true
-		}
-	}
+	# Check that the chosen drive name matches the name of a removable drive
+    # Trim the '\' off the drive names so that -match will work
+	$matched = $removableDrives.Trim("\") -match $pathRoot
+
+    # -match returns $pathRoot if it was a good path and "" otherwise, so we compare to "" to get a bool
+    $success = "" -ne $matched
+
 	return $success
 }
 
