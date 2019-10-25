@@ -15,19 +15,26 @@ Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 # Create elements to use when setting up main form
-$Icon            = New-Object System.Drawing.Icon("$PSScriptRoot\Resources\FCAP.ICO")
-$DefaultBGColor = [System.Drawing.Color]::Black
-$DefaultFGColor = [System.Drawing.Color]::WhiteSmoke
+$Icon             = New-Object System.Drawing.Icon("$PSScriptRoot\Resources\FCAP.ICO")
+$MainFormBGColor  = [System.Drawing.Color]::FromArgb(5,78,111)
+$MainFormFGColor  = [System.Drawing.Color]::FromArgb(255,255,255)
+$BannerBGColor    = [System.Drawing.Color]::FromArgb(111,11,111)
+$BannerFGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
+$GroupBoxBGColor  = [System.Drawing.Color]::FromArgb(0,0,0)
+$GroupBoxFGColor  = [System.Drawing.Color]::FromArgb(255,255,255)
+$ButtonBGColor    = [System.Drawing.Color]::FromArgb(255,255,255)
+$ButtonFGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
+$CheckmarkBGColor = [System.Drawing.Color]::Transparent
 
 # Create main form and button elements
 $MainForm                     = New-Object System.Windows.Forms.Form
 $MainForm.AutoScaleDimensions = New-Object System.Drawing.SizeF(6,13)
 $MainForm.AutoScaleMode       = [System.Windows.Forms.AutoScaleMode]::Font
 $MainForm.AutoScroll          = $true
-$MainForm.BackColor           = $DefaultBGColor
+$MainForm.BackColor           = $MainFormBGColor
 $MainForm.ClientSize          = New-Object System.Drawing.Size(1146,663)
 $MainForm.Font                = 'Consolas,8.25'
-$MainForm.ForeColor           = $DefaultFGColor
+$MainForm.ForeColor           = $MainFormFGColor
 $MainForm.Icon                = $Icon
 $MainForm.TopMost             = $false
 $MainForm.MinimumSize         = New-Object System.Drawing.Size(1090,690)
@@ -52,9 +59,9 @@ $GoButton.UseVisualStyleBackColor = $false
 # F-Cap Title config
 $FCapTitle             = New-Object System.Windows.Forms.Label
 $FCapTitle.Anchor      = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Left -bor [System.Windows.Forms.AnchorStyles]::Right)
-$FCapTitle.BackColor   = [System.Drawing.Color]::Maroon
+$FCapTitle.BackColor   = $BannerBGColor
 $FCapTitle.Font        = 'Elephant,48'
-$FCapTitle.ForeColor   = [System.Drawing.Color]::WhiteSmoke
+$FCapTitle.ForeColor   = $BannerFGColor
 $FCapTitle.Location    = New-Object System.Drawing.Point(0,41)
 $FCapTitle.MaximumSize = New-Object System.Drawing.Size(5000,102)
 $FCapTitle.Name        = 'FCapTitle'
@@ -66,7 +73,7 @@ $FCapTitle.TextAlign   = [System.Drawing.ContentAlignment]::MiddleCenter
 # Output Directory Change button config
 $OutDirBtn           = New-Object System.Windows.Forms.Button
 $OutDirBtn.Anchor    = [System.Windows.Forms.AnchorStyles]::None
-$OutDirBtn.BackColor = [System.Drawing.Color]::WhiteSmoke
+$OutDirBtn.BackColor = $ButtonBGColor
 $OutDirBtn.Font      = 'Consolas,8.25'
 $OutDirBtn.ForeColor = [System.Drawing.Color]::Black
 $OutDirBtn.Location  = New-Object System.Drawing.Point(682,419)
@@ -104,7 +111,7 @@ $AdvancedBtn.UseVisualStyleBackColor = $false
 
 # Button to close Advanced Menu
 $AdvMenuCloseBtn                            = New-Object System.Windows.Forms.Button
-$AdvMenuCloseBtn.BackColor                  = [System.Drawing.Color]::Transparent
+$AdvMenuCloseBtn.BackColor                  = $CheckmarkBGColor
 $AdvMenuCloseBtn.BackgroundImage            = [System.Drawing.Image]::FromFile("$PSScriptRoot\Resources\delete_sign_filled_30px.png")
 $AdvMenuCloseBtn.BackgroundImageLayout      = [System.Windows.Forms.ImageLayout]::Stretch
 $AdvMenuCloseBtn.FlatStyle                  = [System.Windows.Forms.FlatStyle]::Popup
@@ -118,7 +125,7 @@ $AdvMenuCloseBtn.UseVisualStyleBackColor = $false
 
 # Profiles dropdown label
 $ProfileDDLabel           = New-Object System.Windows.Forms.Label
-$ProfileDDLabel.BackColor = [System.Drawing.Color]::Transparent
+$ProfileDDLabel.BackColor = $CheckmarkBGColor
 $ProfileDDLabel.Location  = New-Object System.Drawing.Point(713,64)
 $ProfileDDLabel.Name      = 'ProfileDDLabel'
 $ProfileDDLabel.Size      = New-Object System.Drawing.Size(194,24)
@@ -128,8 +135,8 @@ $ProfileDDLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
 
 # Button to load and apply a profile
 $ProfileLoadBtn           = New-Object System.Windows.Forms.Button
-$ProfileLoadBtn.BackColor = [System.Drawing.Color]::WhiteSmoke
-$ProfileLoadBtn.ForeColor = [System.Drawing.Color]::Black
+$ProfileLoadBtn.BackColor = $ButtonBGColor
+$ProfileLoadBtn.ForeColor = $ButtonFGColor
 $ProfileLoadBtn.Location  = New-Object System.Drawing.Point(988,85)
 $ProfileLoadBtn.Name      = 'ProfileLoadBtn'
 $ProfileLoadBtn.Size      = New-Object System.Drawing.Size(44,38)
@@ -139,8 +146,8 @@ $ProfileLoadBtn.UseVisualStyleBackColor = $false
 
 # Button to save current configuration with name from ProfileDropDown
 $ProfileSaveBtn           = New-Object System.Windows.Forms.Button
-$ProfileSaveBtn.BackColor = [System.Drawing.Color]::WhiteSmoke
-$ProfileSaveBtn.ForeColor = [System.Drawing.Color]::Black
+$ProfileSaveBtn.BackColor = $ButtonBGColor
+$ProfileSaveBtn.ForeColor = $ButtonFGColor
 $ProfileSaveBtn.Location  = New-Object System.Drawing.Point(938,85)
 $ProfileSaveBtn.Name      = 'ProfileSaveBtn'
 $ProfileSaveBtn.Size      = New-Object System.Drawing.Size(44,38)
@@ -150,7 +157,7 @@ $ProfileSaveBtn.UseVisualStyleBackColor = $false
 
 # Dropdown for choosing a profile to load or entering a name to save one
 $ProfileDropdown                   = New-Object System.Windows.Forms.ComboBox
-$ProfileDropdown.BackColor         = [System.Drawing.Color]::WhiteSmoke
+$ProfileDropdown.BackColor         = $ButtonBGColor
 $ProfileDropdown.Font              = 'Consolas,12'
 $ProfileDropdown.FormattingEnabled = $true
 $ProfileDropdown.Location          = New-Object System.Drawing.Point(713,91)
@@ -160,7 +167,7 @@ $ProfileDropdown.TabIndex          = 44
 
 # Disk Imaging checkbox list label
 $DiskImgLabel           = New-Object System.Windows.Forms.Label
-$DiskImgLabel.BackColor = [System.Drawing.Color]::Transparent
+$DiskImgLabel.BackColor = $CheckmarkBGColor
 $DiskImgLabel.Location  = New-Object System.Drawing.Point(889,147)
 $DiskImgLabel.Name      = 'DiskImgLabel'
 $DiskImgLabel.Size      = New-Object System.Drawing.Size(118,24)
@@ -171,10 +178,10 @@ $DiskImgLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
 # List of checkboxes that shows user all the drive that are available
 # to make images of and lets the user check the ones they want
 $DiskImgCBList                   = New-Object System.Windows.Forms.CheckedListBox
-$DiskImgCBList.BackColor         = [System.Drawing.Color]::WhiteSmoke
+$DiskImgCBList.BackColor         = $ButtonBGColor
 $DiskImgCBList.CheckOnClick      = $true
 $DiskImgCBList.Font              = 'Consolas,9.75'
-$DiskImgCBList.ForeColor         = [System.Drawing.Color]::Black
+$DiskImgCBList.ForeColor         = $ButtonFGColor
 $DiskImgCBList.FormattingEnabled = $true
 $DiskImgCBList.Location          = New-Object System.Drawing.Point(889,174)
 $DiskImgCBList.Name              = 'DiskImgCBList'
@@ -183,8 +190,8 @@ $DiskImgCBList.TabIndex          = 42
 
 # VNC Server button config
 $VNCServerBtn           = New-Object System.Windows.Forms.Button
-$VNCServerBtn.BackColor = [System.Drawing.Color]::WhiteSmoke
-$VNCServerBtn.ForeColor = [System.Drawing.Color]::Black
+$VNCServerBtn.BackColor = $ButtonBGColor
+$VNCServerBtn.ForeColor = $ButtonFGColor
 $VNCServerBtn.Location  = New-Object System.Drawing.Point(757,295)
 $VNCServerBtn.Name      = 'VNCServerBtn'
 $VNCServerBtn.Size      = New-Object System.Drawing.Size(103,38)
@@ -195,7 +202,7 @@ $VNCServerBtn.UseVisualStyleBackColor = $false
 
 # Textbox that holds the user-entered text to scan the registry for
 $RegistryScanTB           = New-Object System.Windows.Forms.TextBox
-$RegistryScanTB.BackColor = [System.Drawing.Color]::WhiteSmoke
+$RegistryScanTB.BackColor = $ButtonBGColor
 $RegistryScanTB.Font      = 'Consolas,12'
 $RegistryScanTB.Location  = New-Object System.Drawing.Point(713,393)
 $RegistryScanTB.Name      = 'RegistryScanTB'
@@ -205,8 +212,8 @@ $RegistryScanTB.Enabled   = $false # Not implemented yet, so disable it to commu
 
 # Scan Registry button config
 $RegistryScanBtn           = New-Object System.Windows.Forms.Button
-$RegistryScanBtn.BackColor = [System.Drawing.Color]::WhiteSmoke
-$RegistryScanBtn.ForeColor = [System.Drawing.Color]::Black
+$RegistryScanBtn.BackColor = $ButtonBGColor
+$RegistryScanBtn.ForeColor = $ButtonFGColor
 $RegistryScanBtn.Location  = New-Object System.Drawing.Point(955,387)
 $RegistryScanBtn.Name      = 'RegistryScanBtn'
 $RegistryScanBtn.Size      = New-Object System.Drawing.Size(77,38)
@@ -217,8 +224,8 @@ $RegistryScanBtn.UseVisualStyleBackColor = $false
 
 # PuTTY button config
 $PuTTYBtn           = New-Object System.Windows.Forms.Button
-$PuTTYBtn.BackColor = [System.Drawing.Color]::WhiteSmoke
-$PuTTYBtn.ForeColor = [System.Drawing.Color]::Black
+$PuTTYBtn.BackColor = $ButtonBGColor
+$PuTTYBtn.ForeColor = $ButtonFGColor
 $PuTTYBtn.Location  = New-Object System.Drawing.Point(757,231)
 $PuTTYBtn.Name      = 'PuTTYBtn'
 $PuTTYBtn.Size      = New-Object System.Drawing.Size(103,38)
@@ -775,9 +782,9 @@ $OutputFormatLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
 # Group Box holding Advanced Menu items
 $AdvOptionGrpBox             = New-Object System.Windows.Forms.GroupBox
 $AdvOptionGrpBox.Anchor      = [System.Windows.Forms.AnchorStyles]::None
-$AdvOptionGrpBox.BackColor   = [System.Drawing.Color]::Black
+$AdvOptionGrpBox.BackColor   = $GroupBoxBGColor
 $AdvOptionGrpBox.Font        = 'Consolas,9.75'
-$AdvOptionGrpBox.ForeColor   = [System.Drawing.Color]::White
+$AdvOptionGrpBox.ForeColor   = $GroupBoxFGColor
 $AdvOptionGrpBox.Location    = New-Object System.Drawing.Point(41,160)
 $AdvOptionGrpBox.MinimumSize = New-Object System.Drawing.Size(1060,482)
 $AdvOptionGrpBox.Name        = 'AdvOptionGrpBox'
