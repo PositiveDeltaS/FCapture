@@ -1,12 +1,11 @@
-$diskListPopulated = $false
+
 
 function Set-Disks-List
 {
-    if(!$diskListPopulated)
+    if(!$DiskImgCBList.Items)
     {
         # Currently, we only get the non-removable drives as candidates for imaging
         $DiskImgCBList.Items.AddRange(([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -ne "Removable" }).Name)
-        $diskListPopulated = $true
     }
 }
 
