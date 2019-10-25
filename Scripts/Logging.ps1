@@ -63,7 +63,7 @@ function Search-For-Log-Entry([string]$logFilePath, [string]$entryToSearch)
 		foreach($logEntry in Get-Content $logFilePath)
 		{
 		#Match uses regex to str match
-			if($logEntry -Match $entryToSearch)
+			if($logEntry -Match [regex]::escape($entryToSearch))
 			{
 				return 1
 			}

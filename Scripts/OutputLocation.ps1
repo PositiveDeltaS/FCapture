@@ -30,11 +30,11 @@ function Output-Location
 
 		Write-Host "Successfully selected removable output destination"
 		
-		$outputLogMsg = "Selected Output Directory : " + $OUTPUT_DIR
+		$outputLogMsg = "Selected Output Directory : $OUTPUT_DIR"
 		Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
     
-        # Update Output Directory Textbox in GUI
-        $OutputDirTextBox.text = $OUTPUT_DIR
+        # Update Output Directory text in GUI
+        $OutDirTextBox.text = $OUTPUT_DIR
 	}
 	else
     {
@@ -42,7 +42,6 @@ function Output-Location
 		Add-Log-Entry $FAIL_LOG "Failed to change output directory"
 	}
 }
-
 
 #insert removable media to help test this
 
@@ -58,6 +57,13 @@ function Assert-Path-Is-On-Removable-Device([string]$filePath)
 	$pathRoot = Split-Path -Path $filePath -Qualifier # Example: "E:\1\2" -> "E:"
     # Get an array of every removable drive, then just take the Name property for each drive
 	$removableDrives = ([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" }).Name
+    
+    # If there are no removable drive, just fail
+    if($removableDrives.Count -eq 0)
+    {
+        Write-Host "There are no removable drives available"
+        return $false
+    }
 
 	# Check that the chosen drive name matches the name of a removable drive
     # Trim the '\' off the drive names so that -match will work
