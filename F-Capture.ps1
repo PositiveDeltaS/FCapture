@@ -307,6 +307,13 @@ $NetConProfBtn.height   = 35
 $NetConProfBtn.location = New-Object System.Drawing.Point(1050,200)
 $NetConProfBtn.Font     = 'Microsoft Sans Serif,10'
 
+$PuttyBtn          = New-Object system.Windows.Forms.Button
+$PuttyBtn.text     = "Start Putty"
+$PuttyBtn.width    = 110
+$PuttyBtn.height   = 35
+$PuttyBtn.location = New-Object System.Drawing.Point(1050, 155)
+$PuttyBtn.Font     = 'Microsoft Sans Serif,10'
+
 $OutputDirTextBox            = New-Object system.Windows.Forms.TextBox
 $OutputDirTextBox.multiline  = $false
 $OutputDirTextBox.width      = 240
@@ -357,6 +364,7 @@ $Form.controls.AddRange(@($OutputLocBtn))
 $Form.controls.AddRange(@($AdvMenuBtn))
 $Form.controls.AddRange(@($HelloWorldBtn))
 $Form.controls.AddRange(@($NetConProfBtn))
+$Form.controls.AddRange(@($PuttyBtn))
 $Form.controls.AddRange(@($OutputDirTextBox))
 
 # Add functions to their respective button's event handler
@@ -401,6 +409,7 @@ $OutputLocBtn.Add_Click({ Output-Location })
 $AdvMenuBtn.Add_Click({ Advanced-Menu })
 $HelloWorldBtn.Add_Click({ Hello-World })
 $NetConProfBtn.Add_Click({ Net-Connection-Profile})
+$PuttyBtn.Add_Click({ Putty })
 
 # Run the main window
 [void]$Form.ShowDialog()
