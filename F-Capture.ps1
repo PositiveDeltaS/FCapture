@@ -14,11 +14,12 @@ $global:OUTPUT_DIR  = "$PSScriptRoot"
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
+
 # Create elements to use when setting up main form
 $Icon             = New-Object System.Drawing.Icon("$PSScriptRoot\Resources\FCAP.ICO")
-$MainFormBGColor  = [System.Drawing.Color]::FromArgb(5,78,111)
+$MainFormBGColor  = [System.Drawing.Color]::FromArgb(219,228,235)
 $MainFormFGColor  = [System.Drawing.Color]::FromArgb(255,255,255)
-$BannerBGColor    = [System.Drawing.Color]::FromArgb(111,11,111)
+$BannerBGColor    = [System.Drawing.Color]::FromArgb(5,78,111)
 $BannerFGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
 $GroupBoxBGColor  = [System.Drawing.Color]::FromArgb(0,0,0)
 $GroupBoxFGColor  = [System.Drawing.Color]::FromArgb(255,255,255)
@@ -52,23 +53,32 @@ $GoButton.ForeColor = [System.Drawing.Color]::Black
 $GoButton.Location  = New-Object System.Drawing.Point(483,219)
 $GoButton.Name      = 'GoButton'
 $GoButton.Size      = New-Object System.Drawing.Size(177,141)
-$GoButton.TabIndex  = 0
+$GoButton.TabIndex  = 1
 $GoButton.Text      = 'GO'
 $GoButton.UseVisualStyleBackColor = $false
 
 # F-Cap Title config
 $FCapTitle             = New-Object System.Windows.Forms.Label
 $FCapTitle.Anchor      = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Left -bor [System.Windows.Forms.AnchorStyles]::Right)
-$FCapTitle.BackColor   = $BannerBGColor
+$FCapTitle.BackColor   = $CheckmarkBGColor
 $FCapTitle.Font        = 'Elephant,48'
 $FCapTitle.ForeColor   = $BannerFGColor
 $FCapTitle.Location    = New-Object System.Drawing.Point(0,41)
 $FCapTitle.MaximumSize = New-Object System.Drawing.Size(5000,102)
 $FCapTitle.Name        = 'FCapTitle'
 $FCapTitle.Size        = New-Object System.Drawing.Size(1147,102)
-$FCapTitle.TabIndex    = 1
+$FCapTitle.TabIndex    = 0
 $FCapTitle.Text        = 'F-Capture'
 $FCapTitle.TextAlign   = [System.Drawing.ContentAlignment]::MiddleCenter
+
+#Background panel
+$BgPanel             = New-Object System.Windows.Forms.Panel
+$BgPanel.Anchor      = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Left -bor [System.Windows.Forms.AnchorStyles]::Right)
+$BgPanel.BackColor   = $BannerBGColor
+$BgPanel.ForeColor   = $BannerBGColor
+$BgPanel.Location    = New-Object System.Drawing.Point(0,90)
+$BgPanel.MaximumSize = New-Object System.Drawing.Size(5000,400)
+$BgPanel.Size        = New-Object System.Drawing.Size(1147,400)
 
 # Output Directory Change button config
 $OutDirBtn           = New-Object System.Windows.Forms.Button
@@ -848,12 +858,14 @@ $AdvOptionGrpBox.Controls.Add($ActiveProcessesCB)
 $AdvOptionGrpBox.Controls.Add($SystemInfoCB)
 
 # Add buttons to the main form's list of elements
-$MainForm.Controls.Add($FCapTitle)
+
 $MainForm.Controls.Add($GoButton)
+$MainForm.Controls.Add($FCapTitle)
 $MainForm.Controls.Add($OutDirComboBox)
 $MainForm.Controls.Add($OutDirBtn)
 $MainForm.Controls.Add($AdvancedBtn)
 $MainForm.Controls.Add($AdvOptionGrpBox)
+$MainForm.Controls.Add($BgPanel)
 
 # Add functions to their respective button's event handler
 $AdvancedBtn.Add_Click({ Open-Advanced-Menu })
