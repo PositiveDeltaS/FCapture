@@ -106,14 +106,14 @@ $OutDirBtn.TabIndex  = 3
 $OutDirBtn.Text      = '...'
 $OutDirBtn.UseVisualStyleBackColor = $false
 
-# Output Directory Dropdown config
-$OutDirTextBox                   = New-Object System.Windows.Forms.TextBox
-$OutDirTextBox.Anchor            = [System.Windows.Forms.AnchorStyles]::None
-$OutDirTextBox.Font              = 'Consolas,12'
-$OutDirTextBox.Location          = New-Object System.Drawing.Point(426,419)
-$OutDirTextBox.Name              = 'OutDirTextBox'
-$OutDirTextBox.Size              = New-Object System.Drawing.Size(250,27)
-$OutDirTextBox.TabIndex          = 5
+# Output Directory Textbox config
+$OutDirTextBox           = New-Object System.Windows.Forms.TextBox
+$OutDirTextBox.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$OutDirTextBox.Font      = 'Consolas,12'
+$OutDirTextBox.Location  = New-Object System.Drawing.Point(426,419)
+$OutDirTextBox.Name      = 'OutDirTextBox'
+$OutDirTextBox.Size      = New-Object System.Drawing.Size(250,27)
+$OutDirTextBox.TabIndex  = 5
 
 # Advanced Menu button config
 $AdvancedBtn           = New-Object System.Windows.Forms.Button
