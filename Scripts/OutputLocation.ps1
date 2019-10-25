@@ -52,15 +52,20 @@ function Output-Location
 # Executed if the user clicked the dropdown and then clicked on a location
 function Changed-OutDir-In-Box()
 {
-    # Assuming that if the directory chosen is in the dropdown, it must have
-    # made it through the Output-Location checks and is therefore a valid location
-    $global:OUTPUT_DIR = $OutDirComboBox.text
+    if(Assert-Path-Is-On-Removable-Device $OutDirComboBox.text)
+    {
+        $global:OUTPUT_DIR = $OutDirComboBox.text
 
-    # Log change and inform of change in console
-    Write-Host "Successfully selected removable output destination"
-		
-	$outputLogMsg = "Selected Output Directory : $OUTPUT_DIR"
-	Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
+        # Log change and inform of change in console
+        Write-Host "Successfully selected removable output destination"
+        $outputLogMsg = "Selected Output Directory : $OUTPUT_DIR"
+	    Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
+    }
+    else
+    {
+	    Write-Host "Selected output destination was on local machine"
+		Add-Log-Entry $FAIL_LOG "Failed to change output directory"
+    }
 }
 
 #insert removable media to help test this
@@ -77,6 +82,13 @@ function Assert-Path-Is-On-Removable-Device([string]$filePath)
 	$pathRoot = Split-Path -Path $filePath -Qualifier # Example: "E:\1\2" -> "E:"
     # Get an array of every removable drive, then just take the Name property for each drive
 	$removableDrives = ([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" }).Name
+    
+    # If there are no removable drive, just fail
+    if($null -eq $removableDrives)
+    {
+        Write-Host "There are no removable drives available"
+        return $false
+    }
 
 	# Check that the chosen drive name matches the name of a removable drive
     # Trim the '\' off the drive names so that -match will work
