@@ -25,12 +25,14 @@ $GroupBoxBGColor  = [System.Drawing.Color]::FromArgb(0,0,0)
 $GroupBoxFGColor  = [System.Drawing.Color]::FromArgb(255,255,255)
 $ButtonBGColor    = [System.Drawing.Color]::FromArgb(255,255,255)
 $ButtonFGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
+$GoBtnBGColor     = [System.Drawing.Color]::LimeGreen
+$AdvBtnBGColor    = [System.Drawing.Color]::Firebrick
 $CheckmarkBGColor = [System.Drawing.Color]::Transparent
 
 # Create main form and button elements
 $MainForm                     = New-Object System.Windows.Forms.Form
 $MainForm.AutoScaleDimensions = New-Object System.Drawing.SizeF(6,13)
-$MainForm.AutoScaleMode       = [System.Windows.Forms.AutoScaleMode]::Font
+$MainForm.AutoScaleMode       = [System.Windows.Forms.AutoScaleMode]::Dpi
 $MainForm.AutoScroll          = $true
 $MainForm.BackColor           = $MainFormBGColor
 $MainForm.ClientSize          = New-Object System.Drawing.Size(1146,663)
@@ -46,10 +48,10 @@ $MainForm.Text                = 'F-Capture'
 # Go Button config
 $GoButton           = New-Object System.Windows.Forms.Button
 $GoButton.Anchor    = [System.Windows.Forms.AnchorStyles]::None
-$GoButton.BackColor = [System.Drawing.Color]::LimeGreen
+$GoButton.BackColor = $GoBtnBGColor
 $GoButton.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $GoButton.Font      = 'Consolas,36'
-$GoButton.ForeColor = [System.Drawing.Color]::Black
+$GoButton.ForeColor = $ButtonFGColor
 $GoButton.Location  = New-Object System.Drawing.Point(483,219)
 $GoButton.Name      = 'GoButton'
 $GoButton.Size      = New-Object System.Drawing.Size(177,141)
@@ -64,7 +66,7 @@ $FCapTitle.BackColor   = $CheckmarkBGColor
 $FCapTitle.Font        = 'Elephant,48'
 $FCapTitle.ForeColor   = $BannerFGColor
 $FCapTitle.Location    = New-Object System.Drawing.Point(0,41)
-$FCapTitle.MaximumSize = New-Object System.Drawing.Size(5000,102)
+$FCapTitle.MaximumSize = New-Object System.Drawing.Size(10000,102)
 $FCapTitle.Name        = 'FCapTitle'
 $FCapTitle.Size        = New-Object System.Drawing.Size(1147,102)
 $FCapTitle.TabIndex    = 0
@@ -80,12 +82,23 @@ $BgPanel.Location    = New-Object System.Drawing.Point(0,90)
 $BgPanel.MaximumSize = New-Object System.Drawing.Size(5000,400)
 $BgPanel.Size        = New-Object System.Drawing.Size(1147,400)
 
+# Output directory change label
+$OutDirTextBoxLbl           = New-Object System.Windows.Forms.Label
+$OutDirTextBoxLbl.BackColor = $BannerBGColor
+$OutDirTextBoxLbl.ForeColor = $MainFormBGColor
+$OutDirTextBoxLbl.Font      = 'Consolas,9.75'
+$OutDirTextBoxLbl.Location  = New-Object System.Drawing.Point(467,382)
+$OutDirTextBoxLbl.Name      = 'OutDirTextBoxLbl'
+$OutDirTextBoxLbl.Size      = New-Object System.Drawing.Size(209,36)
+$OutDirTextBoxLbl.Text      = 'Choose an Output Directory:'
+$OutDirTextBoxLbl.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+
 # Output Directory Change button config
 $OutDirBtn           = New-Object System.Windows.Forms.Button
 $OutDirBtn.Anchor    = [System.Windows.Forms.AnchorStyles]::None
 $OutDirBtn.BackColor = $ButtonBGColor
 $OutDirBtn.Font      = 'Consolas,8.25'
-$OutDirBtn.ForeColor = [System.Drawing.Color]::Black
+$OutDirBtn.ForeColor = $ButtonFGColor
 $OutDirBtn.Location  = New-Object System.Drawing.Point(682,419)
 $OutDirBtn.Name      = 'OutDirBtn'
 $OutDirBtn.Size      = New-Object System.Drawing.Size(33,27)
@@ -94,22 +107,21 @@ $OutDirBtn.Text      = '...'
 $OutDirBtn.UseVisualStyleBackColor = $false
 
 # Output Directory Dropdown config
-$OutDirComboBox                   = New-Object System.Windows.Forms.ComboBox
-$OutDirComboBox.Anchor            = [System.Windows.Forms.AnchorStyles]::None
-$OutDirComboBox.Font              = 'Consolas,12'
-$OutDirComboBox.Location          = New-Object System.Drawing.Point(426,419)
-$OutDirComboBox.Name              = 'OutDirComboBox'
-$OutDirComboBox.Size              = New-Object System.Drawing.Size(250,27)
-$OutDirComboBox.TabIndex          = 5
-$OutDirComboBox.FormattingEnabled = $true
+$OutDirTextBox                   = New-Object System.Windows.Forms.TextBox
+$OutDirTextBox.Anchor            = [System.Windows.Forms.AnchorStyles]::None
+$OutDirTextBox.Font              = 'Consolas,12'
+$OutDirTextBox.Location          = New-Object System.Drawing.Point(426,419)
+$OutDirTextBox.Name              = 'OutDirTextBox'
+$OutDirTextBox.Size              = New-Object System.Drawing.Size(250,27)
+$OutDirTextBox.TabIndex          = 5
 
 # Advanced Menu button config
 $AdvancedBtn           = New-Object System.Windows.Forms.Button
 $AdvancedBtn.Anchor    = [System.Windows.Forms.AnchorStyles]::None
-$AdvancedBtn.BackColor = [System.Drawing.Color]::Firebrick
+$AdvancedBtn.BackColor = $AdvBtnBGColor
 $AdvancedBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $AdvancedBtn.Font      = 'Consolas,12'
-$AdvancedBtn.ForeColor = [System.Drawing.Color]::Black
+$AdvancedBtn.ForeColor = $ButtonFGColor
 $AdvancedBtn.Location  = New-Object System.Drawing.Point(483,499)
 $AdvancedBtn.Name      = 'AdvancedBtn'
 $AdvancedBtn.Size      = New-Object System.Drawing.Size(177,50)
@@ -120,17 +132,17 @@ $AdvancedBtn.UseVisualStyleBackColor = $false
 # ------------Start of configs for things inside AdvOptionGrpBox------------
 
 # Button to close Advanced Menu
-$AdvMenuCloseBtn                            = New-Object System.Windows.Forms.Button
-$AdvMenuCloseBtn.BackColor                  = $CheckmarkBGColor
-$AdvMenuCloseBtn.BackgroundImage            = [System.Drawing.Image]::FromFile("$PSScriptRoot\Resources\delete_sign_filled_30px.png")
-$AdvMenuCloseBtn.BackgroundImageLayout      = [System.Windows.Forms.ImageLayout]::Stretch
-$AdvMenuCloseBtn.FlatStyle                  = [System.Windows.Forms.FlatStyle]::Popup
-$AdvMenuCloseBtn.Font                       = 'Arial Rounded MT Bold,12'
-$AdvMenuCloseBtn.ForeColor                  = [System.Drawing.Color]::Black
-$AdvMenuCloseBtn.Location                   = New-Object System.Drawing.Point(1024,16)
-$AdvMenuCloseBtn.Name                       = 'AdvMenuCloseBtn'
-$AdvMenuCloseBtn.Size                       = New-Object System.Drawing.Size(27,27)
-$AdvMenuCloseBtn.TabIndex                   = 48
+$AdvMenuCloseBtn                         = New-Object System.Windows.Forms.Button
+$AdvMenuCloseBtn.BackColor               = $CheckmarkBGColor
+$AdvMenuCloseBtn.BackgroundImage         = [System.Drawing.Image]::FromFile("$PSScriptRoot\Resources\delete_sign_filled_30px.png")
+$AdvMenuCloseBtn.BackgroundImageLayout   = [System.Windows.Forms.ImageLayout]::Stretch
+$AdvMenuCloseBtn.FlatStyle               = [System.Windows.Forms.FlatStyle]::Popup
+$AdvMenuCloseBtn.Font                    = 'Arial Rounded MT Bold,12'
+$AdvMenuCloseBtn.ForeColor               = $ButtonFGColor
+$AdvMenuCloseBtn.Location                = New-Object System.Drawing.Point(1024,16)
+$AdvMenuCloseBtn.Name                    = 'AdvMenuCloseBtn'
+$AdvMenuCloseBtn.Size                    = New-Object System.Drawing.Size(27,27)
+$AdvMenuCloseBtn.TabIndex                = 48
 $AdvMenuCloseBtn.UseVisualStyleBackColor = $false
 
 # Profiles dropdown label
@@ -245,7 +257,7 @@ $PuTTYBtn.UseVisualStyleBackColor = $false
 
 # Packet Capture checkbox config
 $PacketCaptureCB            = New-Object System.Windows.Forms.CheckBox
-$PacketCaptureCB.BackColor  = [System.Drawing.Color]::Transparent
+$PacketCaptureCB.BackColor  = $CheckmarkBGColor
 $PacketCaptureCB.AutoSize   = $true
 $PacketCaptureCB.Checked    = $true
 $PacketCaptureCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -258,7 +270,7 @@ $PacketCaptureCB.UseVisualStyleBackColor = $true
 
 # Network Share Info checkbox config
 $NetworkShareInfoCB            = New-Object System.Windows.Forms.CheckBox
-$NetworkShareInfoCB.BackColor  = [System.Drawing.Color]::Transparent
+$NetworkShareInfoCB.BackColor  = $CheckmarkBGColor
 $NetworkShareInfoCB.AutoSize   = $true
 $NetworkShareInfoCB.Checked    = $true
 $NetworkShareInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -271,7 +283,7 @@ $NetworkShareInfoCB.UseVisualStyleBackColor = $true
 
 # Network Interfaces checkbox config
 $NetworkInterfacesCB            = New-Object System.Windows.Forms.CheckBox
-$NetworkInterfacesCB.BackColor  = [System.Drawing.Color]::Transparent
+$NetworkInterfacesCB.BackColor  = $CheckmarkBGColor
 $NetworkInterfacesCB.AutoSize   = $true
 $NetworkInterfacesCB.Checked    = $true
 $NetworkInterfacesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -284,7 +296,7 @@ $NetworkInterfacesCB.UseVisualStyleBackColor = $true
 
 # FileSystem Info checkbox config
 $FileSystemInfoCB            = New-Object System.Windows.Forms.CheckBox
-$FileSystemInfoCB.BackColor  = [System.Drawing.Color]::Transparent
+$FileSystemInfoCB.BackColor  = $CheckmarkBGColor
 $FileSystemInfoCB.AutoSize   = $true
 $FileSystemInfoCB.Checked    = $true
 $FileSystemInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -297,7 +309,7 @@ $FileSystemInfoCB.UseVisualStyleBackColor = $true
 
 # AutoRun Items checkbox config
 $AutoRunItemsCB            = New-Object System.Windows.Forms.CheckBox
-$AutoRunItemsCB.BackColor  = [System.Drawing.Color]::Transparent
+$AutoRunItemsCB.BackColor  = $CheckmarkBGColor
 $AutoRunItemsCB.AutoSize   = $true
 $AutoRunItemsCB.Checked    = $true
 $AutoRunItemsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -310,7 +322,7 @@ $AutoRunItemsCB.UseVisualStyleBackColor = $true
 
 # UserAssist Info checkbox config
 $UserAssistInfoCB            = New-Object System.Windows.Forms.CheckBox
-$UserAssistInfoCB.BackColor  = [System.Drawing.Color]::Transparent
+$UserAssistInfoCB.BackColor  = $CheckmarkBGColor
 $UserAssistInfoCB.AutoSize   = $true
 $UserAssistInfoCB.Checked    = $true
 $UserAssistInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -323,7 +335,7 @@ $UserAssistInfoCB.UseVisualStyleBackColor = $true
 
 # Network Profiles checkbox config
 $NetworkProfilesCB            = New-Object System.Windows.Forms.CheckBox
-$NetworkProfilesCB.BackColor  = [System.Drawing.Color]::Transparent
+$NetworkProfilesCB.BackColor  = $CheckmarkBGColor
 $NetworkProfilesCB.AutoSize   = $true
 $NetworkProfilesCB.Checked    = $true
 $NetworkProfilesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -336,7 +348,7 @@ $NetworkProfilesCB.UseVisualStyleBackColor = $true
 
 # User Accounts checkbox config
 $UserAccountsCB            = New-Object System.Windows.Forms.CheckBox
-$UserAccountsCB.BackColor  = [System.Drawing.Color]::Transparent
+$UserAccountsCB.BackColor  = $CheckmarkBGColor
 $UserAccountsCB.AutoSize   = $true
 $UserAccountsCB.Checked    = $true
 $UserAccountsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -349,7 +361,7 @@ $UserAccountsCB.UseVisualStyleBackColor = $true
 
 # Timezone Info checkbox config
 $TimezoneInfoCB            = New-Object System.Windows.Forms.CheckBox
-$TimezoneInfoCB.BackColor  = [System.Drawing.Color]::Transparent
+$TimezoneInfoCB.BackColor  = $CheckmarkBGColor
 $TimezoneInfoCB.AutoSize   = $true
 $TimezoneInfoCB.Checked    = $true
 $TimezoneInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -362,7 +374,7 @@ $TimezoneInfoCB.UseVisualStyleBackColor = $true
 
 # Windows Services checkbox config
 $WindowsServicesCB            = New-Object System.Windows.Forms.CheckBox
-$WindowsServicesCB.BackColor  = [System.Drawing.Color]::Transparent
+$WindowsServicesCB.BackColor  = $CheckmarkBGColor
 $WindowsServicesCB.AutoSize   = $true
 $WindowsServicesCB.Checked    = $true
 $WindowsServicesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -375,7 +387,7 @@ $WindowsServicesCB.UseVisualStyleBackColor = $true
 
 # SRUM Info checkbox config
 $SRUMInfoCB            = New-Object System.Windows.Forms.CheckBox
-$SRUMInfoCB.BackColor  = [System.Drawing.Color]::Transparent
+$SRUMInfoCB.BackColor  = $CheckmarkBGColor
 $SRUMInfoCB.AutoSize   = $true
 $SRUMInfoCB.Checked    = $true
 $SRUMInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -388,7 +400,7 @@ $SRUMInfoCB.UseVisualStyleBackColor = $true
 
 # Shim Cache checkbox config
 $ShimCacheCB            = New-Object System.Windows.Forms.CheckBox
-$ShimCacheCB.BackColor  = [System.Drawing.Color]::Transparent
+$ShimCacheCB.BackColor  = $CheckmarkBGColor
 $ShimCacheCB.AutoSize   = $true
 $ShimCacheCB.Checked    = $true
 $ShimCacheCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -401,7 +413,7 @@ $ShimCacheCB.UseVisualStyleBackColor = $true
 
 # Shellbags checkbox config
 $ShellbagsCB            = New-Object System.Windows.Forms.CheckBox
-$ShellbagsCB.BackColor  = [System.Drawing.Color]::Transparent
+$ShellbagsCB.BackColor  = $CheckmarkBGColor
 $ShellbagsCB.AutoSize   = $true
 $ShellbagsCB.Checked    = $true
 $ShellbagsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -414,7 +426,7 @@ $ShellbagsCB.UseVisualStyleBackColor = $true
 
 # Scheduled Tasks checkbox config
 $ScheduledTasksCB            = New-Object System.Windows.Forms.CheckBox
-$ScheduledTasksCB.BackColor  = [System.Drawing.Color]::Transparent
+$ScheduledTasksCB.BackColor  = $CheckmarkBGColor
 $ScheduledTasksCB.AutoSize   = $true
 $ScheduledTasksCB.Checked    = $true
 $ScheduledTasksCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -427,7 +439,7 @@ $ScheduledTasksCB.UseVisualStyleBackColor = $true
 
 # RDP Cache checkbox config
 $RDPCacheCB            = New-Object System.Windows.Forms.CheckBox
-$RDPCacheCB.BackColor  = [System.Drawing.Color]::Transparent
+$RDPCacheCB.BackColor  = $CheckmarkBGColor
 $RDPCacheCB.AutoSize   = $true
 $RDPCacheCB.Checked    = $true
 $RDPCacheCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -440,7 +452,7 @@ $RDPCacheCB.UseVisualStyleBackColor = $true
 
 # Recycle Bin checkbox config
 $RecycleBinCB            = New-Object System.Windows.Forms.CheckBox
-$RecycleBinCB.BackColor  = [System.Drawing.Color]::Transparent
+$RecycleBinCB.BackColor  = $CheckmarkBGColor
 $RecycleBinCB.AutoSize   = $true
 $RecycleBinCB.Checked    = $true
 $RecycleBinCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -453,7 +465,7 @@ $RecycleBinCB.UseVisualStyleBackColor = $true
 
 # Prefetch files checkbox config
 $PrefetchFilesCB            = New-Object System.Windows.Forms.CheckBox
-$PrefetchFilesCB.BackColor  = [System.Drawing.Color]::Transparent
+$PrefetchFilesCB.BackColor  = $CheckmarkBGColor
 $PrefetchFilesCB.AutoSize   = $true
 $PrefetchFilesCB.Checked    = $true
 $PrefetchFilesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -466,7 +478,7 @@ $PrefetchFilesCB.UseVisualStyleBackColor = $true
 
 # Swap files checkbox config
 $SwapFilesCB            = New-Object System.Windows.Forms.CheckBox
-$SwapFilesCB.BackColor  = [System.Drawing.Color]::Transparent
+$SwapFilesCB.BackColor  = $CheckmarkBGColor
 $SwapFilesCB.AutoSize   = $true
 $SwapFilesCB.Checked    = $true
 $SwapFilesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -479,7 +491,7 @@ $SwapFilesCB.UseVisualStyleBackColor = $true
 
 # MRU Lists checkbox config
 $MRUListsCB            = New-Object System.Windows.Forms.CheckBox
-$MRUListsCB.BackColor  = [System.Drawing.Color]::Transparent
+$MRUListsCB.BackColor  = $CheckmarkBGColor
 $MRUListsCB.AutoSize   = $true
 $MRUListsCB.Checked    = $true
 $MRUListsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -492,7 +504,7 @@ $MRUListsCB.UseVisualStyleBackColor = $true
 
 # DLLs checkbox config
 $DLLsCB            = New-Object System.Windows.Forms.CheckBox
-$DLLsCB.BackColor  = [System.Drawing.Color]::Transparent
+$DLLsCB.BackColor  = $CheckmarkBGColor
 $DLLsCB.AutoSize   = $true
 $DLLsCB.Checked    = $true
 $DLLsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -505,7 +517,7 @@ $DLLsCB.UseVisualStyleBackColor = $true
 
 # System Restore Points checkbox config
 $RestorePointsCB            = New-Object System.Windows.Forms.CheckBox
-$RestorePointsCB.BackColor  = [System.Drawing.Color]::Transparent
+$RestorePointsCB.BackColor  = $CheckmarkBGColor
 $RestorePointsCB.AutoSize   = $true
 $RestorePointsCB.Checked    = $true
 $RestorePointsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -518,7 +530,7 @@ $RestorePointsCB.UseVisualStyleBackColor = $true
 
 # LNK files checkbox config
 $LNKFilesCB            = New-Object System.Windows.Forms.CheckBox
-$LNKFilesCB.BackColor  = [System.Drawing.Color]::Transparent
+$LNKFilesCB.BackColor  = $CheckmarkBGColor
 $LNKFilesCB.AutoSize   = $true
 $LNKFilesCB.Checked    = $true
 $LNKFilesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -531,7 +543,7 @@ $LNKFilesCB.UseVisualStyleBackColor = $true
 
 # Keyword Searches checkbox config
 $KeywordSearchesCB            = New-Object System.Windows.Forms.CheckBox
-$KeywordSearchesCB.BackColor  = [System.Drawing.Color]::Transparent
+$KeywordSearchesCB.BackColor  = $CheckmarkBGColor
 $KeywordSearchesCB.AutoSize   = $true
 $KeywordSearchesCB.Checked    = $true
 $KeywordSearchesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -544,7 +556,7 @@ $KeywordSearchesCB.UseVisualStyleBackColor = $true
 
 # Jump Lists checkbox config
 $JumpListsCB            = New-Object System.Windows.Forms.CheckBox
-$JumpListsCB.BackColor  = [System.Drawing.Color]::Transparent
+$JumpListsCB.BackColor  = $CheckmarkBGColor
 $JumpListsCB.AutoSize   = $true
 $JumpListsCB.Checked    = $true
 $JumpListsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -557,7 +569,7 @@ $JumpListsCB.UseVisualStyleBackColor = $true
 
 # Installed Programs checkbox config
 $InstalledProgramsCB            = New-Object System.Windows.Forms.CheckBox
-$InstalledProgramsCB.BackColor  = [System.Drawing.Color]::Transparent
+$InstalledProgramsCB.BackColor  = $CheckmarkBGColor
 $InstalledProgramsCB.AutoSize   = $true
 $InstalledProgramsCB.Checked    = $true
 $InstalledProgramsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -570,7 +582,7 @@ $InstalledProgramsCB.UseVisualStyleBackColor = $true
 
 # File Associations checkbox config
 $FileAssociationsCB            = New-Object System.Windows.Forms.CheckBox
-$FileAssociationsCB.BackColor  = [System.Drawing.Color]::Transparent
+$FileAssociationsCB.BackColor  = $CheckmarkBGColor
 $FileAssociationsCB.AutoSize   = $true
 $FileAssociationsCB.Checked    = $true
 $FileAssociationsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -583,7 +595,7 @@ $FileAssociationsCB.UseVisualStyleBackColor = $true
 
 # Startup Programs checkbox config
 $StartupProgramsCB            = New-Object System.Windows.Forms.CheckBox
-$StartupProgramsCB.BackColor  = [System.Drawing.Color]::Transparent
+$StartupProgramsCB.BackColor  = $CheckmarkBGColor
 $StartupProgramsCB.AutoSize   = $true
 $StartupProgramsCB.Checked    = $true
 $StartupProgramsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -596,7 +608,7 @@ $StartupProgramsCB.UseVisualStyleBackColor = $true
 
 # AmCache checkbox config
 $AmCacheCB            = New-Object System.Windows.Forms.CheckBox
-$AmCacheCB.BackColor  = [System.Drawing.Color]::Transparent
+$AmCacheCB.BackColor  = $CheckmarkBGColor
 $AmCacheCB.AutoSize   = $true
 $AmCacheCB.Checked    = $true
 $AmCacheCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -609,7 +621,7 @@ $AmCacheCB.UseVisualStyleBackColor = $true
 
 # Windows Event Logs checkbox config
 $EventLogsCB            = New-Object System.Windows.Forms.CheckBox
-$EventLogsCB.BackColor  = [System.Drawing.Color]::Transparent
+$EventLogsCB.BackColor  = $CheckmarkBGColor
 $EventLogsCB.AutoSize   = $true
 $EventLogsCB.Checked    = $true
 $EventLogsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -622,7 +634,7 @@ $EventLogsCB.UseVisualStyleBackColor = $true
 
 # Registry recording checkbox config
 $RegistryCB            = New-Object System.Windows.Forms.CheckBox
-$RegistryCB.BackColor  = [System.Drawing.Color]::Transparent
+$RegistryCB.BackColor  = $CheckmarkBGColor
 $RegistryCB.AutoSize   = $true
 $RegistryCB.Checked    = $true
 $RegistryCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -635,7 +647,7 @@ $RegistryCB.UseVisualStyleBackColor = $true
 
 # Image Scan checkbox config
 $ImageScanCB            = New-Object System.Windows.Forms.CheckBox
-$ImageScanCB.BackColor  = [System.Drawing.Color]::Transparent
+$ImageScanCB.BackColor  = $CheckmarkBGColor
 $ImageScanCB.AutoSize   = $true
 $ImageScanCB.Checked    = $true
 $ImageScanCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -648,7 +660,7 @@ $ImageScanCB.UseVisualStyleBackColor = $true
 
 # Peripheral Devices checkbox config
 $PeripheralDevicesCB            = New-Object System.Windows.Forms.CheckBox
-$PeripheralDevicesCB.BackColor  = [System.Drawing.Color]::Transparent
+$PeripheralDevicesCB.BackColor  = $CheckmarkBGColor
 $PeripheralDevicesCB.AutoSize   = $true
 $PeripheralDevicesCB.Checked    = $true
 $PeripheralDevicesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -661,7 +673,7 @@ $PeripheralDevicesCB.UseVisualStyleBackColor = $true
 
 # Browser History checkbox config
 $BrowserHistoryCB            = New-Object System.Windows.Forms.CheckBox
-$BrowserHistoryCB.BackColor  = [System.Drawing.Color]::Transparent
+$BrowserHistoryCB.BackColor  = $CheckmarkBGColor
 $BrowserHistoryCB.AutoSize   = $true
 $BrowserHistoryCB.Checked    = $true
 $BrowserHistoryCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -674,7 +686,7 @@ $BrowserHistoryCB.UseVisualStyleBackColor = $true
 
 # Browser Cookies checkbox config
 $BrowserCookiesCB            = New-Object System.Windows.Forms.CheckBox
-$BrowserCookiesCB.BackColor  = [System.Drawing.Color]::Transparent
+$BrowserCookiesCB.BackColor  = $CheckmarkBGColor
 $BrowserCookiesCB.AutoSize   = $true
 $BrowserCookiesCB.Checked    = $true
 $BrowserCookiesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -687,7 +699,7 @@ $BrowserCookiesCB.UseVisualStyleBackColor = $true
 
 # Open Window Screenshots checkbox config
 $ScreenshotsCB            = New-Object System.Windows.Forms.CheckBox
-$ScreenshotsCB.BackColor  = [System.Drawing.Color]::Transparent
+$ScreenshotsCB.BackColor  = $CheckmarkBGColor
 $ScreenshotsCB.AutoSize   = $true
 $ScreenshotsCB.Checked    = $true
 $ScreenshotsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -700,7 +712,7 @@ $ScreenshotsCB.UseVisualStyleBackColor = $true
 
 # Memory Imaging checkbox config
 $MemoryImageCB            = New-Object System.Windows.Forms.CheckBox
-$MemoryImageCB.BackColor  = [System.Drawing.Color]::Transparent
+$MemoryImageCB.BackColor  = $CheckmarkBGColor
 $MemoryImageCB.AutoSize   = $true
 $MemoryImageCB.Checked    = $true
 $MemoryImageCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -713,7 +725,7 @@ $MemoryImageCB.UseVisualStyleBackColor = $true
 
 # Active Processes checkbox config
 $ActiveProcessesCB            = New-Object System.Windows.Forms.CheckBox
-$ActiveProcessesCB.BackColor  = [System.Drawing.Color]::Transparent
+$ActiveProcessesCB.BackColor  = $CheckmarkBGColor
 $ActiveProcessesCB.AutoSize   = $true
 $ActiveProcessesCB.Checked    = $true
 $ActiveProcessesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -726,7 +738,7 @@ $ActiveProcessesCB.UseVisualStyleBackColor = $true
 
 # System Information checkbox config
 $SystemInfoCB            = New-Object System.Windows.Forms.CheckBox
-$SystemInfoCB.BackColor  = [System.Drawing.Color]::Transparent
+$SystemInfoCB.BackColor  = $CheckmarkBGColor
 $SystemInfoCB.AutoSize   = $true
 $SystemInfoCB.Checked    = $true
 $SystemInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
@@ -740,7 +752,7 @@ $SystemInfoCB.UseVisualStyleBackColor = $true
 #CheckUncheckAllCB
 $CheckUncheckAllCB            = New-Object System.Windows.Forms.CheckBox
 $CheckUncheckAllCB.AutoSize   = $true
-$CheckUncheckAllCB.BackColor  = [System.Drawing.Color]::Transparent
+$CheckUncheckAllCB.BackColor  = $CheckmarkBGColor
 $CheckUncheckAllCB.Checked    = $true
 $CheckUncheckAllCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $CheckUncheckAllCB.ForeColor  = [System.Drawing.Color]::White
@@ -754,7 +766,7 @@ $CheckUncheckAllCB.UseVisualStyleBackColor = $false
 #VHDXOutputRBtn
 $VHDXOutputRBtn            = New-Object System.Windows.Forms.RadioButton
 $VHDXOutputRBtn.AutoSize   = $true
-$VHDXOutputRBtn.BackColor  = [System.Drawing.Color]::Transparent
+$VHDXOutputRBtn.BackColor  = $CheckmarkBGColor
 $VHDXOutputRBtn.CheckAlign = [System.Drawing.ContentAlignment]::TopCenter
 $VHDXOutputRBtn.Checked    = $true
 $VHDXOutputRBtn.Location   = New-Object System.Drawing.Point (772,174)
@@ -768,7 +780,7 @@ $VHDXOutputRBtn.UseVisualStyleBackColor = $false
 #ZipOutputRBtn
 $ZipOutputRBtn            = New-Object System.Windows.Forms.RadioButton
 $ZipOutputRBtn.AutoSize   = $true
-$ZipOutputRBtn.BackColor  = [System.Drawing.Color]::Transparent
+$ZipOutputRBtn.BackColor  = $CheckmarkBGColor
 $ZipOutputRBtn.CheckAlign = [System.Drawing.ContentAlignment]::TopCenter
 $ZipOutputRBtn.Location   = New-Object System.Drawing.Point (817,174)
 $ZipOutputRBtn.Name       = 'ZipOutputRBtn'
@@ -779,7 +791,7 @@ $ZipOutputRBtn.UseVisualStyleBackColor = $false
 
 #OutputFormatLabel
 $OutputFormatLabel           = New-Object System.Windows.Forms.Label
-$OutputFormatLabel.BackColor = [System.Drawing.Color]::Transparent
+$OutputFormatLabel.BackColor = $CheckmarkBGColor
 $OutputFormatLabel.Location  = New-Object System.Drawing.Point (754,147)
 $OutputFormatLabel.Name      = 'OutputFormatLabel'
 $OutputFormatLabel.Size      = New-Object System.Drawing.Size (114,24)
@@ -861,7 +873,8 @@ $AdvOptionGrpBox.Controls.Add($SystemInfoCB)
 
 $MainForm.Controls.Add($GoButton)
 $MainForm.Controls.Add($FCapTitle)
-$MainForm.Controls.Add($OutDirComboBox)
+$MainForm.Controls.Add($OutDirTextBoxLbl)
+$MainForm.Controls.Add($OutDirTextBox)
 $MainForm.Controls.Add($OutDirBtn)
 $MainForm.Controls.Add($AdvancedBtn)
 $MainForm.Controls.Add($AdvOptionGrpBox)
@@ -875,8 +888,8 @@ $RegistryScanBtn.Add_Click({ Scan-Registry })
 $ProfileSaveBtn.Add_Click({ Save-User-Profile })
 $ProfileLoadBtn.Add_Click({ Load-User-Profile })
 $PuTTYBtn.Add_Click({ Putty })
-$OutDirComboBox.Add_SelectedIndexChanged({ Changed-OutDir-In-Box })
 $OutDirBtn.Add_Click({ Output-Location })
+$CheckUncheckAllCB.Add_CheckedChanged({ Toggle-All-Checkboxes })
 
 # Run the main window
 $MainForm.ShowDialog()

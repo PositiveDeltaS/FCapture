@@ -3,6 +3,7 @@ function Open-Advanced-Menu()
 {
 	# Hide Simple UI elements
 	$GoButton.Hide()
+    $OutDirComBoxLbl.Hide()
 	$OutDirBtn.Hide()
 	$OutDirComboBox.Hide()
 	$AdvancedBtn.Hide()
@@ -21,6 +22,7 @@ function Close-Advanced-Menu()
 
 	# Show Simple UI elements
 	$GoButton.Show()
+    $OutDirComBoxLbl.Show()
 	$OutDirBtn.Show()
 	$OutDirComboBox.Show()
 	$AdvancedBtn.Show()

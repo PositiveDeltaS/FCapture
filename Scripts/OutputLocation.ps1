@@ -34,38 +34,13 @@ function Output-Location
 		Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
     
         # Update Output Directory text in GUI
-        $OutDirComboBox.text = $OUTPUT_DIR
-
-        # Add the new directory to the list of options in dropdown, if not already there
-        if(!$OutDirComboBox.Items.Contains($OutDirComboBox.text))
-        {
-            $OutDirComboBox.Items.Add($OUTPUT_DIR)
-        }
+        $OutDirTextBox.text = $OUTPUT_DIR
 	}
 	else
     {
         Write-Host "Selected output destination was on local machine"
 		Add-Log-Entry $FAIL_LOG "Failed to change output directory"
 	}
-}
-
-# Executed if the user clicked the dropdown and then clicked on a location
-function Changed-OutDir-In-Box()
-{
-    if(Assert-Path-Is-On-Removable-Device $OutDirComboBox.text)
-    {
-        $global:OUTPUT_DIR = $OutDirComboBox.text
-
-        # Log change and inform of change in console
-        Write-Host "Successfully selected removable output destination"
-        $outputLogMsg = "Selected Output Directory : $OUTPUT_DIR"
-	    Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
-    }
-    else
-    {
-	    Write-Host "Selected output destination was on local machine"
-		Add-Log-Entry $FAIL_LOG "Failed to change output directory"
-    }
 }
 
 #insert removable media to help test this
@@ -84,7 +59,7 @@ function Assert-Path-Is-On-Removable-Device([string]$filePath)
 	$removableDrives = ([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" }).Name
     
     # If there are no removable drive, just fail
-    if($null -eq $removableDrives)
+    if($removableDrives.Count -eq 0)
     {
         Write-Host "There are no removable drives available"
         return $false

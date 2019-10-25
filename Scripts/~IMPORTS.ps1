@@ -45,3 +45,4 @@
 . "$PSScriptRoot\Filesystem-Info.ps1"
 . "$PSScriptRoot\Network-Interfaces.ps1"
 . "$PSScriptRoot\Network-Share-Info.ps1"
+. "$PSScriptRoot\Toggle-Checkboxes.ps1"
