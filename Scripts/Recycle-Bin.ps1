@@ -28,5 +28,5 @@ function Get-Recycle-Bin {
    }
  }
 } 
-
-Get-Recycle-Bin 'C:\$Recycle.Bin\*' "$global:OUTPUT_DIR\RecycleBinFiles" | Out-File "$global:OUTPUT_DIR\Recyclebincontents.txt"
+# This line is outside of the function so it's being called immediately upon starting the program and causing errors
+#Get-Recycle-Bin 'C:\$Recycle.Bin\*' "$global:OUTPUT_DIR\RecycleBinFiles" | Out-File "$global:OUTPUT_DIR\Recyclebincontents.txt"

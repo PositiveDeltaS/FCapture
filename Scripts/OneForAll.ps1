@@ -1,7 +1,7 @@
 function OneForAll
 {
     # Fail if user hasn't picked an output directory and the f-capture root dir is not on removable drive
-    if(("" -eq $OutDirComboBox.text) -and (!(Assert-Path-Is-On-Removable-Device "$PSScriptRoot"))){ return }
+    if(("" -eq $OutDirTextBox.text) -and (!(Assert-Path-Is-On-Removable-Device "$PSScriptRoot"))){ return }
 
     # Disable Buttons
     $GoButton.Enabled    = $false

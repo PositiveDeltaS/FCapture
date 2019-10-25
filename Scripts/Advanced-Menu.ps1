@@ -3,9 +3,9 @@ function Open-Advanced-Menu()
 {
 	# Hide Simple UI elements
 	$GoButton.Hide()
-    $OutDirComBoxLbl.Hide()
+    $OutDirTextBoxLbl.Hide()
 	$OutDirBtn.Hide()
-	$OutDirComboBox.Hide()
+	$OutDirTextBox.Hide()
 	$AdvancedBtn.Hide()
 
     # Populate list of drives for imaging if first time opening
@@ -22,8 +22,8 @@ function Close-Advanced-Menu()
 
 	# Show Simple UI elements
 	$GoButton.Show()
-    $OutDirComBoxLbl.Show()
+    $OutDirTextBoxLbl.Show()
 	$OutDirBtn.Show()
-	$OutDirComboBox.Show()
+	$OutDirTextBox.Show()
 	$AdvancedBtn.Show()
 }
