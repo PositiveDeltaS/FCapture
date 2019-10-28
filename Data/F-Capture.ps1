@@ -10,13 +10,17 @@ $global:FAIL_LOG    = "$PSScriptRoot\fail.txt"
 # For testing & development purposes only, output should be redirected to a removable drive
 $global:OUTPUT_DIR  = "$PSScriptRoot"
 
+# Hides console soonafter starting if $DEV_MODE is $false
+$global:DEV_MODE    = $true
+if(!$DEV_MODE){ Hide-Console }
+
 # Import PS Windows Forms wrapper because F-Capture is a GUI-based application
 Add-Type -AssemblyName System.Windows.Forms
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
-
-# Create elements to use when setting up main form
+# Visual settings for various UI elements
 $Icon             = New-Object System.Drawing.Icon("$PSScriptRoot\Resources\FCAP.ICO")
+$VersionNumber    = 'Version 0.1.0'
 $MainFormBGColor  = [System.Drawing.Color]::FromArgb(219,228,235)
 $MainFormFGColor  = [System.Drawing.Color]::FromArgb(255,255,255)
 $BannerBGColor    = [System.Drawing.Color]::FromArgb(5,78,111)
@@ -28,6 +32,9 @@ $ButtonFGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
 $GoBtnBGColor     = [System.Drawing.Color]::LimeGreen
 $AdvBtnBGColor    = [System.Drawing.Color]::Firebrick
 $CheckmarkBGColor = [System.Drawing.Color]::Transparent
+$MStripFGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
+$WarningLblColor  = [System.Drawing.Color]::Yellow
+$LinkLblColor     = [System.Drawing.Color]::LimeGreen
 
 # Create main form and button elements
 $MainForm                     = New-Object System.Windows.Forms.Form
@@ -45,6 +52,235 @@ $MainForm.Name                = 'MainForm'
 $MainForm.StartPosition       = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MainForm.Text                = 'F-Capture'
 
+# ------------ Splashscreen Elements ------------
+
+# Warning Label
+$WarningLbl           = New-Object System.Windows.Forms.Label
+$WarningLbl.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$WarningLbl.Font      = New-Object System.Drawing.Font('Cambria',30,[System.Drawing.FontStyle]::Bold)
+$WarningLbl.ForeColor = $WarningLblColor
+$WarningLbl.Location  = New-Object System.Drawing.Point(472,20)
+$WarningLbl.Name      = 'WarningLbl'
+$WarningLbl.Size      = New-Object System.Drawing.Size(201,47)
+$WarningLbl.TabIndex  = 0
+$WarningLbl.Text      = 'WARNING'
+$WarningLbl.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+
+# Info Label
+$InfoLbl           = New-Object System.Windows.Forms.Label
+$InfoLbl.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$InfoLbl.Font      = New-Object System.Drawing.Font('Consolas',14.25,[System.Drawing.FontStyle]::Bold)
+$InfoLbl.ForeColor = [System.Drawing.Color]::White
+$InfoLbl.Location  = New-Object System.Drawing.Point(116,79)
+$InfoLbl.Name      = 'InfoLbl'
+$InfoLbl.Size      = New-Object System.Drawing.Size(914,188)
+$InfoLbl.Text      = Get-Content "$PSScriptRoot\Resources\SplashscreenInfo.txt" -Raw
+$InfoLbl.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+
+# Exit Button
+$ExitBtn           = New-Object System.Windows.Forms.Button
+$ExitBtn.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$ExitBtn.BackColor = [System.Drawing.Color]::White
+$ExitBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$ExitBtn.Font      = 'Consolas,12'
+$ExitBtn.ForeColor = [System.Drawing.Color]::Black
+$ExitBtn.Location  = New-Object System.Drawing.Point(637,280)
+$ExitBtn.Name      = 'ExitBtn'
+$ExitBtn.Size      = New-Object System.Drawing.Size(152,48)
+$ExitBtn.TabIndex  = 5
+$ExitBtn.Text      = 'EXIT'
+
+# Accept Button
+$AcceptBtn           = New-Object System.Windows.Forms.Button
+$AcceptBtn.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$AcceptBtn.BackColor = [System.Drawing.Color]::White
+$AcceptBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$AcceptBtn.Font      = 'Consolas,12'
+$AcceptBtn.ForeColor = [System.Drawing.Color]::Black
+$AcceptBtn.Location  = New-Object System.Drawing.Point(348,280)
+$AcceptBtn.Name      = 'AcceptBtn'
+$AcceptBtn.Size      = New-Object System.Drawing.Size(152,48)
+$AcceptBtn.TabIndex  = 4
+$AcceptBtn.Text      = 'ACCEPT'
+
+# Splashscreen Top Panel
+$SSTopPanel             = New-Object System.Windows.Forms.Panel
+$SSTopPanel.Anchor      = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Left -bor [System.Windows.Forms.AnchorStyles]::Right)
+$SSTopPanel.BackColor   = $BannerBGColor
+$SSTopPanel.Location    = New-Object System.Drawing.Point(0,180)
+$SSTopPanel.MaximumSize = New-Object System.Drawing.Size(10000,347)
+$SSTopPanel.Name        = 'SSTopPanel'
+$SSTopPanel.Size        = New-Object System.Drawing.Size(1146,347)
+$SSTopPanel.Controls.Add($ExitBtn)
+$SSTopPanel.Controls.Add($AcceptBtn)
+$SSTopPanel.Controls.Add($InfoLbl)
+$SSTopPanel.Controls.Add($WarningLbl)
+
+# Version Number Label
+$VersionNumLbl           = New-Object System.Windows.Forms.Label
+$VersionNumLbl.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$VersionNumLbl.AutoSize  = $true
+$VersionNumLbl.BackColor = [System.Drawing.Color]::Transparent
+$VersionNumLbl.Font      = New-Object System.Drawing.Font('Consolas',14.25,[System.Drawing.FontStyle]::Bold)
+$VersionNumLbl.ForeColor = [System.Drawing.Color]::White
+$VersionNumLbl.Location  = New-Object System.Drawing.Point(57,9)
+$VersionNumLbl.Name      = 'VersionNumLbl'
+$VersionNumLbl.Size      = New-Object System.Drawing.Size(140,22)
+$VersionNumLbl.Text      = $VersionNumber
+$VersionNumLbl.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+
+# Website Label
+$WebsiteLbl           = New-Object System.Windows.Forms.LinkLabel
+$WebsiteLbl.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$WebsiteLbl.AutoSize  = $true
+$WebsiteLbl.BackColor = [System.Drawing.Color]::Transparent
+$WebsiteLbl.Font      = 'Consolas,12'
+$WebsiteLbl.ForeColor = [System.Drawing.Color]::Black
+$WebsiteLbl.LinkColor = $LinkLblColor
+$WebsiteLbl.Location  = New-Object System.Drawing.Point(338,11)
+$WebsiteLbl.Name      = 'WebsiteLbl'
+$WebsiteLbl.Size      = New-Object System.Drawing.Size(162,19)
+$WebsiteLbl.Text      = 'F-Capture Website'
+
+# Github Label
+$GithubLbl           = New-Object System.Windows.Forms.LinkLabel
+$GithubLbl.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$GithubLbl.AutoSize  = $true
+$GithubLbl.BackColor = [System.Drawing.Color]::Transparent
+$GithubLbl.Font      = 'Consolas,12'
+$GithubLbl.ForeColor = [System.Drawing.Color]::Black
+$GithubLbl.LinkColor = $LinkLblColor
+$GithubLbl.Location  = New-Object System.Drawing.Point(636,11)
+$GithubLbl.Name      = 'GithubLbl'
+$GithubLbl.Size      = New-Object System.Drawing.Size(153,19)
+$GithubLbl.Text      = 'F-Capture Github'
+
+# Team Name Label
+$TeamNameLbl           = New-Object System.Windows.Forms.Label
+$TeamNameLbl.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$TeamNameLbl.AutoSize  = $true
+$TeamNameLbl.BackColor = [System.Drawing.Color]::Transparent
+$TeamNameLbl.Font      = New-Object System.Drawing.Font('Consolas',14.25,[System.Drawing.FontStyle]::Bold)
+$TeamNameLbl.ForeColor = [System.Drawing.Color]::White
+$TeamNameLbl.Location  = New-Object System.Drawing.Point(880,9)
+$TeamNameLbl.Name      = 'TeamNameLbl'
+$TeamNameLbl.Size      = New-Object System.Drawing.Size(210,22)
+$TeamNameLbl.Text      = 'F-Capture Team, 2019'
+$TeamNameLbl.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+
+# Splashscreen Bottom Panel
+$SSBottomPanel             = New-Object System.Windows.Forms.Panel
+$SSBottomPanel.Anchor      = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Bottom -bor [System.Windows.Forms.AnchorStyles]::Left -bor [System.Windows.Forms.AnchorStyles]::Right)
+$SSBottomPanel.BackColor   = $BannerBGColor
+$SSBottomPanel.Location    = New-Object System.Drawing.Point(0,623)
+$SSBottomPanel.MaximumSize = New-Object System.Drawing.Size(10000,40)
+$SSBottomPanel.Name        = 'SSBottomPanel'
+$SSBottomPanel.Size        = New-Object System.Drawing.Size(1146,40)
+$SSBottomPanel.Controls.Add($GithubLbl)
+$SSBottomPanel.Controls.Add($WebsiteLbl)
+$SSBottomPanel.Controls.Add($VersionNumLbl)
+$SSBottomPanel.Controls.Add($TeamNameLbl)
+
+# ------------ Menu Strip ------------
+
+# Go Menu Item
+$GoSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
+$GoSMItem.AutoToolTip = $true
+$GoSMItem.Name        = 'GoSMItem'
+$GoSMItem.Size        = New-Object System.Drawing.Size(180,22)
+$GoSMItem.Text        = 'Go'
+$GoSMItem.ToolTipText = 'Start the scanning process'
+
+# Exit Menu Item
+$ExitSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
+$ExitSMItem.AutoToolTip = $true
+$ExitSMItem.Name        = 'ExitSMItem'
+$ExitSMItem.Size        = New-Object System.Drawing.Size(180,22)
+$ExitSMItem.Text        = 'Exit'
+$ExitSMItem.ToolTipText = 'Exit the program'
+
+# File Submenu
+$FileSMItem           = New-Object System.Windows.Forms.ToolStripMenuItem
+$FileSMItem.ForeColor = $MStripFGColor
+$FileSMItem.Name      = 'FileSMItem'
+$FileSMItem.Size      = New-Object System.Drawing.Size(37,20)
+$FileSMItem.Text      = 'File'
+[void]$FileSMItem.DropDownItems.Add($GoSMItem)
+[void]$FileSMItem.DropDownItems.Add($ExitSMItem)
+
+# PuTTY Menu Item
+$PuTTYSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
+$PuTTYSMItem.AutoToolTip = $true
+$PuTTYSMItem.Name        = 'PuTTYSMItem'
+$PuTTYSMItem.Size        = New-Object System.Drawing.Size(180,22)
+$PuTTYSMItem.Text        = 'PuTTY'
+$PuTTYSMItem.ToolTipText = 'PuTTY is a free and open-source terminal emulator, serial console and network file transfer application'
+
+# VNCServer Menu Item
+$VNCServerSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
+$VNCServerSMItem.AutoToolTip = $true
+$VNCServerSMItem.Name        = 'VNCServerSMItem'
+$VNCServerSMItem.Size        = New-Object System.Drawing.Size(180,22)
+$VNCServerSMItem.Text        = 'VNC Server'
+$VNCServerSMItem.ToolTipText = 'VNC is a graphical desktop-sharing system that uses the Remote Frame Buffer protocol to remotely control another computer'
+$VNCServerSMItem.Enabled     = $false
+
+# Tools Submenu
+$ToolsSMItem           = New-Object System.Windows.Forms.ToolStripMenuItem
+$ToolsSMItem.ForeColor = $MStripFGColor
+$ToolsSMItem.Name      = 'ToolsSMItem'
+$ToolsSMItem.Size      = New-Object System.Drawing.Size(47,20)
+$ToolsSMItem.Text      = 'Tools'
+[void]$ToolsSMItem.DropDownItems.Add($PuTTYSMItem)
+[void]$ToolsSMItem.DropDownItems.Add($VNCServerSMItem)
+
+# Website Menu Item
+$WebsiteSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
+$WebsiteSMItem.AutoToolTip = $true
+$WebsiteSMItem.Name        = 'WebsiteSMItem'
+$WebsiteSMItem.Size        = New-Object System.Drawing.Size(180,22)
+$WebsiteSMItem.Text        = 'Website'
+$WebsiteSMItem.ToolTipText = 'Open the F-Capture website in the default browser'
+
+# Github Menu Item
+$GithubSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
+$GithubSMItem.AutoToolTip = $true
+$GithubSMItem.Name        = 'GithubSMItem'
+$GithubSMItem.Size        = New-Object System.Drawing.Size(180,22)
+$GithubSMItem.Text        = 'Github'
+$GithubSMItem.ToolTipText = 'Open the F-Capture Github Repository in the default browser'
+
+# Wiki Menu Item
+$WikiSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
+$WikiSMItem.Name        = 'WikiSMItem'
+$WikiSMItem.Size        = New-Object System.Drawing.Size(180,22)
+$WikiSMItem.Text        = 'Wiki'
+$WikiSMItem.ToolTipText = 'Open the F-Capture wiki in the default browser'
+
+# Help Submenu
+$HelpSMItem           = New-Object System.Windows.Forms.ToolStripMenuItem
+$HelpSMItem.ForeColor = $MStripFGColor
+$HelpSMItem.Name      = 'HelpSMItem'
+$HelpSMItem.Size      = New-Object System.Drawing.Size(44,20)
+$HelpSMItem.Text      = 'Help'
+[void]$HelpSMItem.DropDownItems.Add($WebsiteSMItem)
+[void]$HelpSMItem.DropDownItems.Add($GithubSMItem)
+[void]$HelpSMItem.DropDownItems.Add($WikiSMItem)
+
+# Menu Strip itself
+$MenuStrip             = New-Object System.Windows.Forms.MenuStrip
+$MenuStrip.Location    = New-Object System.Drawing.Point(0,0)
+$MenuStrip.MaximumSize = New-Object System.Drawing.Size(10000,24)
+$MenuStrip.Name        = 'MenuStrip'
+$MenuStrip.Size        = New-Object System.Drawing.Size(1146,24)
+$MenuStrip.TabIndex    = 9
+$MenuStrip.Visible     = $false
+[void]$MenuStrip.Items.Add($FileSMItem)
+[void]$MenuStrip.Items.Add($ToolsSMItem)
+[void]$MenuStrip.Items.Add($HelpSMItem)
+
+# ------------ Main Menu Elements ------------
+
 # Go Button config
 $GoButton           = New-Object System.Windows.Forms.Button
 $GoButton.Anchor    = [System.Windows.Forms.AnchorStyles]::None
@@ -57,7 +293,7 @@ $GoButton.Name      = 'GoButton'
 $GoButton.Size      = New-Object System.Drawing.Size(177,141)
 $GoButton.TabIndex  = 1
 $GoButton.Text      = 'GO'
-$GoButton.UseVisualStyleBackColor = $false
+$GoButton.Visible   = $false
 
 # F-Cap Title config
 $FCapTitle             = New-Object System.Windows.Forms.Label
@@ -69,7 +305,6 @@ $FCapTitle.Location    = New-Object System.Drawing.Point(0,41)
 $FCapTitle.MaximumSize = New-Object System.Drawing.Size(10000,102)
 $FCapTitle.Name        = 'FCapTitle'
 $FCapTitle.Size        = New-Object System.Drawing.Size(1147,102)
-$FCapTitle.TabIndex    = 0
 $FCapTitle.Text        = 'F-Capture'
 $FCapTitle.TextAlign   = [System.Drawing.ContentAlignment]::MiddleCenter
 
@@ -79,11 +314,13 @@ $BgPanel.Anchor      = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms
 $BgPanel.BackColor   = $BannerBGColor
 $BgPanel.ForeColor   = $BannerBGColor
 $BgPanel.Location    = New-Object System.Drawing.Point(0,90)
-$BgPanel.MaximumSize = New-Object System.Drawing.Size(5000,400)
+$BgPanel.MaximumSize = New-Object System.Drawing.Size(10000,400)
 $BgPanel.Size        = New-Object System.Drawing.Size(1147,400)
+$BgPanel.Visible     = $false
 
 # Output directory change label
 $OutDirTextBoxLbl           = New-Object System.Windows.Forms.Label
+$OutDirTextBoxLbl.Anchor    = [System.Windows.Forms.AnchorStyles]::None
 $OutDirTextBoxLbl.BackColor = $BannerBGColor
 $OutDirTextBoxLbl.ForeColor = $MainFormBGColor
 $OutDirTextBoxLbl.Font      = 'Consolas,9.75'
@@ -92,6 +329,7 @@ $OutDirTextBoxLbl.Name      = 'OutDirTextBoxLbl'
 $OutDirTextBoxLbl.Size      = New-Object System.Drawing.Size(209,36)
 $OutDirTextBoxLbl.Text      = 'Choose an Output Directory:'
 $OutDirTextBoxLbl.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
+$OutDirTextBoxLbl.Visible   = $false
 
 # Output Directory Change button config
 $OutDirBtn           = New-Object System.Windows.Forms.Button
@@ -99,12 +337,13 @@ $OutDirBtn.Anchor    = [System.Windows.Forms.AnchorStyles]::None
 $OutDirBtn.BackColor = $ButtonBGColor
 $OutDirBtn.Font      = 'Consolas,8.25'
 $OutDirBtn.ForeColor = $ButtonFGColor
+$OutDirBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $OutDirBtn.Location  = New-Object System.Drawing.Point(682,419)
 $OutDirBtn.Name      = 'OutDirBtn'
 $OutDirBtn.Size      = New-Object System.Drawing.Size(33,27)
 $OutDirBtn.TabIndex  = 3
 $OutDirBtn.Text      = '...'
-$OutDirBtn.UseVisualStyleBackColor = $false
+$OutDirBtn.Visible   = $false
 
 # Output Directory Textbox config
 $OutDirTextBox           = New-Object System.Windows.Forms.TextBox
@@ -114,6 +353,7 @@ $OutDirTextBox.Location  = New-Object System.Drawing.Point(426,419)
 $OutDirTextBox.Name      = 'OutDirTextBox'
 $OutDirTextBox.Size      = New-Object System.Drawing.Size(250,27)
 $OutDirTextBox.TabIndex  = 5
+$OutDirTextBox.Visible   = $false
 
 # Advanced Menu button config
 $AdvancedBtn           = New-Object System.Windows.Forms.Button
@@ -127,9 +367,9 @@ $AdvancedBtn.Name      = 'AdvancedBtn'
 $AdvancedBtn.Size      = New-Object System.Drawing.Size(177,50)
 $AdvancedBtn.TabIndex  = 4
 $AdvancedBtn.Text      = 'Advanced Options'
-$AdvancedBtn.UseVisualStyleBackColor = $false
+$AdvancedBtn.Visible   = $false
 
-# ------------Start of configs for things inside AdvOptionGrpBox------------
+# ------------ Advanced Menu Elements ------------
 
 # Button to close Advanced Menu
 $AdvMenuCloseBtn                         = New-Object System.Windows.Forms.Button
@@ -143,7 +383,6 @@ $AdvMenuCloseBtn.Location                = New-Object System.Drawing.Point(1024,
 $AdvMenuCloseBtn.Name                    = 'AdvMenuCloseBtn'
 $AdvMenuCloseBtn.Size                    = New-Object System.Drawing.Size(27,27)
 $AdvMenuCloseBtn.TabIndex                = 48
-$AdvMenuCloseBtn.UseVisualStyleBackColor = $false
 
 # Profiles dropdown label
 $ProfileDDLabel           = New-Object System.Windows.Forms.Label
@@ -159,23 +398,23 @@ $ProfileDDLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
 $ProfileLoadBtn           = New-Object System.Windows.Forms.Button
 $ProfileLoadBtn.BackColor = $ButtonBGColor
 $ProfileLoadBtn.ForeColor = $ButtonFGColor
+$ProfileLoadBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $ProfileLoadBtn.Location  = New-Object System.Drawing.Point(988,85)
 $ProfileLoadBtn.Name      = 'ProfileLoadBtn'
 $ProfileLoadBtn.Size      = New-Object System.Drawing.Size(44,38)
 $ProfileLoadBtn.TabIndex  = 46
 $ProfileLoadBtn.Text      = 'Load'
-$ProfileLoadBtn.UseVisualStyleBackColor = $false
 
 # Button to save current configuration with name from ProfileDropDown
 $ProfileSaveBtn           = New-Object System.Windows.Forms.Button
 $ProfileSaveBtn.BackColor = $ButtonBGColor
 $ProfileSaveBtn.ForeColor = $ButtonFGColor
+$ProfileSaveBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $ProfileSaveBtn.Location  = New-Object System.Drawing.Point(938,85)
 $ProfileSaveBtn.Name      = 'ProfileSaveBtn'
 $ProfileSaveBtn.Size      = New-Object System.Drawing.Size(44,38)
 $ProfileSaveBtn.TabIndex  = 45
 $ProfileSaveBtn.Text      = 'Save'
-$ProfileSaveBtn.UseVisualStyleBackColor = $false
 
 # Dropdown for choosing a profile to load or entering a name to save one
 $ProfileDropdown                   = New-Object System.Windows.Forms.ComboBox
@@ -214,13 +453,13 @@ $DiskImgCBList.TabIndex          = 42
 $VNCServerBtn           = New-Object System.Windows.Forms.Button
 $VNCServerBtn.BackColor = $ButtonBGColor
 $VNCServerBtn.ForeColor = $ButtonFGColor
+$VNCServerBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $VNCServerBtn.Location  = New-Object System.Drawing.Point(757,295)
 $VNCServerBtn.Name      = 'VNCServerBtn'
 $VNCServerBtn.Size      = New-Object System.Drawing.Size(103,38)
 $VNCServerBtn.TabIndex  = 41
 $VNCServerBtn.Text      = 'VNC Server'
 $VNCServerBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
-$VNCServerBtn.UseVisualStyleBackColor = $false
 
 # Textbox that holds the user-entered text to scan the registry for
 $RegistryScanTB           = New-Object System.Windows.Forms.TextBox
@@ -236,24 +475,24 @@ $RegistryScanTB.Enabled   = $false # Not implemented yet, so disable it to commu
 $RegistryScanBtn           = New-Object System.Windows.Forms.Button
 $RegistryScanBtn.BackColor = $ButtonBGColor
 $RegistryScanBtn.ForeColor = $ButtonFGColor
+$RegistryScanBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $RegistryScanBtn.Location  = New-Object System.Drawing.Point(955,387)
 $RegistryScanBtn.Name      = 'RegistryScanBtn'
 $RegistryScanBtn.Size      = New-Object System.Drawing.Size(77,38)
 $RegistryScanBtn.TabIndex  = 39
 $RegistryScanBtn.Text      = 'Scan Registry'
 $RegistryScanBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
-$RegistryScanBtn.UseVisualStyleBackColor = $false
 
 # PuTTY button config
 $PuTTYBtn           = New-Object System.Windows.Forms.Button
 $PuTTYBtn.BackColor = $ButtonBGColor
 $PuTTYBtn.ForeColor = $ButtonFGColor
+$PuTTYBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $PuTTYBtn.Location  = New-Object System.Drawing.Point(757,231)
 $PuTTYBtn.Name      = 'PuTTYBtn'
 $PuTTYBtn.Size      = New-Object System.Drawing.Size(103,38)
 $PuTTYBtn.TabIndex  = 38
 $PuTTYBtn.Text      = 'PuTTY'
-$PuTTYBtn.UseVisualStyleBackColor = $false
 
 # Packet Capture checkbox config
 $PacketCaptureCB            = New-Object System.Windows.Forms.CheckBox
@@ -266,7 +505,6 @@ $PacketCaptureCB.Name       = 'PacketCaptureCB'
 $PacketCaptureCB.Size       = New-Object System.Drawing.Size(124,19)
 $PacketCaptureCB.TabIndex   = 37
 $PacketCaptureCB.Text       = 'Packet Capture'
-$PacketCaptureCB.UseVisualStyleBackColor = $true
 
 # Network Share Info checkbox config
 $NetworkShareInfoCB            = New-Object System.Windows.Forms.CheckBox
@@ -795,11 +1033,8 @@ $OutputFormatLabel.BackColor = $CheckmarkBGColor
 $OutputFormatLabel.Location  = New-Object System.Drawing.Point (754,147)
 $OutputFormatLabel.Name      = 'OutputFormatLabel'
 $OutputFormatLabel.Size      = New-Object System.Drawing.Size (114,24)
-$OutputFormatLabel.TabIndex  = 52
 $OutputFormatLabel.Text      = 'Output Format'
 $OutputFormatLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
-
-# ------------End of configs for things inside AdvOptionGrpBox------------
 
 # Group Box holding Advanced Menu items
 $AdvOptionGrpBox             = New-Object System.Windows.Forms.GroupBox
@@ -811,8 +1046,6 @@ $AdvOptionGrpBox.Location    = New-Object System.Drawing.Point(41,160)
 $AdvOptionGrpBox.MinimumSize = New-Object System.Drawing.Size(1060,482)
 $AdvOptionGrpBox.Name        = 'AdvOptionGrpBox'
 $AdvOptionGrpBox.Size        = New-Object System.Drawing.Size(1060,482)
-$AdvOptionGrpBox.TabIndex    = 8
-$AdvOptionGrpBox.TabStop     = $false
 $AdvOptionGrpBox.Text        = 'Advanced-Menu'
 $AdvOptionGrpBox.Visible     = $false
 $AdvOptionGrpBox.Controls.Add($OutputFormatLabel)
@@ -869,6 +1102,16 @@ $AdvOptionGrpBox.Controls.Add($MemoryImageCB)
 $AdvOptionGrpBox.Controls.Add($ActiveProcessesCB)
 $AdvOptionGrpBox.Controls.Add($SystemInfoCB)
 
+# ------------ Scanning Page Elements ------------
+
+# Progress bar
+# Timer; Count elapsed time; Estimate time left
+
+# ------------ Results Page Elements ------------
+
+# Panel or group with results textbox
+# Textbox has time elapsed, list of things done, successes/failures
+
 # Add buttons to the main form's list of elements
 
 $MainForm.Controls.Add($GoButton)
@@ -877,19 +1120,36 @@ $MainForm.Controls.Add($OutDirTextBoxLbl)
 $MainForm.Controls.Add($OutDirTextBox)
 $MainForm.Controls.Add($OutDirBtn)
 $MainForm.Controls.Add($AdvancedBtn)
-$MainForm.Controls.Add($AdvOptionGrpBox)
 $MainForm.Controls.Add($BgPanel)
+$MainForm.Controls.Add($AdvOptionGrpBox)
+$MainForm.Controls.Add($SSBottomPanel)
+$MainForm.Controls.Add($SSTopPanel)
+$MainForm.Controls.Add($MenuStrip)
 
 # Add functions to their respective button's event handler
-$AdvancedBtn.Add_Click({ Open-Advanced-Menu })
-$AdvMenuCloseBtn.Add_Click({ Close-Advanced-Menu })
+# Splashscreen Events
+$AcceptBtn.Add_Click({ Open-Main-Menu })
+$ExitBtn.Add_Click({ $MainForm.Close() })
+$WebsiteLbl.Add_Click({ Start-Process "http://fcaptureteam.com/" })
+$GithubLbl.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture" })
+# MenuStrip Events
+$GoSMItem.Add_Click({ OneForAll })
+$ExitSMItem.Add_Click({ $MainForm.Close() })
+$PuTTYSMItem.Add_Click({ Putty })
+$WebsiteSMItem.Add_Click({ Start-Process "http://fcaptureteam.com/" })
+$GithubSMItem.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture" })
+$WikiSMItem.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture/wiki" })
+# Main Menu Events
 $GoButton.Add_Click({ OneForAll })
-$RegistryScanBtn.Add_Click({ Scan-Registry })
+$OutDirBtn.Add_Click({ Output-Location })
+$AdvancedBtn.Add_Click({ Open-Advanced-Menu })
+# Advanced Menu Events
+$AdvMenuCloseBtn.Add_Click({ Close-Advanced-Menu })
 $ProfileSaveBtn.Add_Click({ Save-User-Profile })
 $ProfileLoadBtn.Add_Click({ Load-User-Profile })
 $PuTTYBtn.Add_Click({ Putty })
-$OutDirBtn.Add_Click({ Output-Location })
+$RegistryScanBtn.Add_Click({ Scan-Registry })
 $CheckUncheckAllCB.Add_CheckedChanged({ Toggle-All-Checkboxes })
 
 # Run the main window
-$MainForm.ShowDialog()
+[void]$MainForm.ShowDialog()
