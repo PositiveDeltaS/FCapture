@@ -28,7 +28,6 @@ function OneForAll
     if($RDPCacheCB.Checked){ Remote-Desktop }
     if($RecycleBinCB.Checked){ Recycle-Bin }
     if($PrefetchFilesCB.Checked){ Prefetch }
-    if($SwapFilesCB.Checked){ Swap-Files }
     if($MRUListsCB.Checked){ MRU }
     if($LNKFilesCB.Checked){ LNK }
     if($DLLsCB.Checked){ DLL }
@@ -45,7 +44,9 @@ function OneForAll
     if($BrowserHistoryCB.Checked){ Browser-History }
     if($BrowserCookiesCB.Checked){ Browser-Cookies }
     if($ScreenshotsCB.Checked){ Screenshot }
-    if($MemoryImageCB.Checked){ PhysicalMemory-Image }
+    if($MemoryImageCB.Checked -or $SwapFilesCB.Checked){
+		if($SwapFilesCB.Checked){ Swap-Files }
+		else{ PhysicalMemory-Image }}
     if($ActiveProcessesCB.Checked){ Active-Processes }
     if($SystemInfoCB.Checked){ System-Info }
 
