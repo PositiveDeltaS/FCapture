@@ -1,5 +1,4 @@
 . "$PSScriptRoot\Active-Processes.ps1"
-. "$PSScriptRoot\Advanced-Menu.ps1"
 . "$PSScriptRoot\AmCache.ps1"
 . "$PSScriptRoot\Browser-Cookies.ps1"
 . "$PSScriptRoot\Browser-History.ps1"
@@ -46,3 +45,5 @@
 . "$PSScriptRoot\Network-Interfaces.ps1"
 . "$PSScriptRoot\Network-Share-Info.ps1"
 . "$PSScriptRoot\Toggle-Checkboxes.ps1"
+. "$PSScriptRoot\Hide-Console.ps1"
+. "$PSScriptRoot\Menu-Transitions.ps1"
