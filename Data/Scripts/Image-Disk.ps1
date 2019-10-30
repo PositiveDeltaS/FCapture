@@ -1,5 +1,3 @@
-
-
 function Set-Disks-List
 {
     if(!$DiskImgCBList.Items)
@@ -12,7 +10,9 @@ function Set-Disks-List
 function Disk-Image
 {
     # Get the list of drives that the user wants to image
-    #$drivesToCopy = $DiskImgCBList.Items | Where-Object {$_.Checked -eq $true}
+	$drivesToCopy = ($DiskImgCBList.CheckedItems).replace(":\", "") -join ','
 
-    # TODO: For each drive, image the disk
+    # For each drive, image the disk
+	$outputDrive = (Get-Item $global:OUTPUT_DIR).PSDrive.Name
+	wbAdmin start backup -backupTarget:${outputDrive}: -include:${drivesToCopy}: -quiet
 }
