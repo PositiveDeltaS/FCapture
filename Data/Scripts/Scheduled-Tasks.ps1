@@ -1,6 +1,6 @@
 function Scheduled-Tasks {
   #Copy all directories in \Task and copy all files with extension .xml 
-  Copy-Item C:\Windows\System32\Tasks -Filter *.xml -Destination $global:OUTPUT_DIR\Tasks -Recurse
+  Copy-Item C:\Windows\System32\Tasks -Filter *.xml -Destination $global:OUTPUT_DIR\ -Recurse
   
   #Clean up all empty directories that were copied
   $clean="$global:OUTPUT_DIR\Tasks"
