@@ -47,3 +47,5 @@
 . "$PSScriptRoot\Toggle-Checkboxes.ps1"
 . "$PSScriptRoot\Hide-Console.ps1"
 . "$PSScriptRoot\Menu-Transitions.ps1"
+. "$PSScriptRoot\Data-Recovery.ps1"
+. "$PSScriptRoot\VNC-Server.ps1"
