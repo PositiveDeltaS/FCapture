@@ -1,0 +1,7 @@
+You are running this application in a LIVE Windows environment.
+There is ABSOLUTELY NO WAY to protect this live environment from changing.
+
+This application WILL make changes to the running system.
+This is an accepted risk you must be willing to take.
+
+If you are not willing to accept this risk or do not understand what you are doing then EXIT NOW, otherwise agree and proceed at your own risk...
