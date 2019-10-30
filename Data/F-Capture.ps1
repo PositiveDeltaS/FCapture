@@ -62,7 +62,6 @@ $WarningLbl.ForeColor = $WarningLblColor
 $WarningLbl.Location  = New-Object System.Drawing.Point(472,20)
 $WarningLbl.Name      = 'WarningLbl'
 $WarningLbl.Size      = New-Object System.Drawing.Size(201,47)
-$WarningLbl.TabIndex  = 0
 $WarningLbl.Text      = 'WARNING'
 $WarningLbl.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
 
@@ -87,7 +86,7 @@ $ExitBtn.ForeColor = [System.Drawing.Color]::Black
 $ExitBtn.Location  = New-Object System.Drawing.Point(637,280)
 $ExitBtn.Name      = 'ExitBtn'
 $ExitBtn.Size      = New-Object System.Drawing.Size(152,48)
-$ExitBtn.TabIndex  = 5
+$ExitBtn.TabIndex  = 1
 $ExitBtn.Text      = 'EXIT'
 
 # Accept Button
@@ -100,7 +99,7 @@ $AcceptBtn.ForeColor = [System.Drawing.Color]::Black
 $AcceptBtn.Location  = New-Object System.Drawing.Point(348,280)
 $AcceptBtn.Name      = 'AcceptBtn'
 $AcceptBtn.Size      = New-Object System.Drawing.Size(152,48)
-$AcceptBtn.TabIndex  = 4
+$AcceptBtn.TabIndex  = 0
 $AcceptBtn.Text      = 'ACCEPT'
 
 # Splashscreen Top Panel
@@ -111,6 +110,7 @@ $SSTopPanel.Location    = New-Object System.Drawing.Point(0,180)
 $SSTopPanel.MaximumSize = New-Object System.Drawing.Size(10000,347)
 $SSTopPanel.Name        = 'SSTopPanel'
 $SSTopPanel.Size        = New-Object System.Drawing.Size(1146,347)
+$SSTopPanel.TabIndex    = 1
 $SSTopPanel.Controls.Add($ExitBtn)
 $SSTopPanel.Controls.Add($AcceptBtn)
 $SSTopPanel.Controls.Add($InfoLbl)
@@ -141,6 +141,7 @@ $WebsiteLbl.Location  = New-Object System.Drawing.Point(338,11)
 $WebsiteLbl.Name      = 'WebsiteLbl'
 $WebsiteLbl.Size      = New-Object System.Drawing.Size(162,19)
 $WebsiteLbl.Text      = 'F-Capture Website'
+$WebsiteLbl.TabIndex  = 0
 
 # Github Label
 $GithubLbl           = New-Object System.Windows.Forms.LinkLabel
@@ -154,6 +155,7 @@ $GithubLbl.Location  = New-Object System.Drawing.Point(636,11)
 $GithubLbl.Name      = 'GithubLbl'
 $GithubLbl.Size      = New-Object System.Drawing.Size(153,19)
 $GithubLbl.Text      = 'F-Capture Github'
+$GithubLbl.TabIndex  = 1
 
 # Team Name Label
 $TeamNameLbl           = New-Object System.Windows.Forms.Label
@@ -176,6 +178,7 @@ $SSBottomPanel.Location    = New-Object System.Drawing.Point(0,623)
 $SSBottomPanel.MaximumSize = New-Object System.Drawing.Size(10000,40)
 $SSBottomPanel.Name        = 'SSBottomPanel'
 $SSBottomPanel.Size        = New-Object System.Drawing.Size(1146,40)
+$SSBottomPanel.TabIndex    = 2
 $SSBottomPanel.Controls.Add($GithubLbl)
 $SSBottomPanel.Controls.Add($WebsiteLbl)
 $SSBottomPanel.Controls.Add($VersionNumLbl)
@@ -225,6 +228,15 @@ $VNCServerSMItem.Text        = 'VNC Server'
 $VNCServerSMItem.ToolTipText = 'VNC is a graphical desktop-sharing system that uses the Remote Frame Buffer protocol to remotely control another computer'
 $VNCServerSMItem.Enabled     = $false
 
+# Data Recovery Menu Item
+$DataRecoverySMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
+$DataRecoverySMItem.AutoToolTip = $true
+$DataRecoverySMItem.Name        = 'DataRecoverySMItem'
+$DataRecoverySMItem.Size        = New-Object System.Drawing.Size(180,22)
+$DataRecoverySMItem.Text        = 'Data Recovery'
+$DataRecoverySMItem.ToolTipText = 'Open a data recovery tool for collecting deleted and/or corrupted files, etc.'
+$DataRecoverySMItem.Enabled     = $false
+
 # Tools Submenu
 $ToolsSMItem           = New-Object System.Windows.Forms.ToolStripMenuItem
 $ToolsSMItem.ForeColor = $MStripFGColor
@@ -233,6 +245,7 @@ $ToolsSMItem.Size      = New-Object System.Drawing.Size(47,20)
 $ToolsSMItem.Text      = 'Tools'
 [void]$ToolsSMItem.DropDownItems.Add($PuTTYSMItem)
 [void]$ToolsSMItem.DropDownItems.Add($VNCServerSMItem)
+[void]$ToolsSMItem.DropDownItems.Add($DataRecoverySMItem)
 
 # Website Menu Item
 $WebsiteSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -273,7 +286,6 @@ $MenuStrip.Location    = New-Object System.Drawing.Point(0,0)
 $MenuStrip.MaximumSize = New-Object System.Drawing.Size(10000,24)
 $MenuStrip.Name        = 'MenuStrip'
 $MenuStrip.Size        = New-Object System.Drawing.Size(1146,24)
-$MenuStrip.TabIndex    = 9
 $MenuStrip.Visible     = $false
 [void]$MenuStrip.Items.Add($FileSMItem)
 [void]$MenuStrip.Items.Add($ToolsSMItem)
@@ -291,7 +303,7 @@ $GoButton.ForeColor = $ButtonFGColor
 $GoButton.Location  = New-Object System.Drawing.Point(483,219)
 $GoButton.Name      = 'GoButton'
 $GoButton.Size      = New-Object System.Drawing.Size(177,141)
-$GoButton.TabIndex  = 1
+$GoButton.TabIndex  = 2
 $GoButton.Text      = 'GO'
 $GoButton.Visible   = $false
 
@@ -341,7 +353,7 @@ $OutDirBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $OutDirBtn.Location  = New-Object System.Drawing.Point(682,419)
 $OutDirBtn.Name      = 'OutDirBtn'
 $OutDirBtn.Size      = New-Object System.Drawing.Size(33,27)
-$OutDirBtn.TabIndex  = 3
+$OutDirBtn.TabIndex  = 0
 $OutDirBtn.Text      = '...'
 $OutDirBtn.Visible   = $false
 
@@ -352,7 +364,7 @@ $OutDirTextBox.Font      = 'Consolas,12'
 $OutDirTextBox.Location  = New-Object System.Drawing.Point(426,419)
 $OutDirTextBox.Name      = 'OutDirTextBox'
 $OutDirTextBox.Size      = New-Object System.Drawing.Size(250,27)
-$OutDirTextBox.TabIndex  = 5
+$OutDirTextBox.TabIndex  = 3
 $OutDirTextBox.Visible   = $false
 
 # Advanced Menu button config
@@ -365,7 +377,7 @@ $AdvancedBtn.ForeColor = $ButtonFGColor
 $AdvancedBtn.Location  = New-Object System.Drawing.Point(483,499)
 $AdvancedBtn.Name      = 'AdvancedBtn'
 $AdvancedBtn.Size      = New-Object System.Drawing.Size(177,50)
-$AdvancedBtn.TabIndex  = 4
+$AdvancedBtn.TabIndex  = 1
 $AdvancedBtn.Text      = 'Advanced Options'
 $AdvancedBtn.Visible   = $false
 
@@ -382,7 +394,7 @@ $AdvMenuCloseBtn.ForeColor               = $ButtonFGColor
 $AdvMenuCloseBtn.Location                = New-Object System.Drawing.Point(1024,16)
 $AdvMenuCloseBtn.Name                    = 'AdvMenuCloseBtn'
 $AdvMenuCloseBtn.Size                    = New-Object System.Drawing.Size(27,27)
-$AdvMenuCloseBtn.TabIndex                = 48
+$AdvMenuCloseBtn.TabIndex                = 2
 
 # Profiles dropdown label
 $ProfileDDLabel           = New-Object System.Windows.Forms.Label
@@ -390,7 +402,6 @@ $ProfileDDLabel.BackColor = $CheckmarkBGColor
 $ProfileDDLabel.Location  = New-Object System.Drawing.Point(713,64)
 $ProfileDDLabel.Name      = 'ProfileDDLabel'
 $ProfileDDLabel.Size      = New-Object System.Drawing.Size(194,24)
-$ProfileDDLabel.TabIndex  = 47
 $ProfileDDLabel.Text      = 'User Profile'
 $ProfileDDLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
 
@@ -402,7 +413,7 @@ $ProfileLoadBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $ProfileLoadBtn.Location  = New-Object System.Drawing.Point(988,85)
 $ProfileLoadBtn.Name      = 'ProfileLoadBtn'
 $ProfileLoadBtn.Size      = New-Object System.Drawing.Size(44,38)
-$ProfileLoadBtn.TabIndex  = 46
+$ProfileLoadBtn.TabIndex  = 43
 $ProfileLoadBtn.Text      = 'Load'
 
 # Button to save current configuration with name from ProfileDropDown
@@ -413,7 +424,7 @@ $ProfileSaveBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $ProfileSaveBtn.Location  = New-Object System.Drawing.Point(938,85)
 $ProfileSaveBtn.Name      = 'ProfileSaveBtn'
 $ProfileSaveBtn.Size      = New-Object System.Drawing.Size(44,38)
-$ProfileSaveBtn.TabIndex  = 45
+$ProfileSaveBtn.TabIndex  = 42
 $ProfileSaveBtn.Text      = 'Save'
 
 # Dropdown for choosing a profile to load or entering a name to save one
@@ -424,7 +435,7 @@ $ProfileDropdown.FormattingEnabled = $true
 $ProfileDropdown.Location          = New-Object System.Drawing.Point(713,91)
 $ProfileDropdown.Name              = 'ProfileDropdown'
 $ProfileDropdown.Size              = New-Object System.Drawing.Size(219,27)
-$ProfileDropdown.TabIndex          = 44
+$ProfileDropdown.TabIndex          = 41
 
 # Disk Imaging checkbox list label
 $DiskImgLabel           = New-Object System.Windows.Forms.Label
@@ -432,11 +443,10 @@ $DiskImgLabel.BackColor = $CheckmarkBGColor
 $DiskImgLabel.Location  = New-Object System.Drawing.Point(889,147)
 $DiskImgLabel.Name      = 'DiskImgLabel'
 $DiskImgLabel.Size      = New-Object System.Drawing.Size(118,24)
-$DiskImgLabel.TabIndex  = 43
 $DiskImgLabel.Text      = 'Disk Imaging'
 $DiskImgLabel.TextAlign = [System.Drawing.ContentAlignment]::MiddleCenter
 
-# List of checkboxes that shows user all the drive that are available
+# List of checkboxes that shows user all the drives that are available
 # to make images of and lets the user check the ones they want
 $DiskImgCBList                   = New-Object System.Windows.Forms.CheckedListBox
 $DiskImgCBList.BackColor         = $ButtonBGColor
@@ -447,19 +457,31 @@ $DiskImgCBList.FormattingEnabled = $true
 $DiskImgCBList.Location          = New-Object System.Drawing.Point(889,174)
 $DiskImgCBList.Name              = 'DiskImgCBList'
 $DiskImgCBList.Size              = New-Object System.Drawing.Size(118,184)
-$DiskImgCBList.TabIndex          = 42
+$DiskImgCBList.TabIndex          = 49
 
 # VNC Server button config
 $VNCServerBtn           = New-Object System.Windows.Forms.Button
 $VNCServerBtn.BackColor = $ButtonBGColor
 $VNCServerBtn.ForeColor = $ButtonFGColor
 $VNCServerBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$VNCServerBtn.Location  = New-Object System.Drawing.Point(757,295)
+$VNCServerBtn.Location  = New-Object System.Drawing.Point(755,272)
 $VNCServerBtn.Name      = 'VNCServerBtn'
 $VNCServerBtn.Size      = New-Object System.Drawing.Size(103,38)
-$VNCServerBtn.TabIndex  = 41
+$VNCServerBtn.TabIndex  = 47
 $VNCServerBtn.Text      = 'VNC Server'
 $VNCServerBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
+
+# Data Recovery button config
+$DataRecoveryBtn           = New-Object System.Windows.Forms.Button
+$DataRecoveryBtn.BackColor = $ButtonBGColor
+$DataRecoveryBtn.ForeColor = $ButtonFGColor
+$DataRecoveryBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$DataRecoveryBtn.Location  = New-Object System.Drawing.Point(755,325)
+$DataRecoveryBtn.Name      = 'VNCServerBtn'
+$DataRecoveryBtn.Size      = New-Object System.Drawing.Size(103,38)
+$DataRecoveryBtn.TabIndex  = 48
+$DataRecoveryBtn.Text      = 'Recovery'
+$DataRecoveryBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
 
 # Textbox that holds the user-entered text to scan the registry for
 $RegistryScanTB           = New-Object System.Windows.Forms.TextBox
@@ -468,7 +490,7 @@ $RegistryScanTB.Font      = 'Consolas,12'
 $RegistryScanTB.Location  = New-Object System.Drawing.Point(713,393)
 $RegistryScanTB.Name      = 'RegistryScanTB'
 $RegistryScanTB.Size      = New-Object System.Drawing.Size(236,26)
-$RegistryScanTB.TabIndex  = 40
+$RegistryScanTB.TabIndex  = 50
 $RegistryScanTB.Enabled   = $false # Not implemented yet, so disable it to communicate that
 
 # Scan Registry button config
@@ -479,7 +501,7 @@ $RegistryScanBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $RegistryScanBtn.Location  = New-Object System.Drawing.Point(955,387)
 $RegistryScanBtn.Name      = 'RegistryScanBtn'
 $RegistryScanBtn.Size      = New-Object System.Drawing.Size(77,38)
-$RegistryScanBtn.TabIndex  = 39
+$RegistryScanBtn.TabIndex  = 51
 $RegistryScanBtn.Text      = 'Scan Registry'
 $RegistryScanBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
 
@@ -488,10 +510,10 @@ $PuTTYBtn           = New-Object System.Windows.Forms.Button
 $PuTTYBtn.BackColor = $ButtonBGColor
 $PuTTYBtn.ForeColor = $ButtonFGColor
 $PuTTYBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$PuTTYBtn.Location  = New-Object System.Drawing.Point(757,231)
+$PuTTYBtn.Location  = New-Object System.Drawing.Point(755,219)
 $PuTTYBtn.Name      = 'PuTTYBtn'
 $PuTTYBtn.Size      = New-Object System.Drawing.Size(103,38)
-$PuTTYBtn.TabIndex  = 38
+$PuTTYBtn.TabIndex  = 46
 $PuTTYBtn.Text      = 'PuTTY'
 
 # Packet Capture checkbox config
@@ -503,7 +525,7 @@ $PacketCaptureCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $PacketCaptureCB.Location   = New-Object System.Drawing.Point(385,398)
 $PacketCaptureCB.Name       = 'PacketCaptureCB'
 $PacketCaptureCB.Size       = New-Object System.Drawing.Size(124,19)
-$PacketCaptureCB.TabIndex   = 37
+$PacketCaptureCB.TabIndex   = 29
 $PacketCaptureCB.Text       = 'Packet Capture'
 
 # Network Share Info checkbox config
@@ -515,7 +537,7 @@ $NetworkShareInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $NetworkShareInfoCB.Location   = New-Object System.Drawing.Point(535,314)
 $NetworkShareInfoCB.Name       = 'NetworkShareInfoCB'
 $NetworkShareInfoCB.Size       = New-Object System.Drawing.Size(152,19)
-$NetworkShareInfoCB.TabIndex   = 36
+$NetworkShareInfoCB.TabIndex   = 37
 $NetworkShareInfoCB.Text       = 'Network Share Info'
 $NetworkShareInfoCB.UseVisualStyleBackColor = $true
 
@@ -528,7 +550,7 @@ $NetworkInterfacesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $NetworkInterfacesCB.Location   = New-Object System.Drawing.Point(535,438)
 $NetworkInterfacesCB.Name       = 'NetworkInterfacesCB'
 $NetworkInterfacesCB.Size       = New-Object System.Drawing.Size(152,19)
-$NetworkInterfacesCB.TabIndex   = 35
+$NetworkInterfacesCB.TabIndex   = 40
 $NetworkInterfacesCB.Text       = 'Network Interfaces'
 $NetworkInterfacesCB.UseVisualStyleBackColor = $true
 
@@ -541,7 +563,7 @@ $FileSystemInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $FileSystemInfoCB.Location   = New-Object System.Drawing.Point(535,398)
 $FileSystemInfoCB.Name       = 'FileSystemInfoCB'
 $FileSystemInfoCB.Size       = New-Object System.Drawing.Size(138,19)
-$FileSystemInfoCB.TabIndex   = 34
+$FileSystemInfoCB.TabIndex   = 39
 $FileSystemInfoCB.Text       = 'File System Info'
 $FileSystemInfoCB.UseVisualStyleBackColor = $true
 
@@ -554,7 +576,7 @@ $AutoRunItemsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $AutoRunItemsCB.Location   = New-Object System.Drawing.Point(535,356)
 $AutoRunItemsCB.Name       = 'AutoRunItemsCB'
 $AutoRunItemsCB.Size       = New-Object System.Drawing.Size(117,19)
-$AutoRunItemsCB.TabIndex   = 33
+$AutoRunItemsCB.TabIndex   = 38
 $AutoRunItemsCB.Text       = 'AutoRun Items'
 $AutoRunItemsCB.UseVisualStyleBackColor = $true
 
@@ -567,7 +589,7 @@ $UserAssistInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $UserAssistInfoCB.Location   = New-Object System.Drawing.Point(535,272)
 $UserAssistInfoCB.Name       = 'UserAssistInfoCB'
 $UserAssistInfoCB.Size       = New-Object System.Drawing.Size(131,19)
-$UserAssistInfoCB.TabIndex   = 32
+$UserAssistInfoCB.TabIndex   = 36
 $UserAssistInfoCB.Text       = 'UserAssist Info'
 $UserAssistInfoCB.UseVisualStyleBackColor = $true
 
@@ -580,7 +602,7 @@ $NetworkProfilesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $NetworkProfilesCB.Location   = New-Object System.Drawing.Point(535,230)
 $NetworkProfilesCB.Name       = 'NetworkProfilesCB'
 $NetworkProfilesCB.Size       = New-Object System.Drawing.Size(138,19)
-$NetworkProfilesCB.TabIndex   = 31
+$NetworkProfilesCB.TabIndex   = 35
 $NetworkProfilesCB.Text       = 'Network Profiles'
 $NetworkProfilesCB.UseVisualStyleBackColor = $true
 
@@ -593,7 +615,7 @@ $UserAccountsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $UserAccountsCB.Location   = New-Object System.Drawing.Point(535,188)
 $UserAccountsCB.Name       = 'UserAccountsCB'
 $UserAccountsCB.Size       = New-Object System.Drawing.Size(117,19)
-$UserAccountsCB.TabIndex   = 30
+$UserAccountsCB.TabIndex   = 34
 $UserAccountsCB.Text       = 'User Accounts'
 $UserAccountsCB.UseVisualStyleBackColor = $true
 
@@ -606,7 +628,7 @@ $TimezoneInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $TimezoneInfoCB.Location   = New-Object System.Drawing.Point(535,146)
 $TimezoneInfoCB.Name       = 'TimezoneInfoCB'
 $TimezoneInfoCB.Size       = New-Object System.Drawing.Size(117,19)
-$TimezoneInfoCB.TabIndex   = 29
+$TimezoneInfoCB.TabIndex   = 33
 $TimezoneInfoCB.Text       = 'Timezone Info'
 $TimezoneInfoCB.UseVisualStyleBackColor = $true
 
@@ -619,7 +641,7 @@ $WindowsServicesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $WindowsServicesCB.Location   = New-Object System.Drawing.Point(535,104)
 $WindowsServicesCB.Name       = 'WindowsServicesCB'
 $WindowsServicesCB.Size       = New-Object System.Drawing.Size(138,19)
-$WindowsServicesCB.TabIndex   = 28
+$WindowsServicesCB.TabIndex   = 32
 $WindowsServicesCB.Text       = 'Windows Services'
 $WindowsServicesCB.UseVisualStyleBackColor = $true
 
@@ -632,7 +654,7 @@ $SRUMInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $SRUMInfoCB.Location   = New-Object System.Drawing.Point(535,62)
 $SRUMInfoCB.Name       = 'SRUMInfoCB'
 $SRUMInfoCB.Size       = New-Object System.Drawing.Size(89,19)
-$SRUMInfoCB.TabIndex   = 27
+$SRUMInfoCB.TabIndex   = 31
 $SRUMInfoCB.Text       = 'SRUM Info'
 $SRUMInfoCB.UseVisualStyleBackColor = $true
 
@@ -645,7 +667,7 @@ $ShimCacheCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $ShimCacheCB.Location   = New-Object System.Drawing.Point(385,356)
 $ShimCacheCB.Name       = 'ShimCacheCB'
 $ShimCacheCB.Size       = New-Object System.Drawing.Size(89,19)
-$ShimCacheCB.TabIndex   = 25
+$ShimCacheCB.TabIndex   = 28
 $ShimCacheCB.Text       = 'ShimCache'
 $ShimCacheCB.UseVisualStyleBackColor = $true
 
@@ -658,7 +680,7 @@ $ShellbagsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $ShellbagsCB.Location   = New-Object System.Drawing.Point(385,314)
 $ShellbagsCB.Name       = 'ShellbagsCB'
 $ShellbagsCB.Size       = New-Object System.Drawing.Size(89,19)
-$ShellbagsCB.TabIndex   = 24
+$ShellbagsCB.TabIndex   = 27
 $ShellbagsCB.Text       = 'Shellbags'
 $ShellbagsCB.UseVisualStyleBackColor = $true
 
@@ -671,7 +693,7 @@ $ScheduledTasksCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $ScheduledTasksCB.Location   = New-Object System.Drawing.Point(385,272)
 $ScheduledTasksCB.Name       = 'ScheduledTasksCB'
 $ScheduledTasksCB.Size       = New-Object System.Drawing.Size(131,19)
-$ScheduledTasksCB.TabIndex   = 23
+$ScheduledTasksCB.TabIndex   = 26
 $ScheduledTasksCB.Text       = 'Scheduled Tasks'
 $ScheduledTasksCB.UseVisualStyleBackColor = $true
 
@@ -684,7 +706,7 @@ $RDPCacheCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $RDPCacheCB.Location   = New-Object System.Drawing.Point(385,230)
 $RDPCacheCB.Name       = 'RDPCacheCB'
 $RDPCacheCB.Size       = New-Object System.Drawing.Size(89,19)
-$RDPCacheCB.TabIndex   = 22
+$RDPCacheCB.TabIndex   = 25
 $RDPCacheCB.Text       = 'RDP Cache'
 $RDPCacheCB.UseVisualStyleBackColor = $true
 
@@ -697,7 +719,7 @@ $RecycleBinCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $RecycleBinCB.Location   = New-Object System.Drawing.Point(385,188)
 $RecycleBinCB.Name       = 'RecycleBinCB'
 $RecycleBinCB.Size       = New-Object System.Drawing.Size(103,19)
-$RecycleBinCB.TabIndex   = 21
+$RecycleBinCB.TabIndex   = 24
 $RecycleBinCB.Text       = 'Recycle Bin'
 $RecycleBinCB.UseVisualStyleBackColor = $true
 
@@ -710,7 +732,7 @@ $PrefetchFilesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $PrefetchFilesCB.Location   = New-Object System.Drawing.Point(385,146)
 $PrefetchFilesCB.Name       = 'PrefetchFilesCB'
 $PrefetchFilesCB.Size       = New-Object System.Drawing.Size(124,19)
-$PrefetchFilesCB.TabIndex   = 20
+$PrefetchFilesCB.TabIndex   = 23
 $PrefetchFilesCB.Text       = 'Prefetch Files'
 $PrefetchFilesCB.UseVisualStyleBackColor = $true
 
@@ -723,7 +745,7 @@ $SwapFilesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $SwapFilesCB.Location   = New-Object System.Drawing.Point(385,104)
 $SwapFilesCB.Name       = 'SwapFilesCB'
 $SwapFilesCB.Size       = New-Object System.Drawing.Size(96,19)
-$SwapFilesCB.TabIndex   = 19
+$SwapFilesCB.TabIndex   = 22
 $SwapFilesCB.Text       = 'Swap Files'
 $SwapFilesCB.UseVisualStyleBackColor = $true
 
@@ -736,7 +758,7 @@ $MRUListsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $MRUListsCB.Location   = New-Object System.Drawing.Point(385,62)
 $MRUListsCB.Name       = 'MRUListsCB'
 $MRUListsCB.Size       = New-Object System.Drawing.Size(89,19)
-$MRUListsCB.TabIndex   = 18
+$MRUListsCB.TabIndex   = 21
 $MRUListsCB.Text       = 'MRU Lists'
 $MRUListsCB.UseVisualStyleBackColor = $true
 
@@ -749,7 +771,7 @@ $DLLsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $DLLsCB.Location   = New-Object System.Drawing.Point(385,438)
 $DLLsCB.Name       = 'DLLsCB'
 $DLLsCB.Size       = New-Object System.Drawing.Size(54,19)
-$DLLsCB.TabIndex   = 16
+$DLLsCB.TabIndex   = 30
 $DLLsCB.Text       = 'DLLs'
 $DLLsCB.UseVisualStyleBackColor = $true
 
@@ -762,7 +784,7 @@ $RestorePointsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $RestorePointsCB.Location   = New-Object System.Drawing.Point(200,391)
 $RestorePointsCB.Name       = 'RestorePointsCB'
 $RestorePointsCB.Size       = New-Object System.Drawing.Size(173,19)
-$RestorePointsCB.TabIndex   = 26
+$RestorePointsCB.TabIndex   = 19
 $RestorePointsCB.Text       = 'System Restore Points'
 $RestorePointsCB.UseVisualStyleBackColor = $true
 
@@ -775,7 +797,7 @@ $LNKFilesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $LNKFilesCB.Location   = New-Object System.Drawing.Point(200,438)
 $LNKFilesCB.Name       = 'LNKFilesCB'
 $LNKFilesCB.Size       = New-Object System.Drawing.Size(89,19)
-$LNKFilesCB.TabIndex   = 17
+$LNKFilesCB.TabIndex   = 20
 $LNKFilesCB.Text       = 'LNK Files'
 $LNKFilesCB.UseVisualStyleBackColor = $true
 
@@ -788,7 +810,7 @@ $KeywordSearchesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $KeywordSearchesCB.Location   = New-Object System.Drawing.Point(200,344)
 $KeywordSearchesCB.Name       = 'KeywordSearchesCB'
 $KeywordSearchesCB.Size       = New-Object System.Drawing.Size(138,19)
-$KeywordSearchesCB.TabIndex   = 15
+$KeywordSearchesCB.TabIndex   = 18
 $KeywordSearchesCB.Text       = 'Keyword Searches'
 $KeywordSearchesCB.UseVisualStyleBackColor = $true
 
@@ -801,7 +823,7 @@ $JumpListsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $JumpListsCB.Location   = New-Object System.Drawing.Point(200,297)
 $JumpListsCB.Name       = 'JumpListsCB'
 $JumpListsCB.Size       = New-Object System.Drawing.Size(96,19)
-$JumpListsCB.TabIndex   = 14
+$JumpListsCB.TabIndex   = 17
 $JumpListsCB.Text       = 'Jump Lists'
 $JumpListsCB.UseVisualStyleBackColor = $true
 
@@ -814,7 +836,7 @@ $InstalledProgramsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $InstalledProgramsCB.Location   = New-Object System.Drawing.Point(200,250)
 $InstalledProgramsCB.Name       = 'InstalledProgramsCB'
 $InstalledProgramsCB.Size       = New-Object System.Drawing.Size(152,19)
-$InstalledProgramsCB.TabIndex   = 13
+$InstalledProgramsCB.TabIndex   = 16
 $InstalledProgramsCB.Text       = 'Installed Programs'
 $InstalledProgramsCB.UseVisualStyleBackColor = $true
 
@@ -827,7 +849,7 @@ $FileAssociationsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $FileAssociationsCB.Location   = New-Object System.Drawing.Point(200,203)
 $FileAssociationsCB.Name       = 'FileAssociationsCB'
 $FileAssociationsCB.Size       = New-Object System.Drawing.Size(145,19)
-$FileAssociationsCB.TabIndex   = 12
+$FileAssociationsCB.TabIndex   = 15
 $FileAssociationsCB.Text       = 'File Associations'
 $FileAssociationsCB.UseVisualStyleBackColor = $true
 
@@ -840,7 +862,7 @@ $StartupProgramsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $StartupProgramsCB.Location   = New-Object System.Drawing.Point(200,156)
 $StartupProgramsCB.Name       = 'StartupProgramsCB'
 $StartupProgramsCB.Size       = New-Object System.Drawing.Size(138,19)
-$StartupProgramsCB.TabIndex   = 11
+$StartupProgramsCB.TabIndex   = 14
 $StartupProgramsCB.Text       = 'Startup Programs'
 $StartupProgramsCB.UseVisualStyleBackColor = $true
 
@@ -853,7 +875,7 @@ $AmCacheCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $AmCacheCB.Location   = New-Object System.Drawing.Point(200,109)
 $AmCacheCB.Name       = 'AmCacheCB'
 $AmCacheCB.Size       = New-Object System.Drawing.Size(75,19)
-$AmCacheCB.TabIndex   = 10
+$AmCacheCB.TabIndex   = 13
 $AmCacheCB.Text       = 'AmCache'
 $AmCacheCB.UseVisualStyleBackColor = $true
 
@@ -866,7 +888,7 @@ $EventLogsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $EventLogsCB.Location   = New-Object System.Drawing.Point(200,62)
 $EventLogsCB.Name       = 'EventLogsCB'
 $EventLogsCB.Size       = New-Object System.Drawing.Size(96,19)
-$EventLogsCB.TabIndex   = 9
+$EventLogsCB.TabIndex   = 12
 $EventLogsCB.Text       = 'Event Logs'
 $EventLogsCB.UseVisualStyleBackColor = $true
 
@@ -879,7 +901,7 @@ $RegistryCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $RegistryCB.Location   = New-Object System.Drawing.Point(22,438)
 $RegistryCB.Name       = 'RegistryCB'
 $RegistryCB.Size       = New-Object System.Drawing.Size(82,19)
-$RegistryCB.TabIndex   = 8
+$RegistryCB.TabIndex   = 11
 $RegistryCB.Text       = 'Registry'
 $RegistryCB.UseVisualStyleBackColor = $true
 
@@ -892,7 +914,7 @@ $ImageScanCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $ImageScanCB.Location   = New-Object System.Drawing.Point(22,391)
 $ImageScanCB.Name       = 'ImageScanCB'
 $ImageScanCB.Size       = New-Object System.Drawing.Size(96,19)
-$ImageScanCB.TabIndex   = 7
+$ImageScanCB.TabIndex   = 10
 $ImageScanCB.Text       = 'Image Scan'
 $ImageScanCB.UseVisualStyleBackColor = $true
 
@@ -905,7 +927,7 @@ $PeripheralDevicesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $PeripheralDevicesCB.Location   = New-Object System.Drawing.Point(22,344)
 $PeripheralDevicesCB.Name       = 'PeripheralDevicesCB'
 $PeripheralDevicesCB.Size       = New-Object System.Drawing.Size(152,19)
-$PeripheralDevicesCB.TabIndex   = 6
+$PeripheralDevicesCB.TabIndex   = 9
 $PeripheralDevicesCB.Text       = 'Peripheral Devices'
 $PeripheralDevicesCB.UseVisualStyleBackColor = $true
 
@@ -918,7 +940,7 @@ $BrowserHistoryCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $BrowserHistoryCB.Location   = New-Object System.Drawing.Point(22,297)
 $BrowserHistoryCB.Name       = 'BrowserHistoryCB'
 $BrowserHistoryCB.Size       = New-Object System.Drawing.Size(131,19)
-$BrowserHistoryCB.TabIndex   = 5
+$BrowserHistoryCB.TabIndex   = 8
 $BrowserHistoryCB.Text       = 'Browser History'
 $BrowserHistoryCB.UseVisualStyleBackColor = $true
 
@@ -931,7 +953,7 @@ $BrowserCookiesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $BrowserCookiesCB.Location   = New-Object System.Drawing.Point(22,250)
 $BrowserCookiesCB.Name       = 'BrowserCookiesCB'
 $BrowserCookiesCB.Size       = New-Object System.Drawing.Size(131,19)
-$BrowserCookiesCB.TabIndex   = 4
+$BrowserCookiesCB.TabIndex   = 7
 $BrowserCookiesCB.Text       = 'Browser Cookies'
 $BrowserCookiesCB.UseVisualStyleBackColor = $true
 
@@ -944,7 +966,7 @@ $ScreenshotsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $ScreenshotsCB.Location   = New-Object System.Drawing.Point(22,203)
 $ScreenshotsCB.Name       = 'ScreenshotsCB'
 $ScreenshotsCB.Size       = New-Object System.Drawing.Size(152,19)
-$ScreenshotsCB.TabIndex   = 3
+$ScreenshotsCB.TabIndex   = 6
 $ScreenshotsCB.Text       = 'Screenshot Windows'
 $ScreenshotsCB.UseVisualStyleBackColor = $true
 
@@ -957,7 +979,7 @@ $MemoryImageCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $MemoryImageCB.Location   = New-Object System.Drawing.Point(22,156)
 $MemoryImageCB.Name       = 'MemoryImageCB'
 $MemoryImageCB.Size       = New-Object System.Drawing.Size(124,19)
-$MemoryImageCB.TabIndex   = 2
+$MemoryImageCB.TabIndex   = 5
 $MemoryImageCB.Text       = 'Memory Imaging'
 $MemoryImageCB.UseVisualStyleBackColor = $true
 
@@ -970,7 +992,7 @@ $ActiveProcessesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $ActiveProcessesCB.Location   = New-Object System.Drawing.Point(22,109)
 $ActiveProcessesCB.Name       = 'ActiveProcessesCB'
 $ActiveProcessesCB.Size       = New-Object System.Drawing.Size(138,19)
-$ActiveProcessesCB.TabIndex   = 1
+$ActiveProcessesCB.TabIndex   = 4
 $ActiveProcessesCB.Text       = 'Active Processes'
 $ActiveProcessesCB.UseVisualStyleBackColor = $true
 
@@ -983,7 +1005,7 @@ $SystemInfoCB.CheckState = [System.Windows.Forms.CheckState]::Checked
 $SystemInfoCB.Location   = New-Object System.Drawing.Point(22,62)
 $SystemInfoCB.Name       = 'SystemInfoCB'
 $SystemInfoCB.Size       = New-Object System.Drawing.Size(103,19)
-$SystemInfoCB.TabIndex   = 0
+$SystemInfoCB.TabIndex   = 3
 $SystemInfoCB.Text       = 'System Info'
 $SystemInfoCB.UseVisualStyleBackColor = $true
 
@@ -997,7 +1019,7 @@ $CheckUncheckAllCB.ForeColor  = [System.Drawing.Color]::White
 $CheckUncheckAllCB.Location   = New-Object System.Drawing.Point (261,25)
 $CheckUncheckAllCB.Name       = 'CheckUncheckAllCB'
 $CheckUncheckAllCB.Size       = New-Object System.Drawing.Size (145,19)
-$CheckUncheckAllCB.TabIndex   = 49
+$CheckUncheckAllCB.TabIndex   = 1
 $CheckUncheckAllCB.Text       = 'Check/Uncheck All'
 $CheckUncheckAllCB.UseVisualStyleBackColor = $false
 
@@ -1007,10 +1029,10 @@ $VHDXOutputRBtn.AutoSize   = $true
 $VHDXOutputRBtn.BackColor  = $CheckmarkBGColor
 $VHDXOutputRBtn.CheckAlign = [System.Drawing.ContentAlignment]::TopCenter
 $VHDXOutputRBtn.Checked    = $true
-$VHDXOutputRBtn.Location   = New-Object System.Drawing.Point (772,174)
+$VHDXOutputRBtn.Location   = New-Object System.Drawing.Point (770,169)
 $VHDXOutputRBtn.Name       = 'VHDXOutputRBtn'
 $VHDXOutputRBtn.Size       = New-Object System.Drawing.Size (39,32)
-$VHDXOutputRBtn.TabIndex   = 50
+$VHDXOutputRBtn.TabIndex   = 45
 $VHDXOutputRBtn.TabStop    = $true
 $VHDXOutputRBtn.Text       = 'VHDX'
 $VHDXOutputRBtn.UseVisualStyleBackColor = $false
@@ -1020,17 +1042,17 @@ $ZipOutputRBtn            = New-Object System.Windows.Forms.RadioButton
 $ZipOutputRBtn.AutoSize   = $true
 $ZipOutputRBtn.BackColor  = $CheckmarkBGColor
 $ZipOutputRBtn.CheckAlign = [System.Drawing.ContentAlignment]::TopCenter
-$ZipOutputRBtn.Location   = New-Object System.Drawing.Point (817,174)
+$ZipOutputRBtn.Location   = New-Object System.Drawing.Point (815,169)
 $ZipOutputRBtn.Name       = 'ZipOutputRBtn'
 $ZipOutputRBtn.Size       = New-Object System.Drawing.Size (32,32)
-$ZipOutputRBtn.TabIndex   = 51
+$ZipOutputRBtn.TabIndex   = 44
 $ZipOutputRBtn.Text       = 'Zip'
 $ZipOutputRBtn.UseVisualStyleBackColor = $false
 
 #OutputFormatLabel
 $OutputFormatLabel           = New-Object System.Windows.Forms.Label
 $OutputFormatLabel.BackColor = $CheckmarkBGColor
-$OutputFormatLabel.Location  = New-Object System.Drawing.Point (754,147)
+$OutputFormatLabel.Location  = New-Object System.Drawing.Point (752,142)
 $OutputFormatLabel.Name      = 'OutputFormatLabel'
 $OutputFormatLabel.Size      = New-Object System.Drawing.Size (114,24)
 $OutputFormatLabel.Text      = 'Output Format'
@@ -1048,6 +1070,7 @@ $AdvOptionGrpBox.Name        = 'AdvOptionGrpBox'
 $AdvOptionGrpBox.Size        = New-Object System.Drawing.Size(1060,482)
 $AdvOptionGrpBox.Text        = 'Advanced-Menu'
 $AdvOptionGrpBox.Visible     = $false
+$AdvOptionGrpBox.Controls.Add($DataRecoveryBtn)
 $AdvOptionGrpBox.Controls.Add($OutputFormatLabel)
 $AdvOptionGrpBox.Controls.Add($ZipOutputRBtn)
 $AdvOptionGrpBox.Controls.Add($VHDXOutputRBtn)
@@ -1136,6 +1159,8 @@ $GithubLbl.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture
 $GoSMItem.Add_Click({ OneForAll })
 $ExitSMItem.Add_Click({ $MainForm.Close() })
 $PuTTYSMItem.Add_Click({ Putty })
+$VNCServerSMItem.Add_Click({ Start-VNC-Server })
+$DataRecoverySMItem.Add_Click({ Start-Recovery-Tool })
 $WebsiteSMItem.Add_Click({ Start-Process "http://fcaptureteam.com/" })
 $GithubSMItem.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture" })
 $WikiSMItem.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture/wiki" })
@@ -1148,6 +1173,8 @@ $AdvMenuCloseBtn.Add_Click({ Close-Advanced-Menu })
 $ProfileSaveBtn.Add_Click({ Save-User-Profile })
 $ProfileLoadBtn.Add_Click({ Load-User-Profile })
 $PuTTYBtn.Add_Click({ Putty })
+$VNCServerBtn.Add_Click({ Start-VNC-Server })
+$DataRecoveryBtn.Add_Click({ Start-Recovery-Tool })
 $RegistryScanBtn.Add_Click({ Scan-Registry })
 $CheckUncheckAllCB.Add_CheckedChanged({ Toggle-All-Checkboxes })
 

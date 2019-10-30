@@ -22,13 +22,15 @@ function Output-Location
     [void]$FolderBrowser.ShowDialog()
 	$selectedOutputPath = $FolderBrowser.SelectedPath
 	
-	#Make sure the selected path is useable
-	if(Assert-Path-Is-On-Removable-Device $selectedOutputPath)
+	#Make sure the selected path is useable (or dev mode is on)
+	if((Assert-Path-Is-On-Removable-Device $selectedOutputPath) -or ($global:DEV_MODE))
 	{
         # Set global directory location for other scripts to use
         $global:OUTPUT_DIR = $selectedOutputPath
 
-		Write-Host "Successfully selected removable output destination"
+        # Let user know if they are in dev mode, and that they selected a local machine folder
+		if($global:DEV_MODE){ Write-Host "(DEV MODE) Successfully selected output destination" }
+        else{ Write-Host "Successfully selected removable output destination" }
 		
 		$outputLogMsg = "Selected Output Directory : $OUTPUT_DIR"
 		Search-And-Add-Log-Entry $SUCCESS_LOG $outputLogMsg
