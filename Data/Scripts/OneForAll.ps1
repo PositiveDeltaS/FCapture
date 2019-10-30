@@ -6,6 +6,7 @@ function OneForAll
     # Disable Buttons
     $GoButton.Enabled    = $false
     $AdvancedBtn.Enabled = $false
+    $GoSMItem.Enabled    = $false
 
     # Start packet capture
     if($PacketCaptureCB.Checked){ Packet-Capture-Start }
@@ -59,4 +60,5 @@ function OneForAll
     # Re-enable buttons
     $GoButton.Enabled    = $true
     $AdvancedBtn.Enabled = $true
+    $GoSMItem.Enabled    = $true
 }
