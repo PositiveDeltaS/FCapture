@@ -1,6 +1,11 @@
 # Import powershell functions from Scripts directory
 . "$PSScriptRoot\Scripts\~IMPORTS.ps1"
 
+# Import PS Windows Forms wrapper because F-Capture is a GUI-based application
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Management.Automation
+[System.Windows.Forms.Application]::EnableVisualStyles()
+
 # Store log locations in global variables so functions can access them
 $global:DEBUG_LOG   = "$PSScriptRoot\debugLog.txt"
 $global:SUCCESS_LOG = "$PSScriptRoot\success.txt"
@@ -14,9 +19,9 @@ $global:OUTPUT_DIR  = "$PSScriptRoot"
 $global:DEV_MODE    = $true
 if(!$DEV_MODE){ Hide-Console }
 
-# Import PS Windows Forms wrapper because F-Capture is a GUI-based application
-Add-Type -AssemblyName System.Windows.Forms
-[System.Windows.Forms.Application]::EnableVisualStyles()
+# Ordered Hash Table: Records all program configuration changes (aka state changes)
+# StateRecord keys are date/time, and values are states, which are hash tables themselves
+$global:StateRecord = [ordered]@{}
 
 # Visual settings for various UI elements
 $Icon             = New-Object System.Drawing.Icon("$PSScriptRoot\Resources\FCAP.ICO")
@@ -395,6 +400,7 @@ $AdvMenuCloseBtn.Location                = New-Object System.Drawing.Point(1024,
 $AdvMenuCloseBtn.Name                    = 'AdvMenuCloseBtn'
 $AdvMenuCloseBtn.Size                    = New-Object System.Drawing.Size(27,27)
 $AdvMenuCloseBtn.TabIndex                = 2
+$AdvMenuCloseBtn.Text                    = "Close Advanced Menu"
 
 # Profiles dropdown label
 $ProfileDDLabel           = New-Object System.Windows.Forms.Label
@@ -1177,6 +1183,10 @@ $VNCServerBtn.Add_Click({ Start-VNC-Server })
 $DataRecoveryBtn.Add_Click({ Start-Recovery-Tool })
 $RegistryScanBtn.Add_Click({ Scan-Registry })
 $CheckUncheckAllCB.Add_CheckedChanged({ Toggle-All-Checkboxes })
+
+Register-ObjectEvent -InputObject $MainForm -EventName FormClosing -Action { Store-Main-State } | Out-Null
+
+Initialize-Main
 
 # Run the main window
 [void]$MainForm.ShowDialog()
