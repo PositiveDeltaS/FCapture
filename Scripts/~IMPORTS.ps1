@@ -21,7 +21,6 @@
 . "$PSScriptRoot\Peripheral-Devices.ps1"
 . "$PSScriptRoot\Prefetch-Files.ps1"
 . "$PSScriptRoot\Record-Registry.ps1"
-. "$PSScriptRoot\Record-User-Actions.ps1"
 . "$PSScriptRoot\Recycle-Bin.ps1"
 . "$PSScriptRoot\Remote-Desktop.ps1"
 . "$PSScriptRoot\SRUM-Info.ps1"
@@ -45,3 +44,4 @@
 . "$PSScriptRoot\Filesystem-Info.ps1"
 . "$PSScriptRoot\Network-Interfaces.ps1"
 . "$PSScriptRoot\Network-Share-Info.ps1"
+. "$PSScriptRoot\Record-Actions.ps1"
