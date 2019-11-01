@@ -23,6 +23,9 @@ if(!$DEV_MODE){ Hide-Console }
 # StateRecord keys are date/time, and values are states, which are hash tables themselves
 $global:StateRecord = [ordered]@{}
 
+# Profiles is a hash table. Profiles' keys are profile names, and values are states.
+$global:Profiles = [ordered]@{}
+
 # Visual settings for various UI elements
 $Icon             = New-Object System.Drawing.Icon("$PSScriptRoot\Resources\FCAP.ICO")
 $VersionNumber    = 'Version 0.1.0'
@@ -1156,11 +1159,13 @@ $MainForm.Controls.Add($SSTopPanel)
 $MainForm.Controls.Add($MenuStrip)
 
 # Add functions to their respective button's event handler
+
 # Splashscreen Events
 $AcceptBtn.Add_Click({ Open-Main-Menu })
 $ExitBtn.Add_Click({ $MainForm.Close() })
 $WebsiteLbl.Add_Click({ Start-Process "http://fcaptureteam.com/" })
 $GithubLbl.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture" })
+
 # MenuStrip Events
 $GoSMItem.Add_Click({ OneForAll })
 $ExitSMItem.Add_Click({ $MainForm.Close() })
@@ -1170,14 +1175,17 @@ $DataRecoverySMItem.Add_Click({ Start-Recovery-Tool })
 $WebsiteSMItem.Add_Click({ Start-Process "http://fcaptureteam.com/" })
 $GithubSMItem.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture" })
 $WikiSMItem.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture/wiki" })
+
 # Main Menu Events
 $GoButton.Add_Click({ OneForAll })
 $OutDirBtn.Add_Click({ Output-Location })
 $AdvancedBtn.Add_Click({ Open-Advanced-Menu })
+
 # Advanced Menu Events
 $AdvMenuCloseBtn.Add_Click({ Close-Advanced-Menu })
 $ProfileSaveBtn.Add_Click({ Save-User-Profile })
 $ProfileLoadBtn.Add_Click({ Load-User-Profile })
+$ProfileDropdown.Add_Click({ Update-DD })
 $PuTTYBtn.Add_Click({ Putty })
 $VNCServerBtn.Add_Click({ Start-VNC-Server })
 $DataRecoveryBtn.Add_Click({ Start-Recovery-Tool })
@@ -1187,6 +1195,8 @@ $CheckUncheckAllCB.Add_CheckedChanged({ Toggle-All-Checkboxes })
 Register-ObjectEvent -InputObject $MainForm -EventName FormClosing -Action { Store-Main-State } | Out-Null
 
 Initialize-Main
+Update-DD
+
 
 # Run the main window
 [void]$MainForm.ShowDialog()
