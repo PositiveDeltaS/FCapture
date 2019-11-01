@@ -93,6 +93,24 @@ function Update-State($ElementArray, $State, $Caller) {
     })
 }
 
-function Write-Recoverable($PSObj, $Path) {
+function Set-State($ElementArray, $State) {
+    $ElementArray.Controls.ForEach({
+        if($_.GetType().BaseType.ToString().Equals("System.Windows.Forms.ButtonBase")) {
+            $Name = $_.Text
+            $Role = $_.AccessibilityObject.Role.ToString()
+            if(!$Role.Equals("PushButton")) {
+                $_.Checked = $State[$Name]
+            }
+        } elseif($_.Controls) {
+            Set-State $_ $State
+        }
+    })
+}
+
+function Save-Recoverable($PSObj, $Path) {
     $PSObj | Export-Clixml $Path
+}
+
+function Load-Recoverable($PSObj, $Path) {
+    $PSObj = Import-Clixml $Path
 }
