@@ -1057,6 +1057,7 @@ $ZipOutputRBtn.Size       = New-Object System.Drawing.Size (32,32)
 $ZipOutputRBtn.TabIndex   = 44
 $ZipOutputRBtn.Text       = 'Zip'
 $ZipOutputRBtn.UseVisualStyleBackColor = $false
+$ZipOutputRBtn.Enabled    = $false
 
 #OutputFormatLabel
 $OutputFormatLabel           = New-Object System.Windows.Forms.Label
