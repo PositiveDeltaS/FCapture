@@ -492,27 +492,16 @@ $DataRecoveryBtn.TabIndex  = 48
 $DataRecoveryBtn.Text      = 'Recovery'
 $DataRecoveryBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
 
-# Textbox that holds the user-entered text to scan the registry for
-$RegistryScanTB           = New-Object System.Windows.Forms.TextBox
-$RegistryScanTB.BackColor = $ButtonBGColor
-$RegistryScanTB.Font      = 'Consolas,12'
-$RegistryScanTB.Location  = New-Object System.Drawing.Point(713,393)
-$RegistryScanTB.Name      = 'RegistryScanTB'
-$RegistryScanTB.Size      = New-Object System.Drawing.Size(236,26)
-$RegistryScanTB.TabIndex  = 50
-$RegistryScanTB.Enabled   = $false # Not implemented yet, so disable it to communicate that
-
 # Scan Registry button config
 $RegistryScanBtn           = New-Object System.Windows.Forms.Button
 $RegistryScanBtn.BackColor = $ButtonBGColor
 $RegistryScanBtn.ForeColor = $ButtonFGColor
 $RegistryScanBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$RegistryScanBtn.Location  = New-Object System.Drawing.Point(955,387)
+$RegistryScanBtn.Location  = New-Object System.Drawing.Point(755,378)
 $RegistryScanBtn.Name      = 'RegistryScanBtn'
-$RegistryScanBtn.Size      = New-Object System.Drawing.Size(77,38)
+$RegistryScanBtn.Size      = New-Object System.Drawing.Size(103,38)
 $RegistryScanBtn.TabIndex  = 51
 $RegistryScanBtn.Text      = 'Scan Registry'
-$RegistryScanBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
 
 # PuTTY button config
 $PuTTYBtn           = New-Object System.Windows.Forms.Button
