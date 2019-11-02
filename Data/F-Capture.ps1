@@ -225,7 +225,7 @@ $PuTTYSMItem.AutoToolTip = $true
 $PuTTYSMItem.Name        = 'PuTTYSMItem'
 $PuTTYSMItem.Size        = New-Object System.Drawing.Size(180,22)
 $PuTTYSMItem.Text        = 'PuTTY'
-$PuTTYSMItem.ToolTipText = 'PuTTY is a free and open-source terminal emulator, serial console and network file transfer application'
+$PuTTYSMItem.ToolTipText = 'Open PuTTY, a free and open-source terminal emulator, serial console and network file transfer application'
 
 # VNCServer Menu Item
 $VNCServerSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -245,6 +245,15 @@ $DataRecoverySMItem.Text        = 'Data Recovery'
 $DataRecoverySMItem.ToolTipText = 'Open a data recovery tool for collecting deleted and/or corrupted files, etc.'
 $DataRecoverySMItem.Enabled     = $false
 
+# Scan Registry Menu Item
+$ScanRegistrySMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
+$ScanRegistrySMItem.AutoToolTip = $true
+$ScanRegistrySMItem.Name        = 'ScanRegistrySMItem'
+$ScanRegistrySMItem.Size        = New-Object System.Drawing.Size(180,22)
+$ScanRegistrySMItem.Text        = 'Scan Registry'
+$ScanRegistrySMItem.ToolTipText = 'Open RegScanner, a small utility that allows you to scan the Registry for a particular string and then view or export the matches to a .reg file'
+$ScanRegistrySMItem.Enabled     = $true
+
 # Tools Submenu
 $ToolsSMItem           = New-Object System.Windows.Forms.ToolStripMenuItem
 $ToolsSMItem.ForeColor = $MStripFGColor
@@ -254,6 +263,7 @@ $ToolsSMItem.Text      = 'Tools'
 [void]$ToolsSMItem.DropDownItems.Add($PuTTYSMItem)
 [void]$ToolsSMItem.DropDownItems.Add($VNCServerSMItem)
 [void]$ToolsSMItem.DropDownItems.Add($DataRecoverySMItem)
+[void]$ToolsSMItem.DropDownItems.Add($ScanRegistrySMItem)
 
 # Website Menu Item
 $WebsiteSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -403,7 +413,6 @@ $AdvMenuCloseBtn.Location                = New-Object System.Drawing.Point(1024,
 $AdvMenuCloseBtn.Name                    = 'AdvMenuCloseBtn'
 $AdvMenuCloseBtn.Size                    = New-Object System.Drawing.Size(27,27)
 $AdvMenuCloseBtn.TabIndex                = 2
-$AdvMenuCloseBtn.Text                    = "Close Advanced Menu"
 
 # Profiles dropdown label
 $ProfileDDLabel           = New-Object System.Windows.Forms.Label
@@ -449,7 +458,7 @@ $ProfileDropdown.TabIndex          = 41
 # Disk Imaging checkbox list label
 $DiskImgLabel           = New-Object System.Windows.Forms.Label
 $DiskImgLabel.BackColor = $CheckmarkBGColor
-$DiskImgLabel.Location  = New-Object System.Drawing.Point(889,147)
+$DiskImgLabel.Location  = New-Object System.Drawing.Point(889,177)
 $DiskImgLabel.Name      = 'DiskImgLabel'
 $DiskImgLabel.Size      = New-Object System.Drawing.Size(118,24)
 $DiskImgLabel.Text      = 'Disk Imaging'
@@ -463,10 +472,10 @@ $DiskImgCBList.CheckOnClick      = $true
 $DiskImgCBList.Font              = 'Consolas,9.75'
 $DiskImgCBList.ForeColor         = $ButtonFGColor
 $DiskImgCBList.FormattingEnabled = $true
-$DiskImgCBList.Location          = New-Object System.Drawing.Point(889,174)
+$DiskImgCBList.Location          = New-Object System.Drawing.Point(889,204)
 $DiskImgCBList.Name              = 'DiskImgCBList'
 $DiskImgCBList.Size              = New-Object System.Drawing.Size(118,184)
-$DiskImgCBList.TabIndex          = 49
+$DiskImgCBList.TabIndex          = 50
 
 # VNC Server button config
 $VNCServerBtn           = New-Object System.Windows.Forms.Button
@@ -492,27 +501,16 @@ $DataRecoveryBtn.TabIndex  = 48
 $DataRecoveryBtn.Text      = 'Recovery'
 $DataRecoveryBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
 
-# Textbox that holds the user-entered text to scan the registry for
-$RegistryScanTB           = New-Object System.Windows.Forms.TextBox
-$RegistryScanTB.BackColor = $ButtonBGColor
-$RegistryScanTB.Font      = 'Consolas,12'
-$RegistryScanTB.Location  = New-Object System.Drawing.Point(713,393)
-$RegistryScanTB.Name      = 'RegistryScanTB'
-$RegistryScanTB.Size      = New-Object System.Drawing.Size(236,26)
-$RegistryScanTB.TabIndex  = 50
-$RegistryScanTB.Enabled   = $false # Not implemented yet, so disable it to communicate that
-
 # Scan Registry button config
 $RegistryScanBtn           = New-Object System.Windows.Forms.Button
 $RegistryScanBtn.BackColor = $ButtonBGColor
 $RegistryScanBtn.ForeColor = $ButtonFGColor
 $RegistryScanBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
-$RegistryScanBtn.Location  = New-Object System.Drawing.Point(955,387)
+$RegistryScanBtn.Location  = New-Object System.Drawing.Point(755,378)
 $RegistryScanBtn.Name      = 'RegistryScanBtn'
-$RegistryScanBtn.Size      = New-Object System.Drawing.Size(77,38)
-$RegistryScanBtn.TabIndex  = 51
+$RegistryScanBtn.Size      = New-Object System.Drawing.Size(103,38)
+$RegistryScanBtn.TabIndex  = 49
 $RegistryScanBtn.Text      = 'Scan Registry'
-$RegistryScanBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
 
 # PuTTY button config
 $PuTTYBtn           = New-Object System.Windows.Forms.Button
@@ -1092,7 +1090,6 @@ $AdvOptionGrpBox.Controls.Add($ProfileDropdown)
 $AdvOptionGrpBox.Controls.Add($DiskImgLabel)
 $AdvOptionGrpBox.Controls.Add($DiskImgCBList)
 $AdvOptionGrpBox.Controls.Add($VNCServerBtn)
-$AdvOptionGrpBox.Controls.Add($RegistryScanTB)
 $AdvOptionGrpBox.Controls.Add($RegistryScanBtn)
 $AdvOptionGrpBox.Controls.Add($PuTTYBtn)
 $AdvOptionGrpBox.Controls.Add($PacketCaptureCB)
@@ -1172,6 +1169,7 @@ $ExitSMItem.Add_Click({ $MainForm.Close() })
 $PuTTYSMItem.Add_Click({ Putty })
 $VNCServerSMItem.Add_Click({ Start-VNC-Server })
 $DataRecoverySMItem.Add_Click({ Start-Recovery-Tool })
+$ScanRegistrySMItem.Add_Click({ Scan-Registry })
 $WebsiteSMItem.Add_Click({ Start-Process "http://fcaptureteam.com/" })
 $GithubSMItem.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture" })
 $WikiSMItem.Add_Click({ Start-Process "https://github.com/PositiveDeltaS/FCapture/wiki" })
