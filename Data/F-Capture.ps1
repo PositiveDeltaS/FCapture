@@ -24,25 +24,25 @@ if(!$DEV_MODE){ Hide-Console }
 $global:StateRecord = [ordered]@{}
 
 # Profiles is a hash table. Profiles' keys are profile names, and values are states.
-$global:Profiles = [ordered]@{}
+$global:Profiles    = [ordered]@{}
 
 # Visual settings for various UI elements
-$Icon             = New-Object System.Drawing.Icon("$PSScriptRoot\Resources\FCAP.ICO")
-$VersionNumber    = 'Version 0.1.0'
-$MainFormBGColor  = [System.Drawing.Color]::FromArgb(219,228,235)
-$MainFormFGColor  = [System.Drawing.Color]::FromArgb(255,255,255)
-$BannerBGColor    = [System.Drawing.Color]::FromArgb(5,78,111)
-$BannerFGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
-$GroupBoxBGColor  = [System.Drawing.Color]::FromArgb(0,0,0)
-$GroupBoxFGColor  = [System.Drawing.Color]::FromArgb(255,255,255)
-$ButtonBGColor    = [System.Drawing.Color]::FromArgb(255,255,255)
-$ButtonFGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
-$GoBtnBGColor     = [System.Drawing.Color]::LimeGreen
-$AdvBtnBGColor    = [System.Drawing.Color]::Firebrick
-$CheckmarkBGColor = [System.Drawing.Color]::Transparent
-$MStripFGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
-$WarningLblColor  = [System.Drawing.Color]::Yellow
-$LinkLblColor     = [System.Drawing.Color]::LimeGreen
+$Icon               = New-Object System.Drawing.Icon("$PSScriptRoot\Resources\FCAP.ICO")
+$VersionNumber      = 'Version 0.1.0'
+$MainFormBGColor    = [System.Drawing.Color]::FromArgb(219,228,235)
+$MainFormFGColor    = [System.Drawing.Color]::FromArgb(255,255,255)
+$BannerBGColor      = [System.Drawing.Color]::FromArgb(5,78,111)
+$BannerFGColor      = [System.Drawing.Color]::FromArgb(0,0,0)
+$GroupBoxBGColor    = [System.Drawing.Color]::FromArgb(0,0,0)
+$GroupBoxFGColor    = [System.Drawing.Color]::FromArgb(255,255,255)
+$ButtonBGColor      = [System.Drawing.Color]::FromArgb(255,255,255)
+$ButtonFGColor      = [System.Drawing.Color]::FromArgb(0,0,0)
+$GoBtnBGColor       = [System.Drawing.Color]::LimeGreen
+$AdvBtnBGColor      = [System.Drawing.Color]::Firebrick
+$CheckmarkBGColor   = [System.Drawing.Color]::Transparent
+$MStripFGColor      = [System.Drawing.Color]::FromArgb(0,0,0)
+$WarningLblColor    = [System.Drawing.Color]::Yellow
+$LinkLblColor       = [System.Drawing.Color]::LimeGreen
 
 # Create main form and button elements
 $MainForm                     = New-Object System.Windows.Forms.Form
@@ -59,6 +59,15 @@ $MainForm.MinimumSize         = New-Object System.Drawing.Size(1090,690)
 $MainForm.Name                = 'MainForm'
 $MainForm.StartPosition       = [System.Windows.Forms.FormStartPosition]::CenterScreen
 $MainForm.Text                = 'F-Capture'
+
+# Tooltip settings (Applies to all tooltips in the entire UI)
+$Tooltip = New-Object System.Windows.Forms.ToolTip
+$Tooltip.AutomaticDelay = 300
+$Tooltip.AutoPopDelay   = 30000
+$Tooltip.IsBalloon      = $false
+$Tooltip.UseAnimation   = $true
+$Tooltip.UseFading      = $true
+$Tooltip.Active         = $true
 
 # ------------ Splashscreen Elements ------------
 
@@ -200,7 +209,7 @@ $GoSMItem.AutoToolTip = $true
 $GoSMItem.Name        = 'GoSMItem'
 $GoSMItem.Size        = New-Object System.Drawing.Size(180,22)
 $GoSMItem.Text        = 'Go'
-$GoSMItem.ToolTipText = 'Start the scanning process'
+$GoSMItem.ToolTipText = "Start the scanning process"
 
 # Exit Menu Item
 $ExitSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -208,7 +217,7 @@ $ExitSMItem.AutoToolTip = $true
 $ExitSMItem.Name        = 'ExitSMItem'
 $ExitSMItem.Size        = New-Object System.Drawing.Size(180,22)
 $ExitSMItem.Text        = 'Exit'
-$ExitSMItem.ToolTipText = 'Exit the program'
+$ExitSMItem.ToolTipText = "Exit the program"
 
 # File Submenu
 $FileSMItem           = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -225,7 +234,7 @@ $PuTTYSMItem.AutoToolTip = $true
 $PuTTYSMItem.Name        = 'PuTTYSMItem'
 $PuTTYSMItem.Size        = New-Object System.Drawing.Size(180,22)
 $PuTTYSMItem.Text        = 'PuTTY'
-$PuTTYSMItem.ToolTipText = 'Open PuTTY, a free and open-source terminal emulator, serial console and network file transfer application'
+$PuTTYSMItem.ToolTipText = "Open PuTTY, a free and open-source terminal emulator,`nserial console and network file transfer application"
 
 # VNCServer Menu Item
 $VNCServerSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -233,7 +242,7 @@ $VNCServerSMItem.AutoToolTip = $true
 $VNCServerSMItem.Name        = 'VNCServerSMItem'
 $VNCServerSMItem.Size        = New-Object System.Drawing.Size(180,22)
 $VNCServerSMItem.Text        = 'VNC Server'
-$VNCServerSMItem.ToolTipText = 'VNC is a graphical desktop-sharing system that uses the Remote Frame Buffer protocol to remotely control another computer'
+$VNCServerSMItem.ToolTipText = "Not yet implemented"
 $VNCServerSMItem.Enabled     = $false
 
 # Data Recovery Menu Item
@@ -242,7 +251,7 @@ $DataRecoverySMItem.AutoToolTip = $true
 $DataRecoverySMItem.Name        = 'DataRecoverySMItem'
 $DataRecoverySMItem.Size        = New-Object System.Drawing.Size(180,22)
 $DataRecoverySMItem.Text        = 'Data Recovery'
-$DataRecoverySMItem.ToolTipText = 'Open a data recovery tool for collecting deleted and/or corrupted files, etc.'
+$DataRecoverySMItem.ToolTipText = "Not yet implemented"
 $DataRecoverySMItem.Enabled     = $false
 
 # Scan Registry Menu Item
@@ -251,7 +260,7 @@ $ScanRegistrySMItem.AutoToolTip = $true
 $ScanRegistrySMItem.Name        = 'ScanRegistrySMItem'
 $ScanRegistrySMItem.Size        = New-Object System.Drawing.Size(180,22)
 $ScanRegistrySMItem.Text        = 'Scan Registry'
-$ScanRegistrySMItem.ToolTipText = 'Open RegScanner, a small utility that allows you to scan the Registry for a particular string and then view or export the matches to a .reg file'
+$ScanRegistrySMItem.ToolTipText = "Open RegScanner, a small utility that allows you to scan the Registry`nfor a particular string and then view or export the matches to a .reg file"
 $ScanRegistrySMItem.Enabled     = $true
 
 # Tools Submenu
@@ -271,7 +280,7 @@ $WebsiteSMItem.AutoToolTip = $true
 $WebsiteSMItem.Name        = 'WebsiteSMItem'
 $WebsiteSMItem.Size        = New-Object System.Drawing.Size(180,22)
 $WebsiteSMItem.Text        = 'Website'
-$WebsiteSMItem.ToolTipText = 'Open the F-Capture website in the default browser'
+$WebsiteSMItem.ToolTipText = "Open the F-Capture website in the default browser"
 
 # Github Menu Item
 $GithubSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -279,14 +288,14 @@ $GithubSMItem.AutoToolTip = $true
 $GithubSMItem.Name        = 'GithubSMItem'
 $GithubSMItem.Size        = New-Object System.Drawing.Size(180,22)
 $GithubSMItem.Text        = 'Github'
-$GithubSMItem.ToolTipText = 'Open the F-Capture Github Repository in the default browser'
+$GithubSMItem.ToolTipText = "Open the F-Capture Github Repository in the default browser"
 
 # Wiki Menu Item
 $WikiSMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
 $WikiSMItem.Name        = 'WikiSMItem'
 $WikiSMItem.Size        = New-Object System.Drawing.Size(180,22)
 $WikiSMItem.Text        = 'Wiki'
-$WikiSMItem.ToolTipText = 'Open the F-Capture wiki in the default browser'
+$WikiSMItem.ToolTipText = "Open the F-Capture wiki in the default browser"
 
 # Help Submenu
 $HelpSMItem           = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -484,7 +493,7 @@ $VNCServerBtn.ForeColor = $ButtonFGColor
 $VNCServerBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $VNCServerBtn.Location  = New-Object System.Drawing.Point(755,272)
 $VNCServerBtn.Name      = 'VNCServerBtn'
-$VNCServerBtn.Size      = New-Object System.Drawing.Size(103,38)
+$VNCServerBtn.Size      = New-Object System.Drawing.Size(112,38)
 $VNCServerBtn.TabIndex  = 47
 $VNCServerBtn.Text      = 'VNC Server'
 $VNCServerBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
@@ -496,9 +505,9 @@ $DataRecoveryBtn.ForeColor = $ButtonFGColor
 $DataRecoveryBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $DataRecoveryBtn.Location  = New-Object System.Drawing.Point(755,325)
 $DataRecoveryBtn.Name      = 'VNCServerBtn'
-$DataRecoveryBtn.Size      = New-Object System.Drawing.Size(103,38)
+$DataRecoveryBtn.Size      = New-Object System.Drawing.Size(112,38)
 $DataRecoveryBtn.TabIndex  = 48
-$DataRecoveryBtn.Text      = 'Recovery'
+$DataRecoveryBtn.Text      = 'Data Recovery'
 $DataRecoveryBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
 
 # Scan Registry button config
@@ -508,7 +517,7 @@ $RegistryScanBtn.ForeColor = $ButtonFGColor
 $RegistryScanBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $RegistryScanBtn.Location  = New-Object System.Drawing.Point(755,378)
 $RegistryScanBtn.Name      = 'RegistryScanBtn'
-$RegistryScanBtn.Size      = New-Object System.Drawing.Size(103,38)
+$RegistryScanBtn.Size      = New-Object System.Drawing.Size(112,38)
 $RegistryScanBtn.TabIndex  = 49
 $RegistryScanBtn.Text      = 'Scan Registry'
 
@@ -519,7 +528,7 @@ $PuTTYBtn.ForeColor = $ButtonFGColor
 $PuTTYBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
 $PuTTYBtn.Location  = New-Object System.Drawing.Point(755,219)
 $PuTTYBtn.Name      = 'PuTTYBtn'
-$PuTTYBtn.Size      = New-Object System.Drawing.Size(103,38)
+$PuTTYBtn.Size      = New-Object System.Drawing.Size(112,38)
 $PuTTYBtn.TabIndex  = 46
 $PuTTYBtn.Text      = 'PuTTY'
 
@@ -1141,6 +1150,8 @@ $AdvOptionGrpBox.Controls.Add($SystemInfoCB)
 # Panel or group with results textbox
 # Textbox has time elapsed, list of things done, successes/failures
 
+# -----------------------------------------------
+
 # Add buttons to the main form's list of elements
 
 $MainForm.Controls.Add($GoButton)
@@ -1154,6 +1165,59 @@ $MainForm.Controls.Add($AdvOptionGrpBox)
 $MainForm.Controls.Add($SSBottomPanel)
 $MainForm.Controls.Add($SSTopPanel)
 $MainForm.Controls.Add($MenuStrip)
+
+# Add Tooltips to individual controls (Add/modify tooltips here)
+
+# ------------------|----Control name----|-------Tooltip text------>
+$Tooltip.SetToolTip( $AdvMenuCloseBtn,    "Close this menu (Configuration will be saved)") 
+$Tooltip.SetToolTip( $ProfileLoadBtn,     "Load the user profile configuration associated`nwith the name in the textbox")
+$Tooltip.SetToolTip( $ProfileSaveBtn,     "Save the current configuration to a new user profile`nunder the name in the textbox")
+$Tooltip.SetToolTip( $ProfileDropdown,    "Enter a new name to save the current configuration under`nor enter/select the name of a previously saved profile")
+$Tooltip.SetToolTip( $DiskImgCBList,      "All selected drives are imaged and their contents`nexported as individual .vdhx files")
+$Tooltip.SetToolTip( $ZipOutputRBtn,      "Save all program output in a single .zip archive")
+$Tooltip.SetToolTip( $VHDXOutputRBtn,     "Save all program output to a single .vhdx file")
+$Tooltip.SetToolTip( $PuTTYBtn,           "Open PuTTY, a free and open-source terminal emulator,`nserial console and network file transfer application")
+$Tooltip.SetToolTip( $VNCServerBtn,       "Not yet implemented")
+$Tooltip.SetToolTip( $DataRecoveryBtn,    "Not yet implemented")
+$Tooltip.SetToolTip( $RegistryScanBtn,    "Open RegScanner, a small utility that allows you to scan the Registry`nfor a particular string and then view or export the matches to a .reg file")
+$Tooltip.SetToolTip( $SystemInfoCB,       "Record a detailed overview of the system specifications, etc.")
+$Tooltip.SetToolTip( $ActiveProcessesCB,  "Record a list of the currently active processes")
+$Tooltip.SetToolTip( $MemoryImageCB,      "Copy the physical memory (RAM) of`nthe windows system using winPMem`nand export a raw memory image")
+$Tooltip.SetToolTip( $ScreenshotsCB,      "Take a screenshot of every open window,`nregardless of whether they are minimized`nor hidden behind other windows")
+$Tooltip.SetToolTip( $BrowserCookiesCB,   "Copy and export all browser cookies stored on the system`n(includes Mozila, Edge, IE, Opera, and Chrome)")
+$Tooltip.SetToolTip( $BrowserHistoryCB,   "Copy and export all browser history data stored on the system`n(includes Mozila, Edge, IE, Opera, and Chrome)")
+$Tooltip.SetToolTip( $PeripheralDevicesCB,"Record a list of all peripheral devices`nthat are currently connected to the system")
+$Tooltip.SetToolTip( $ImageScanCB,        "Scan the entire system and save to a`nfolder any images that are not`nstandard windows/system images")
+$Tooltip.SetToolTip( $RegistryCB,         "Copy and export all registry keys and hive information")
+$Tooltip.SetToolTip( $EventLogsCB,        "Copy and export all Windows event logs")
+$Tooltip.SetToolTip( $AmCacheCB,          "Copy and export the AmCache registry hive")
+$Tooltip.SetToolTip( $StartupProgramsCB,  "Record a list of the startup programs")
+$Tooltip.SetToolTip( $FileAssociationsCB, "Find and copy the file association information`nfor the system to a text file")
+$Tooltip.SetToolTip( $InstalledProgramsCB,"Record a list of the Installed Programs,`nboth Microsoft & Non-Microsoft")
+$Tooltip.SetToolTip( $JumpListsCB,        "Copy and export the jump lists for each user on the machine")
+$Tooltip.SetToolTip( $KeywordSearchesCB,  "Copy and export the WordWheelQuery registry keys and`nother information relating to keyword searches`nperformed by each User")
+$Tooltip.SetToolTip( $LNKFilesCB,         "Record a list of all .LNK files on the system")
+$Tooltip.SetToolTip( $RestorePointsCB,    "Record a list of all system restore points on the machine")
+$Tooltip.SetToolTip( $DLLsCB,             "Record a list of all .dll files on the machine")
+$Tooltip.SetToolTip( $MRUListsCB,         "Copy and export all registry keys related`nto the Most Recently Used (MRU) list")
+$Tooltip.SetToolTip( $SwapFilesCB,        "Copy the swap file (page file) of`nthe windows system using winPMem`nand export a raw memory image")
+$Tooltip.SetToolTip( $PrefetchFilesCB,    "Copy and export the files from `"C:\Windows\Prefetch`"")
+$Tooltip.SetToolTip( $RecycleBinCB,       "Copy and export any metadata files that are`npresent in the `$RECYCLE.BIN system folder")
+$Tooltip.SetToolTip( $RDPCacheCB,         "Copy and export into a folder any bitmap files that are`nstored in the Remote Desktop Protocol (RDP) Cache")
+$Tooltip.SetToolTip( $ScheduledTasksCB,   "Copy to a folder the .XML files that represent each`nscheduled task from the `"C:/Windows/System32/Tasks`"`nfolder (or equivalent for target version of Windows,`nas the location may vary)")
+$Tooltip.SetToolTip( $ShellbagsCB,        "Copy and export the NTUSER.DAT and USRCLASS.DAT`nfiles and related .LOG files")
+$Tooltip.SetToolTip( $ShimCacheCB,        "Copy and export the ShimCache registry hive and related files")
+$Tooltip.SetToolTip( $SRUMInfoCB,         "Copy and export all SRUM Information, (including Application resource usage,`nEnergy usage (long term), Network connections, Network usage,`nand Push notification data)")
+$Tooltip.SetToolTip( $WindowsServicesCB,  "Record a list of the currently running Windows services")
+$Tooltip.SetToolTip( $TimezoneInfoCB,     "Record the timezone information of the machine")
+$Tooltip.SetToolTip( $UserAccountsCB,     "Record a list of the Windows User accounts")
+$Tooltip.SetToolTip( $NetworkProfilesCB,  "Record a list of network connection profiles`nassociated with any network adapters")
+$Tooltip.SetToolTip( $UserAssistInfoCB,   "Copy and export all UserAssist related registry keys")
+$Tooltip.SetToolTip( $AutoRunItemsCB,     "Record a list of all autorun items of the machine")
+$Tooltip.SetToolTip( $FileSystemInfoCB,   "Record useful information about the filesystem of the machine")
+$Tooltip.SetToolTip( $NetworkInterfacesCB,"Record all network device names,`nnetwork interface names,`nand related IP addresses")
+$Tooltip.SetToolTip( $NetworkShareInfoCB, "Copy and export all registry keys related`nto network shares for each user")
+$Tooltip.SetToolTip( $PacketCaptureCB,    "Run a Packet sniffer during the scanning process,`nso that data travelling through the system’s`nnetwork during scanning can be recorded")
 
 # Add functions to their respective button's event handler
 
