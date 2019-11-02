@@ -1,5 +1,5 @@
 function Scan-Registry {
-	$RegScanner = "$PSScriptRoot\..\Tools\RegScanner\RegScanner"
+	$RegScanner = "$PSScriptRoot\..\Tools\RegScanner\RegScanner.exe"
 
 	$run = $RegScanner
 	try 
