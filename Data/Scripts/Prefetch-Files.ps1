@@ -16,7 +16,6 @@ function Prefetch
     }
     catch
     {
-        Write-Host "Failed to copy Prefetch files. Try running the program as an Administrator."
         Search-And-Add-Log-Entry $FAIL_LOG ("Failed to copy Prefetch files from local machine")
     }
 }
