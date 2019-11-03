@@ -7,7 +7,7 @@ function Windows-Services
 
 	if(!$success)
 	{
-		Search-And-Add-Log-Entry $FAIL_LOG ("Created " + $fileName)
+		Search-And-Add-Log-Entry $FAIL_LOG ("Failed to create " + $fileName)
 	}
 	else
 	{
