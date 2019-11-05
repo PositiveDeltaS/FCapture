@@ -3,12 +3,16 @@
 
 	try
 	{	
+		# Get List of virtual and physical interfaces
 		write-output "Network Interface Summary" | Out-File $File
 		write-output "================================================================" | Out-File $File -Append
 		Get-NetAdapter -Name "*" -IncludeHidden | Format-Table -Property "Name", "Status", "InterfaceDescription", "InterfaceName" | Out-File $File -Append 
+		
+		# Get Ip Adresses
 		ipconfig /all | Out-File $File -Append
 		write-output "`n`n" | Out-File $File -Append
 
+		# Get detailed interface properties
 		write-output "Network Interface Detailed Properties" | Out-File $File -Append
 		write-output "================================================================" | Out-File $File -Append
 		Get-NetAdapter -Name "*" -IncludeHidden | ForEach-Object {
