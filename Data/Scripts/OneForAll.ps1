@@ -38,6 +38,7 @@ function OneForAll
     if($FileAssociationsCB.Checked){ File-Associations }
     if($StartupProgramsCB.Checked){ Startup-Programs }
     if($AmCacheCB.Checked){ AmCache }
+    if($MUICacheCB.Checked){ MUICache }
     if($EventLogsCB.Checked){ Event-Logs }
     if($RegistryCB.Checked){ Record-Registry }
     if($ImageScanCB.Checked){ Image-Scan }

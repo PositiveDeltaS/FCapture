@@ -52,3 +52,4 @@
 . "$PSScriptRoot\Menu-Transitions.ps1"
 . "$PSScriptRoot\Data-Recovery.ps1"
 . "$PSScriptRoot\VNC-Server.ps1"
+. "$PSScriptRoot\MUICache.ps1"
