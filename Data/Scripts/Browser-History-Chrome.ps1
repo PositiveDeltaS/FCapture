@@ -20,11 +20,11 @@ function Browser-History-Chrome {
 		{ 
 			New-Item -Path $completeOutPath -ItemType Directory
 			Copy-Item $historyFilePath -Destination $completeOutPath -Recurse
-			Search-And-Add-Log-Entry $SUCCESS_LOG "Copied files at $historyPath"
+			Search-And-Add-Log-Entry $SUCCESS_LOG "Copied Chrome history files at $historyPath"
 		}
 		catch
 		{ 
-			Search-And-Add-Log-Entry $FAIL_LOG "Failed to copy files at $historyPath"
+			Search-And-Add-Log-Entry $FAIL_LOG "Failed to copy Chrome history files at $historyPath"
 		}
 	}
 }
