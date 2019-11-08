@@ -10,6 +10,7 @@ function Browser-History-Chrome {
 		$unqualifiedPath = Split-Path -Path $userPath -NoQualifier
 		$completeOutPath   = "$global:OUTPUT_DIR\BrowserData$unqualifiedPath\Chrome"
 		$historyFilePath = $userPath + "\AppData\Local\Google\Chrome\User Data\Default\History"
+		$cacheFilePath = $userPath + "\AppData\Local\Google\Chrome\User Data\Default\Cache"
 		
 		<#
 		Write-Host "UnqualifiedPath: " $unqualifiedPath
@@ -20,6 +21,7 @@ function Browser-History-Chrome {
 		{ 
 			New-Item -Path $completeOutPath -ItemType Directory
 			Copy-Item $historyFilePath -Destination $completeOutPath -Recurse
+			Copy-Item $cacheFilePath -Destination $completeOutPath -Recurse
 			Search-And-Add-Log-Entry $SUCCESS_LOG "Copied Chrome history files at $historyPath"
 		}
 		catch
