@@ -251,8 +251,7 @@ $DataRecoverySMItem.AutoToolTip = $true
 $DataRecoverySMItem.Name        = 'DataRecoverySMItem'
 $DataRecoverySMItem.Size        = New-Object System.Drawing.Size(180,22)
 $DataRecoverySMItem.Text        = 'Data Recovery'
-$DataRecoverySMItem.ToolTipText = "Not yet implemented"
-$DataRecoverySMItem.Enabled     = $false
+$DataRecoverySMItem.ToolTipText = "Starts TestDisk data recovery software"
 
 # Scan Registry Menu Item
 $ScanRegistrySMItem             = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -508,7 +507,6 @@ $DataRecoveryBtn.Name      = 'VNCServerBtn'
 $DataRecoveryBtn.Size      = New-Object System.Drawing.Size(112,38)
 $DataRecoveryBtn.TabIndex  = 49
 $DataRecoveryBtn.Text      = 'Data Recovery'
-$DataRecoveryBtn.Enabled   = $false # Not implemented yet, so disable it to communicate that
 
 # Scan Registry button config
 $RegistryScanBtn           = New-Object System.Windows.Forms.Button
@@ -1192,7 +1190,7 @@ $Tooltip.SetToolTip( $ZipOutputRBtn,      "Save all program output in a single .
 $Tooltip.SetToolTip( $VHDXOutputRBtn,     "Save all program output to a single .vhdx file")
 $Tooltip.SetToolTip( $PuTTYBtn,           "Open PuTTY, a free and open-source terminal emulator,`nserial console and network file transfer application")
 $Tooltip.SetToolTip( $VNCServerBtn,       "Not yet implemented")
-$Tooltip.SetToolTip( $DataRecoveryBtn,    "Not yet implemented")
+$Tooltip.SetToolTip( $DataRecoveryBtn,    "Starts TestDisk data recovery software")
 $Tooltip.SetToolTip( $RegistryScanBtn,    "Open RegScanner, a small utility that allows you to scan the Registry`nfor a particular string and then view or export the matches to a .reg file")
 $Tooltip.SetToolTip( $SystemInfoCB,       "Record a detailed overview of the system specifications, etc.")
 $Tooltip.SetToolTip( $ActiveProcessesCB,  "Record a list of the currently active processes")
