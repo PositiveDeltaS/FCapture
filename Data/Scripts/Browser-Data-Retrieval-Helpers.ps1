@@ -1,9 +1,14 @@
+<#
+Generic function to get browser data for specified users. Copies everything
+at specified path to specified outpath.
+#>
 function Get-Browser-Data($users, [string] $desiredPath, [string] $outPath)
 {
+#can possibly update to $users | ForEach-Object
 	ForEach($_ in $users)
 	{
 		$unqualifiedPath = Split-Path -Path $_ -NoQualifier
-		$completeOutPath   = "$global:OUTPUT_DIR\BrowserData\$unqualifiedPath\$outPath"
+		$completeOutPath   = "$global:OUTPUT_DIR\Browser Data\$unqualifiedPath\$outPath"
 		$filePath = "$env:HOMEDRIVE\Users\$_\$desiredPath"
 		
 		try
@@ -19,6 +24,10 @@ function Get-Browser-Data($users, [string] $desiredPath, [string] $outPath)
 	}
 }
 
+
+<#
+Returns list of windows user names that have files at the specified path. 
+#>
 function Get-Desired-User-Profile-Names([string] $pathExtension)
 {	
 	return Split-Path -Path (Resolve-Path "$env:HOMEDRIVE\Users\*" | 
