@@ -6,7 +6,7 @@ function Save-User-Profile {
     }
     $State = [ordered]@{}
     Update-State $MainForm $State ""
-    Save-Recoverable $State "$global:OUTPUT_DIR\Profiles\$Name.xml"
+    Save-Recoverable $State "$PSScriptRoot\..\Profiles\$Name.xml"
 }
 
 function Load-User-Profile {
@@ -18,7 +18,7 @@ function Load-User-Profile {
     }
 
     # Check if any profiles exist in directory
-    $ProfileDir = Get-ChildItem -Path "$global:OUTPUT_DIR\Profiles\"
+    $ProfileDir = Get-ChildItem -Path "$PSScriptRoot\..\Profiles\"
     if(!$ProfileDir) {
         Write-Host "Profile not found."
         return
@@ -33,7 +33,7 @@ function Load-User-Profile {
     # Check list of profiles names for a match
     if($NameList -match $Name) { 
         $State = [ordered]@{}
-        Load-Recoverable $State "$global:OUTPUT_DIR\Profiles\$Name.xml"
+        Load-Recoverable $State "$PSScriptRoot\..\Profiles\$Name.xml"
         Set-State $MainForm $State
     } else {
         Write-Host "Profile not found."
@@ -43,7 +43,7 @@ function Load-User-Profile {
 
 function Update-DD {
     $ProfileDropdown.Items.Clear()
-    $ProfileDir = Get-ChildItem -Path "$global:OUTPUT_DIR\Profiles\"
+    $ProfileDir = Get-ChildItem -Path "$PSScriptRoot\..\Profiles\"
     if(!$ProfileDir) {
         return
     }
