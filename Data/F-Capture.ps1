@@ -1168,6 +1168,7 @@ $ScanningLbl.TextAlign    = [System.Drawing.ContentAlignment]::MiddleCenter
 # Results Textbox settings
 $ResultsTB                = New-Object System.Windows.Forms.TextBox
 $ResultsTB.Anchor         = [System.Windows.Forms.AnchorStyles]::None
+$ResultsTB.ScrollBars     = [System.Windows.Forms.ScrollBars]::Vertical
 $ResultsTB.BackColor      = $ButtonBGColor
 $ResultsTB.ForeColor      = $ButtonFGColor
 $ResultsTB.Font           = 'Consolas,9.75'
