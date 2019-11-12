@@ -1,9 +1,10 @@
 // Credit: https://stackoverflow.com/a/54706445
 
 // To Create .exe from .bat file:
+// FIRST: Move this script to the ROOT of the FCapture hierarchy (as in, where the .exe file would reasonably be expected to go)
 // In command prompt, navigate to the FCapture root folder on your computer.
 // Enter the following command (may have to alter for your machine):
-// C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\csc.exe /target:winexe /win32icon:Data\Resources\FCAP.ico F-Capture.cs
+// C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319\csc.exe /target:winexe /win32icon:Data\Resources\FCAP.ico Make_FCAP_exe.cs
 
 using System;
 using System.Diagnostics;

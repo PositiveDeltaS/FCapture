@@ -50,3 +50,4 @@
 . "$PSScriptRoot\Data-Recovery.ps1"
 . "$PSScriptRoot\VNC-Server.ps1"
 . "$PSScriptRoot\MUICache.ps1"
+. "$PSScriptRoot\Package-Output.ps1"

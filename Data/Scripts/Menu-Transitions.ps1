@@ -46,3 +46,37 @@ function Close-Advanced-Menu()
 	$AdvancedBtn.Show()
     $BgPanel.Show()
 }
+
+function Open-Results-Page()
+{
+    # Hide Main Menu UI elements
+	$GoButton.Hide()
+    $OutDirTextBoxLbl.Hide()
+	$OutDirBtn.Hide()
+	$OutDirTextBox.Hide()
+	$AdvancedBtn.Hide()
+    $BgPanel.Hide()
+
+    # Show Results Page UI Elements
+    $ResultsPanel.Show()
+    $MainMenuBtn.Show()
+    $ViewOutputBtn.Show()
+    $ExitResultsBtn.Show()
+}
+
+function Close-Results-Page()
+{
+    # Hide Results Page UI Elements
+    $ResultsPanel.Hide()
+    $MainMenuBtn.Hide()
+    $ViewOutputBtn.Hide()
+    $ExitResultsBtn.Hide()
+    
+    # Show Main Menu UI elements
+	$GoButton.Show()
+    $OutDirTextBoxLbl.Show()
+	$OutDirBtn.Show()
+	$OutDirTextBox.Show()
+	$AdvancedBtn.Show()
+    $BgPanel.Show()
+}

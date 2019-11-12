@@ -50,7 +50,7 @@ $MainForm.AutoScaleDimensions = New-Object System.Drawing.SizeF(6,13)
 $MainForm.AutoScaleMode       = [System.Windows.Forms.AutoScaleMode]::Dpi
 $MainForm.AutoScroll          = $true
 $MainForm.BackColor           = $MainFormBGColor
-$MainForm.ClientSize          = New-Object System.Drawing.Size(1146,663)
+$MainForm.ClientSize          = New-Object System.Drawing.Size(1146,690)
 $MainForm.Font                = 'Consolas,8.25'
 $MainForm.ForeColor           = $MainFormFGColor
 $MainForm.Icon                = $Icon
@@ -1152,20 +1152,95 @@ $AdvOptionGrpBox.Controls.Add($MemoryImageCB)
 $AdvOptionGrpBox.Controls.Add($ActiveProcessesCB)
 $AdvOptionGrpBox.Controls.Add($SystemInfoCB)
 
-# ------------ Scanning Page Elements ------------
+# ------------ Results/Scanning Page Elements ------------
 
-# Progress bar
-# Timer; Count elapsed time; Estimate time left
+# Scanning label settings
+$ScanningLbl              = New-Object System.Windows.Forms.Label
+$ScanningLbl.Anchor       = [System.Windows.Forms.AnchorStyles]::None
+$ScanningLbl.BackColor    = $CheckmarkBGColor
+$ScanningLbl.Location     = New-Object System.Drawing.Point (320,0)
+$ScanningLbl.Font         = 'Consolas,12'
+$ScanningLbl.Name         = 'ScanningLbl'
+$ScanningLbl.Size         = New-Object System.Drawing.Size (504,39)
+$ScanningLbl.Text         = 'Scanning...'
+$ScanningLbl.TextAlign    = [System.Drawing.ContentAlignment]::MiddleCenter
 
-# ------------ Results Page Elements ------------
+# Results Textbox settings
+$ResultsTB                = New-Object System.Windows.Forms.TextBox
+$ResultsTB.Anchor         = [System.Windows.Forms.AnchorStyles]::None
+$ResultsTB.ScrollBars     = [System.Windows.Forms.ScrollBars]::Vertical
+$ResultsTB.BackColor      = $ButtonBGColor
+$ResultsTB.ForeColor      = $ButtonFGColor
+$ResultsTB.Font           = 'Consolas,9.75'
+$ResultsTB.Location       = New-Object System.Drawing.Point(320,35)
+$ResultsTB.Name           = 'ResultsTB'
+$ResultsTB.Size           = New-Object System.Drawing.Size(504,334)
+$ResultsTB.TabStop        = $false
+$ResultsTB.Multiline      = $true
+$ResultsTB.ReadOnly       = $true
 
-# Panel or group with results textbox
-# Textbox has time elapsed, list of things done, successes/failures
+# Back to Main Menu Button settings
+$MainMenuBtn              = New-Object System.Windows.Forms.Button
+$MainMenuBtn.Anchor       = [System.Windows.Forms.AnchorStyles]::None
+$MainMenuBtn.BackColor    = $AdvBtnBGColor
+$MainMenuBtn.ForeColor    = 'White'
+$MainMenuBtn.Font         = 'Consolas,9.75'
+$MainMenuBtn.FlatStyle    = [System.Windows.Forms.FlatStyle]::Popup
+$MainMenuBtn.Location     = New-Object System.Drawing.Point(320,560)
+$MainMenuBtn.Name         = 'MainMenuBtn'
+$MainMenuBtn.Size         = New-Object System.Drawing.Size(122,39)
+$MainMenuBtn.TabIndex     = 2
+$MainMenuBtn.Text         = 'Main Menu'
+$MainMenuBtn.Visible      = $false
+
+# Open Output Folder Button settings
+$ViewOutputBtn            = New-Object System.Windows.Forms.Button
+$ViewOutputBtn.Anchor     = [System.Windows.Forms.AnchorStyles]::None
+$ViewOutputBtn.BackColor  = $AdvBtnBGColor
+$ViewOutputBtn.ForeColor  = 'White'
+$ViewOutputBtn.Font       = 'Consolas,9.75'
+$ViewOutputBtn.FlatStyle  = [System.Windows.Forms.FlatStyle]::Popup
+$ViewOutputBtn.Location   = New-Object System.Drawing.Point(511,560)
+$ViewOutputBtn.Name       = 'ViewOutputBtn'
+$ViewOutputBtn.Size       = New-Object System.Drawing.Size(122,39)
+$ViewOutputBtn.TabIndex   = 3
+$ViewOutputBtn.Text       = 'View Output'
+$ViewOutputBtn.Visible    = $false
+
+# Exit from Resutlts page Button settings
+$ExitResultsBtn           = New-Object System.Windows.Forms.Button
+$ExitResultsBtn.Anchor    = [System.Windows.Forms.AnchorStyles]::None
+$ExitResultsBtn.BackColor = $AdvBtnBGColor
+$ExitResultsBtn.ForeColor = 'White'
+$ExitResultsBtn.Font      = 'Consolas,9.75'
+$ExitResultsBtn.FlatStyle = [System.Windows.Forms.FlatStyle]::Popup
+$ExitResultsBtn.Location  = New-Object System.Drawing.Point(702,560)
+$ExitResultsBtn.Name      = 'ExitResultsBtn'
+$ExitResultsBtn.Size      = New-Object System.Drawing.Size(122,39)
+$ExitResultsBtn.TabIndex  = 4
+$ExitResultsBtn.Text      = 'Exit'
+$ExitResultsBtn.Visible   = $false
+
+# Results Page Panel
+$ResultsPanel             = New-Object System.Windows.Forms.Panel
+$ResultsPanel.Anchor      = ([System.Windows.Forms.AnchorStyles][System.Windows.Forms.AnchorStyles]::Left -bor [System.Windows.Forms.AnchorStyles]::Right)
+$ResultsPanel.BackColor   = $BannerBGColor
+$ResultsPanel.Location    = New-Object System.Drawing.Point(0,150)
+$ResultsPanel.MaximumSize = New-Object System.Drawing.Size(10000,400)
+$ResultsPanel.Name        = 'ResultsPanel'
+$ResultsPanel.Size        = New-Object System.Drawing.Size(1146,400)
+$ResultsPanel.Visible     = $false
+$ResultsPanel.Controls.Add($ResultsTB)
+$ResultsPanel.Controls.Add($ScanningLbl)
 
 # -----------------------------------------------
 
 # Add buttons to the main form's list of elements
 
+$MainForm.Controls.Add($ExitResultsBtn)
+$MainForm.Controls.Add($ViewOutputBtn)
+$MainForm.Controls.Add($MainMenuBtn)
+$MainForm.Controls.Add($ResultsPanel)
 $MainForm.Controls.Add($GoButton)
 $MainForm.Controls.Add($FCapTitle)
 $MainForm.Controls.Add($OutDirTextBoxLbl)
@@ -1266,6 +1341,11 @@ $VNCServerBtn.Add_Click({ Start-VNC-Server })
 $DataRecoveryBtn.Add_Click({ Start-Recovery-Tool })
 $RegistryScanBtn.Add_Click({ Scan-Registry })
 $CheckUncheckAllCB.Add_CheckedChanged({ Toggle-All-Checkboxes })
+
+# Results Page Events
+$MainMenuBtn.Add_Click({ Close-Results-Page })
+$ViewOutputBtn.Add_Click({ Invoke-Item $global:OUTPUT_DIR })
+$ExitResultsBtn.Add_Click({ $MainForm.Close() })
 
 Register-ObjectEvent -InputObject $MainForm -EventName FormClosing -Action { Store-Main-State } | Out-Null
 
