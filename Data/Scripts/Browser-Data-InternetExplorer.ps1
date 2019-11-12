@@ -1,6 +1,5 @@
 function Browser-Data-InternetExplorer
 {
-	C:\Users\Krempire\AppData\Local\Microsoft\Internet Explorer
 	
 	$path = "AppData\Local\Microsoft\Internet Explorer"
 	$outPath = "Internet Explorer\Data"

@@ -4,4 +4,5 @@ function Browser-Data-Retrieval
 	Browser-Data-Edge
 	Browser-Data-FireFox
 	Browser-Data-InternetExplorer
+	Browser-Data-Opera
 }

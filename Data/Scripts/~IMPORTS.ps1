@@ -7,6 +7,7 @@
 . "$PSScriptRoot\Browser-Data-FireFox.ps1"
 . "$PSScriptRoot\Browser-Data-Chrome.ps1"
 . "$PSScriptRoot\Browser-Data-InternetExplorer.ps1"
+. "$PSScriptRoot\Browser-Data-Opera.ps1"
 . "$PSScriptRoot\DLLs.ps1"
 . "$PSScriptRoot\Event-Logs.ps1"
 . "$PSScriptRoot\File-Associations.ps1"
