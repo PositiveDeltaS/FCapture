@@ -983,6 +983,7 @@ $BrowserCookiesCB.Size       = New-Object System.Drawing.Size(131,19)
 $BrowserCookiesCB.TabIndex   = 7
 $BrowserCookiesCB.Text       = 'Browser Cookies'
 $BrowserCookiesCB.UseVisualStyleBackColor = $true
+$BrowserCookiesCB.Enabled     = $false
 
 # Open Window Screenshots checkbox config
 $ScreenshotsCB            = New-Object System.Windows.Forms.CheckBox
@@ -1305,7 +1306,7 @@ $Tooltip.SetToolTip( $AutoRunItemsCB,     "Record a list of all autorun items of
 $Tooltip.SetToolTip( $FileSystemInfoCB,   "Record useful information about the filesystem of the machine")
 $Tooltip.SetToolTip( $NetworkInterfacesCB,"Record all network device names,`nnetwork interface names,`nand related IP addresses")
 $Tooltip.SetToolTip( $NetworkShareInfoCB, "Copy and export all registry keys related`nto network shares for each user")
-$Tooltip.SetToolTip( $PacketCaptureCB,    "Run a Packet sniffer during the scanning process,`nso that data travelling through the system’s`nnetwork during scanning can be recorded")
+$Tooltip.SetToolTip( $PacketCaptureCB,    "Run a Packet sniffer during the scanning process,`nso that data travelling through the systemÂ’s`nnetwork during scanning can be recorded")
 
 # Add functions to their respective button's event handler
 
