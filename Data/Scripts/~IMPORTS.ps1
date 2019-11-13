@@ -1,6 +1,5 @@
 . "$PSScriptRoot\Active-Processes.ps1"
 . "$PSScriptRoot\AmCache.ps1"
-. "$PSScriptRoot\Browser-History.ps1"
 . "$PSScriptRoot\Browser-Data-Retrieval.ps1"
 . "$PSScriptRoot\Browser-Data-Retrieval-Helpers.ps1"
 . "$PSScriptRoot\Browser-Data-Edge.ps1"
