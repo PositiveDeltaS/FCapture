@@ -789,19 +789,6 @@ $DLLsCB.TabIndex   = 31
 $DLLsCB.Text       = 'DLLs'
 $DLLsCB.UseVisualStyleBackColor = $true
 
-# System Restore Points checkbox config
-$RestorePointsCB            = New-Object System.Windows.Forms.CheckBox
-$RestorePointsCB.BackColor  = $CheckmarkBGColor
-$RestorePointsCB.AutoSize   = $true
-$RestorePointsCB.Checked    = $true
-$RestorePointsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$RestorePointsCB.Location   = New-Object System.Drawing.Point(200,398)
-$RestorePointsCB.Name       = 'RestorePointsCB'
-$RestorePointsCB.Size       = New-Object System.Drawing.Size(173,19)
-$RestorePointsCB.TabIndex   = 20
-$RestorePointsCB.Text       = 'System Restore Points'
-$RestorePointsCB.UseVisualStyleBackColor = $true
-
 # LNK files checkbox config
 $LNKFilesCB            = New-Object System.Windows.Forms.CheckBox
 $LNKFilesCB.BackColor  = $CheckmarkBGColor
@@ -815,13 +802,26 @@ $LNKFilesCB.TabIndex   = 21
 $LNKFilesCB.Text       = 'LNK Files'
 $LNKFilesCB.UseVisualStyleBackColor = $true
 
+# System Restore Points checkbox config
+$RestorePointsCB            = New-Object System.Windows.Forms.CheckBox
+$RestorePointsCB.BackColor  = $CheckmarkBGColor
+$RestorePointsCB.AutoSize   = $true
+$RestorePointsCB.Checked    = $true
+$RestorePointsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
+$RestorePointsCB.Location   = New-Object System.Drawing.Point(200,391)
+$RestorePointsCB.Name       = 'RestorePointsCB'
+$RestorePointsCB.Size       = New-Object System.Drawing.Size(173,19)
+$RestorePointsCB.TabIndex   = 20
+$RestorePointsCB.Text       = 'System Restore Points'
+$RestorePointsCB.UseVisualStyleBackColor = $true
+
 # Keyword Searches checkbox config
 $KeywordSearchesCB            = New-Object System.Windows.Forms.CheckBox
 $KeywordSearchesCB.BackColor  = $CheckmarkBGColor
 $KeywordSearchesCB.AutoSize   = $true
 $KeywordSearchesCB.Checked    = $true
 $KeywordSearchesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$KeywordSearchesCB.Location   = New-Object System.Drawing.Point(200,356)
+$KeywordSearchesCB.Location   = New-Object System.Drawing.Point(200,344)
 $KeywordSearchesCB.Name       = 'KeywordSearchesCB'
 $KeywordSearchesCB.Size       = New-Object System.Drawing.Size(138,19)
 $KeywordSearchesCB.TabIndex   = 19
@@ -834,7 +834,7 @@ $JumpListsCB.BackColor  = $CheckmarkBGColor
 $JumpListsCB.AutoSize   = $true
 $JumpListsCB.Checked    = $true
 $JumpListsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$JumpListsCB.Location   = New-Object System.Drawing.Point(200,314)
+$JumpListsCB.Location   = New-Object System.Drawing.Point(200,297)
 $JumpListsCB.Name       = 'JumpListsCB'
 $JumpListsCB.Size       = New-Object System.Drawing.Size(96,19)
 $JumpListsCB.TabIndex   = 18
@@ -847,7 +847,7 @@ $InstalledProgramsCB.BackColor  = $CheckmarkBGColor
 $InstalledProgramsCB.AutoSize   = $true
 $InstalledProgramsCB.Checked    = $true
 $InstalledProgramsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$InstalledProgramsCB.Location   = New-Object System.Drawing.Point(200,272)
+$InstalledProgramsCB.Location   = New-Object System.Drawing.Point(200,250)
 $InstalledProgramsCB.Name       = 'InstalledProgramsCB'
 $InstalledProgramsCB.Size       = New-Object System.Drawing.Size(152,19)
 $InstalledProgramsCB.TabIndex   = 17
@@ -860,7 +860,7 @@ $FileAssociationsCB.BackColor  = $CheckmarkBGColor
 $FileAssociationsCB.AutoSize   = $true
 $FileAssociationsCB.Checked    = $true
 $FileAssociationsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$FileAssociationsCB.Location   = New-Object System.Drawing.Point(200,230)
+$FileAssociationsCB.Location   = New-Object System.Drawing.Point(200,203)
 $FileAssociationsCB.Name       = 'FileAssociationsCB'
 $FileAssociationsCB.Size       = New-Object System.Drawing.Size(145,19)
 $FileAssociationsCB.TabIndex   = 16
@@ -873,7 +873,7 @@ $StartupProgramsCB.BackColor  = $CheckmarkBGColor
 $StartupProgramsCB.AutoSize   = $true
 $StartupProgramsCB.Checked    = $true
 $StartupProgramsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$StartupProgramsCB.Location   = New-Object System.Drawing.Point(200,188)
+$StartupProgramsCB.Location   = New-Object System.Drawing.Point(200,156)
 $StartupProgramsCB.Name       = 'StartupProgramsCB'
 $StartupProgramsCB.Size       = New-Object System.Drawing.Size(138,19)
 $StartupProgramsCB.TabIndex   = 15
@@ -886,7 +886,7 @@ $AmCacheCB.BackColor  = $CheckmarkBGColor
 $AmCacheCB.AutoSize   = $true
 $AmCacheCB.Checked    = $true
 $AmCacheCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$AmCacheCB.Location   = New-Object System.Drawing.Point(200,146)
+$AmCacheCB.Location   = New-Object System.Drawing.Point(200,109)
 $AmCacheCB.Name       = 'AmCacheCB'
 $AmCacheCB.Size       = New-Object System.Drawing.Size(75,19)
 $AmCacheCB.TabIndex   = 14
@@ -899,7 +899,7 @@ $MUICacheCB.BackColor  = $CheckmarkBGColor
 $MUICacheCB.AutoSize   = $true
 $MUICacheCB.Checked    = $true
 $MUICacheCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$MUICacheCB.Location   = New-Object System.Drawing.Point(200,104)
+$MUICacheCB.Location   = New-Object System.Drawing.Point(200,62)
 $MUICacheCB.Name       = 'MUICacheCB'
 $MUICacheCB.Size       = New-Object System.Drawing.Size(75,19)
 $MUICacheCB.TabIndex   = 13
@@ -912,7 +912,7 @@ $EventLogsCB.BackColor  = $CheckmarkBGColor
 $EventLogsCB.AutoSize   = $true
 $EventLogsCB.Checked    = $true
 $EventLogsCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$EventLogsCB.Location   = New-Object System.Drawing.Point(200,62)
+$EventLogsCB.Location   = New-Object System.Drawing.Point(22,438)
 $EventLogsCB.Name       = 'EventLogsCB'
 $EventLogsCB.Size       = New-Object System.Drawing.Size(96,19)
 $EventLogsCB.TabIndex   = 12
@@ -925,7 +925,7 @@ $RegistryCB.BackColor  = $CheckmarkBGColor
 $RegistryCB.AutoSize   = $true
 $RegistryCB.Checked    = $true
 $RegistryCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$RegistryCB.Location   = New-Object System.Drawing.Point(22,438)
+$RegistryCB.Location   = New-Object System.Drawing.Point(22,391)
 $RegistryCB.Name       = 'RegistryCB'
 $RegistryCB.Size       = New-Object System.Drawing.Size(82,19)
 $RegistryCB.TabIndex   = 11
@@ -938,7 +938,7 @@ $ImageScanCB.BackColor  = $CheckmarkBGColor
 $ImageScanCB.AutoSize   = $true
 $ImageScanCB.Checked    = $true
 $ImageScanCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$ImageScanCB.Location   = New-Object System.Drawing.Point(22,391)
+$ImageScanCB.Location   = New-Object System.Drawing.Point(22,344)
 $ImageScanCB.Name       = 'ImageScanCB'
 $ImageScanCB.Size       = New-Object System.Drawing.Size(96,19)
 $ImageScanCB.TabIndex   = 10
@@ -951,39 +951,25 @@ $PeripheralDevicesCB.BackColor  = $CheckmarkBGColor
 $PeripheralDevicesCB.AutoSize   = $true
 $PeripheralDevicesCB.Checked    = $true
 $PeripheralDevicesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$PeripheralDevicesCB.Location   = New-Object System.Drawing.Point(22,344)
+$PeripheralDevicesCB.Location   = New-Object System.Drawing.Point(22,297)
 $PeripheralDevicesCB.Name       = 'PeripheralDevicesCB'
 $PeripheralDevicesCB.Size       = New-Object System.Drawing.Size(152,19)
 $PeripheralDevicesCB.TabIndex   = 9
 $PeripheralDevicesCB.Text       = 'Peripheral Devices'
 $PeripheralDevicesCB.UseVisualStyleBackColor = $true
 
-# Browser History checkbox config
-$BrowserHistoryCB            = New-Object System.Windows.Forms.CheckBox
-$BrowserHistoryCB.BackColor  = $CheckmarkBGColor
-$BrowserHistoryCB.AutoSize   = $true
-$BrowserHistoryCB.Checked    = $true
-$BrowserHistoryCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$BrowserHistoryCB.Location   = New-Object System.Drawing.Point(22,297)
-$BrowserHistoryCB.Name       = 'BrowserHistoryCB'
-$BrowserHistoryCB.Size       = New-Object System.Drawing.Size(131,19)
-$BrowserHistoryCB.TabIndex   = 8
-$BrowserHistoryCB.Text       = 'Browser History'
-$BrowserHistoryCB.UseVisualStyleBackColor = $true
-
-# Browser Cookies checkbox config
-$BrowserCookiesCB            = New-Object System.Windows.Forms.CheckBox
-$BrowserCookiesCB.BackColor  = $CheckmarkBGColor
-$BrowserCookiesCB.AutoSize   = $true
-$BrowserCookiesCB.Checked    = $true
-$BrowserCookiesCB.CheckState = [System.Windows.Forms.CheckState]::Checked
-$BrowserCookiesCB.Location   = New-Object System.Drawing.Point(22,250)
-$BrowserCookiesCB.Name       = 'BrowserCookiesCB'
-$BrowserCookiesCB.Size       = New-Object System.Drawing.Size(131,19)
-$BrowserCookiesCB.TabIndex   = 7
-$BrowserCookiesCB.Text       = 'Browser Cookies'
-$BrowserCookiesCB.UseVisualStyleBackColor = $true
-$BrowserCookiesCB.Enabled     = $false
+# Browser Data checkbox config
+$BrowserDataCB            = New-Object System.Windows.Forms.CheckBox
+$BrowserDataCB.BackColor  = $CheckmarkBGColor
+$BrowserDataCB.AutoSize   = $true
+$BrowserDataCB.Checked    = $true
+$BrowserDataCB.CheckState = [System.Windows.Forms.CheckState]::Checked
+$BrowserDataCB.Location   = New-Object System.Drawing.Point(22,250)
+$BrowserDataCB.Name       = 'BrowserDataCB'
+$BrowserDataCB.Size       = New-Object System.Drawing.Size(131,19)
+$BrowserDataCB.TabIndex   = 8
+$BrowserDataCB.Text       = 'Browser Data'
+$BrowserDataCB.UseVisualStyleBackColor = $true
 
 # Open Window Screenshots checkbox config
 $ScreenshotsCB            = New-Object System.Windows.Forms.CheckBox
@@ -1146,8 +1132,7 @@ $AdvOptionGrpBox.Controls.Add($EventLogsCB)
 $AdvOptionGrpBox.Controls.Add($RegistryCB)
 $AdvOptionGrpBox.Controls.Add($ImageScanCB)
 $AdvOptionGrpBox.Controls.Add($PeripheralDevicesCB)
-$AdvOptionGrpBox.Controls.Add($BrowserHistoryCB)
-$AdvOptionGrpBox.Controls.Add($BrowserCookiesCB)
+$AdvOptionGrpBox.Controls.Add($BrowserDataCB)
 $AdvOptionGrpBox.Controls.Add($ScreenshotsCB)
 $AdvOptionGrpBox.Controls.Add($MemoryImageCB)
 $AdvOptionGrpBox.Controls.Add($ActiveProcessesCB)
@@ -1272,8 +1257,7 @@ $Tooltip.SetToolTip( $SystemInfoCB,       "Record a detailed overview of the sys
 $Tooltip.SetToolTip( $ActiveProcessesCB,  "Record a list of the currently active processes")
 $Tooltip.SetToolTip( $MemoryImageCB,      "Copy the physical memory (RAM) of`nthe windows system using winPMem`nand export a raw memory image")
 $Tooltip.SetToolTip( $ScreenshotsCB,      "Take a screenshot of every open window,`nregardless of whether they are minimized`nor hidden behind other windows")
-$Tooltip.SetToolTip( $BrowserCookiesCB,   "Copy and export all browser cookies stored on the system`n(includes Mozila, Edge, IE, Opera, and Chrome)")
-$Tooltip.SetToolTip( $BrowserHistoryCB,   "Copy and export all browser history data stored on the system`n(includes Mozila, Edge, IE, Opera, and Chrome)")
+$Tooltip.SetToolTip( $BrowserDataCB,      "Copy and export all browser data stored on the system`n(includes Mozila, Edge, IE, Opera, and Chrome)")
 $Tooltip.SetToolTip( $PeripheralDevicesCB,"Record a list of all peripheral devices`nthat are currently connected to the system")
 $Tooltip.SetToolTip( $ImageScanCB,        "Scan the entire system and save to a`nfolder any images that are not`nstandard windows/system images")
 $Tooltip.SetToolTip( $RegistryCB,         "Copy and export all registry keys and hive information")

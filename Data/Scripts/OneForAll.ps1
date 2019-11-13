@@ -71,8 +71,7 @@ function OneForAll
     if($RegistryCB.Checked){ Update-TB("Registry"); Record-Registry; Update-TB }
     if($ImageScanCB.Checked){ Update-TB("Image Scan"); Image-Scan; Update-TB }
     if($PeripheralDevicesCB.Checked){ Update-TB("Peripheral Devices"); Peripheral-Devices; Update-TB }
-    if($BrowserHistoryCB.Checked){ Update-TB("Browser History"); Browser-History; Update-TB }
-    if($BrowserCookiesCB.Checked){ Update-TB("Browser Cookies"); Browser-Cookies; Update-TB }
+    if($BrowserDataCB.Checked){ Update-TB("Browser Data"); Browser-Data-Retrieval; Update-TB }
     if($ScreenshotsCB.Checked){ Update-TB("Screenshots"); Screenshot; Update-TB }
     if($MemoryImageCB.Checked -or $SwapFilesCB.Checked){
 		if($SwapFilesCB.Checked){ Update-TB("Swap Files"); Swap-Files; Update-TB }
