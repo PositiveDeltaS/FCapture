@@ -36,7 +36,7 @@ function Get-Desired-User-Profile-Names([string] $pathExtension)
 
 
 
-function Browser-Data-Helper([string] $SavePath, [string] $FilePath)
+function Browser-Data-Wrapper([string] $SavePath, [string] $FilePath)
 {
 	$users = Get-Desired-User-Profile-Names $FilePath
 	Get-Browser-Data $users $FilePath $SavePath
