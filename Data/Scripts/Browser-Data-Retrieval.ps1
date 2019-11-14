@@ -8,4 +8,3 @@ function Browser-Data-Retrieval
     Browser-Data-Wrapper $browser.SavePath.Opera $browser.FilePath.Opera
     
 }
-}
