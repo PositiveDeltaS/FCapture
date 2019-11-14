@@ -33,3 +33,11 @@ function Get-Desired-User-Profile-Names([string] $pathExtension)
 	return Split-Path -Path (Resolve-Path "$env:HOMEDRIVE\Users\*" | 
 	Select -ExpandProperty Path) -Leaf | Where {Test-Path "$env:HOMEDRIVE\Users\$_\$pathExtension"}
 }
+
+
+
+function Browser-Data-Helper([string] $SavePath, [string] $FilePath)
+{
+	$users = Get-Desired-User-Profile-Names $FilePath
+	Get-Browser-Data $users $FilePath $SavePath
+}
