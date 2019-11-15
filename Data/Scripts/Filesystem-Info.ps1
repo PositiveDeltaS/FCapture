@@ -1,1 +1,1 @@
-﻿function Filesystem-Info {}
+﻿function Filesystem-Info { Get-WmiObject -Class Win32_logicaldisk | Export-Csv -Path "$global:OUTPUT_DIR\Filesystem-info.csv"}
