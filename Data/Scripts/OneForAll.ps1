@@ -80,7 +80,7 @@ function OneForAll
     if($SystemInfoCB.Checked){ Update-TB("System Info"); System-Info; Update-TB }
 
     # Image drives that the user requested, if any
-    Update-TB("Image disks"); Disk-Image; Update-TB
+    if($DiskImgCBList.CheckedItems) { Update-TB("Image disks"); Disk-Image; Update-TB }
 
     # End packet capture
     if($PacketCaptureCB.Checked){ Update-TB("Stop packet capture"); Packet-Capture-Stop; Update-TB }
