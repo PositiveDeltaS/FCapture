@@ -7,9 +7,9 @@ Add-Type -AssemblyName System.Management.Automation
 [System.Windows.Forms.Application]::EnableVisualStyles()
 
 # Store log locations in global variables so functions can access them
-$global:DEBUG_LOG   = "$PSScriptRoot\debugLog.txt"
-$global:SUCCESS_LOG = "$PSScriptRoot\success.txt"
-$global:FAIL_LOG    = "$PSScriptRoot\fail.txt"
+$global:DEBUG_LOG   = "$PSScriptRoot\Logs\debugLog.txt"
+$global:SUCCESS_LOG = "$PSScriptRoot\Logs\success.txt"
+$global:FAIL_LOG    = "$PSScriptRoot\Logs\fail.txt"
 
 # Set default output location to F-Capture.ps1 directory
 # For testing & development purposes only, output should be redirected to a removable drive
