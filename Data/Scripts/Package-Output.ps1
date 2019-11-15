@@ -24,8 +24,8 @@ function Package-Output-Data
         # Temporarily create a folder containing the folder that will be archived
         New-Item -Name "FCAP_OUTPUT\FCAP_OUTPUT" -Path "$PSScriptRoot\.." -ItemType Directory
 
-        # Move all of the output files\folders to the inner folder, skipping any output files from previous scans
-        Move-Item "$global:OUTPUT_DIR\*" -Destination "$PSScriptRoot\..\FCAP_OUTPUT\FCAP_OUTPUT" -Force -Exclude "FCAP_OUTPUT*"
+        # Move all of the output files\folders to the inner folder, skipping any output files from previous scans and the Record folder
+        Move-Item "$global:OUTPUT_DIR\*" -Destination "$PSScriptRoot\..\FCAP_OUTPUT\FCAP_OUTPUT" -Force -Exclude @("FCAP_OUTPUT*","Record")
 
         # Zip the inner folder, name it with timestamp, then place it in the output directory
         [IO.Compression.Zipfile]::CreateFromDirectory("$PSScriptRoot\..\FCAP_OUTPUT","$global:OUTPUT_DIR\$outputFilename.zip")
@@ -59,8 +59,8 @@ assign
         # Create a folder to hold the F-Capture output data in the VHD
         New-Item -Name "FCAP_OUTPUT" -Path "$vhdx" -ItemType Directory
 
-        # Move all of the output data to the newly created folder on the VHD, skipping any output files from previous scans
-        Move-Item "$global:OUTPUT_DIR\*" -Destination "$vhdx\FCAP_OUTPUT" -Force -Exclude "FCAP_OUTPUT*"
+        # Move all of the output data to the newly created folder on the VHD, skipping any output files from previous scans and the Record folder
+        Move-Item "$global:OUTPUT_DIR\*" -Destination "$vhdx\FCAP_OUTPUT" -Force -Exclude @("FCAP_OUTPUT*","Record")
 
         # Create a new script to be used by diskpart to unmount the VHD
         $diskPartScript =
