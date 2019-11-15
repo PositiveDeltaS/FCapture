@@ -55,7 +55,7 @@ function OneForAll
     if($ShellbagsCB.Checked){ Update-TB("Shellbags"); Shellbags; Update-TB }
     if($ScheduledTasksCB.Checked){ Update-TB("Scheduled Tasks"); Scheduled-Tasks; Update-TB }
     if($RDPCacheCB.Checked){ Update-TB("RDP Cache"); Remote-Desktop; Update-TB }
-    if($RecycleBinCB.Checked){ Update-TB("Recycle Bin"); Recycle-Bin; Update-TB }
+    if($RecycleBinCB.Checked){ Update-TB("Recycle Bin"); Get-Recycle-Bin; Update-TB }
     if($PrefetchFilesCB.Checked){ Update-TB("Prefetch Files"); Prefetch; Update-TB }
     if($MRUListsCB.Checked){ Update-TB("MRU Lists"); MRU; Update-TB }
     if($LNKFilesCB.Checked){ Update-TB("LNK Files"); LNK; Update-TB }
