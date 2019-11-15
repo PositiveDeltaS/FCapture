@@ -6,7 +6,7 @@ function Get-Recycle-Bin {
     $RBPath  = "$env:HOMEDRIVE\`$Recycle.Bin"
     $outPath = "$global:OUTPUT_DIR\RecycleBinFiles"
 
-    Copy-Item -Path $RBPath -Destination $outPath -Recurse -Force #-ErrorAction SilentlyContinue
+    Copy-Item -Path $RBPath -Destination $outPath -Recurse -Force -ErrorAction SilentlyContinue
 
 <# ---Original function---
 
@@ -38,4 +38,5 @@ function Get-Recycle-Bin {
  }
  #>
 }
+# This line is outside of the function so it's being called immediately upon starting the program and causing errors
 # Get-Recycle-Bin 'C:\$Recycle.Bin\*' "$global:OUTPUT_DIR\RecycleBinFiles" | Out-File "$global:OUTPUT_DIR\RecycleBinContents.txt"
