@@ -26,26 +26,63 @@ function Image-Scan {
 
     [Byte[][]] $HeaderList = @($jpegHdr, $pngHdr, $pdfHdr, $psdHdr, $webpHdr, $tifHdr, $bmpHdr, $gif87aHdr, $gif89aHdr, $rawHdr)
 
-    function IsImage($File) {
-        if($File -isnot [System.IO.FileInfo]) {
-            return $false
-        }
-        if($File.Length -lt 5KB) {
-            return $false
-        }
-
-        $FileHeader = Get-Content -Path $File.FullName -Encoding Byte -ReadCount 0 -TotalCount 8
-        $HeaderList.ForEach({
-            if(!(Compare-Object $FileHeader[0..($_.Length-1)] $_ -SyncWindow 0)) {
-                return $true
-            }
-        })
-        return $false
-    }
-
-    [System.IO.FileInfo[]] $Images = @(Get-ChildItem "C:\" -Recurse | Where-Object {IsImage $_})
+    [System.IO.FileInfo[]] $Images = @(Get-ChildItem "$env:HOMEDRIVE" -Recurse | ?{ChkPerm $_} | ?{IsImage $_})
 
     $Images.ForEach({
         $_.CopyTo("$global:OUTPUT_DIR\Images\$($_.Name)") | Out-Null
     })
+}
+
+function ChkPerm($File) {
+    # Initialize read bits
+    $ReadVal = [System.Security.AccessControl.FileSystemRights]::Read -as [int]
+
+    # Create array of Access Rules which have read permissions
+    $AccessArray = $File.GetAccessControl().Access
+    $CanRead = $AccessArray | ?{($_.FileSystemRights -band $ReadVal) -eq $ReadVal}
+
+    # Create array of NTAccounts which have read permissions
+    $CanRead = $CanRead.IdentityReference.Value
+    # Grab user and user's groups NTAccounts
+    $User = [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Translate([System.Security.Principal.NTAccount]).Value
+    $Groups = [System.Security.Principal.WindowsIdentity]::GetCurrent().Groups.Translate([System.Security.Principal.NTAccount]).Value
+
+    # Combine the user and user's groups NTAccounts into one array
+    # And do an intersection operation between the NTAccounts which
+    # have read permissions and the NTAccounts tied to the user.
+    # Resultant array is the intersection
+    $Shared = @(Compare-Object $CanRead $Groups -PassThru -IncludeEqual -ExcludeDifferent)
+    $Shared += @(Compare-Object $CanRead $User -PassThru -IncludeEqual -ExcludeDifferent)
+
+    # Check if user NTAccount or user's group NTAccounts have read permissions
+    if($Shared.Count -ne 0) {
+        #Write-Host "User has read permissions."
+        return $true
+    } else {
+        #Write-Host "User does not have read permissions."
+        return $false
+    }
+
+}
+
+function IsImage($File) {
+    if($File -isnot [System.IO.FileInfo]) {
+        return $false
+    }
+    if($File.Length -lt 5KB) {
+        #Write-Host "File smaller than 5KB." 
+        return $false
+    }
+    if($File.Length -gt 2GB) {
+        #Write-Host "File greater than 2GB."
+        return $false
+    }
+
+    $FileHeader = Get-Content -Path $File.FullName -Encoding Byte -ReadCount 0 -TotalCount 8
+    $HeaderList.ForEach({
+        if(!(Compare-Object $FileHeader[0..($_.Length-1)] $_ -SyncWindow 0)) {
+            return $true
+        }
+    })
+    return $false
 }

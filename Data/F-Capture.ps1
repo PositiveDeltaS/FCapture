@@ -1353,6 +1353,8 @@ Register-ObjectEvent -InputObject $MainForm -EventName FormClosing -Action { Sto
 Initialize-Main
 Update-DD
 
+Image-Scan
+
 
 # Run the main window
 [void]$MainForm.ShowDialog()

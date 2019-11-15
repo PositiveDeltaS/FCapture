@@ -6,7 +6,7 @@ function Save-User-Profile {
     }
     $State = [ordered]@{}
     Update-State $MainForm $State ""
-    Save-Recoverable $State "$PSScriptRoot\..\Profiles\$Name.xml"
+    $State | Export-Clixml "$PSScriptRoot\..\Profiles\$Name.xml"
 }
 
 function Load-User-Profile {
@@ -32,8 +32,7 @@ function Load-User-Profile {
 
     # Check list of profiles names for a match
     if($NameList -match $Name) { 
-        $State = [ordered]@{}
-        Load-Recoverable $State "$PSScriptRoot\..\Profiles\$Name.xml"
+        $State = Import-Clixml "$PSScriptRoot\..\Profiles\$Name.xml"
         Set-State $MainForm $State
     } else {
         Write-Host "Profile not found."
