@@ -1337,6 +1337,5 @@ Register-ObjectEvent -InputObject $MainForm -EventName FormClosing -Action { Sto
 Initialize-Main
 Update-DD
 
-
 # Run the main window
 [void]$MainForm.ShowDialog()

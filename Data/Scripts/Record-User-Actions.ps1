@@ -42,7 +42,7 @@ function Store-Main-State() {
     } else {
         $Number = 1
     }
-    Write-Recoverable $global:StateRecord "$global:OUTPUT_DIR\Record\Session$Number.xml" 
+    $global:StateRecord | Export-Clixml "$global:OUTPUT_DIR\Record\Session$Number.xml" 
 }
 
 
@@ -105,12 +105,4 @@ function Set-State($ElementArray, $State) {
             Set-State $_ $State
         }
     })
-}
-
-function Save-Recoverable($PSObj, $Path) {
-    $PSObj | Export-Clixml $Path
-}
-
-function Load-Recoverable($PSObj, $Path) {
-    $PSObj = Import-Clixml $Path
 }
