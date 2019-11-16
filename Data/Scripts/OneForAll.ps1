@@ -39,45 +39,57 @@ function OneForAll
     # Start packet capture
     if($PacketCaptureCB.Checked){ Update-TB("Start packet capture"); Packet-Capture-Start; Update-TB }
 
+#Create empty Function table
+    $FunctionsToExecute = @()
+
+ #must use $FunctionsToExecute+=$element   --> += creates a new array and appends the new item
+
     # Do everything else
-    if($NetworkShareInfoCB.Checked){ Update-TB("Network Share Info"); Network-Share-Info; Update-TB }
-    if($NetworkInterfacesCB.Checked){ Update-TB("Network Interfaces"); Network-Interfaces; Update-TB }
-    if($FileSystemInfoCB.Checked){ Update-TB("FileSystem Info"); Filesystem-Info; Update-TB }
-    if($AutoRunItemsCB.Checked){ Update-TB("AutoRun Items"); AutoRun-Items; Update-TB }
-    if($UserAssistInfoCB.Checked){ Update-TB("UserAssist Info"); UserAssist; Update-TB }
-    if($NetworkProfilesCB.Checked){ Update-TB("Network Profiles"); Net-Connection-Profile; Update-TB }
-    if($UserAccountsCB.Checked){ Update-TB("User Accounts"); User-Accounts; Update-TB }
-    if($TimezoneInfoCB.Checked){ Update-TB("Timezone Info"); Timezone-Info; Update-TB }
-    if($WindowsServicesCB.Checked){ Update-TB("Windows Services"); Windows-Services; Update-TB }
-    if($SRUMInfoCB.Checked){ Update-TB("SRUM Info"); SRUM; Update-TB }
-    if($RestorePointsCB.Checked){ Update-TB("Restore Points"); System-Restore-Points; Update-TB }
-    if($ShimCacheCB.Checked){ Update-TB("ShimCache"); ShimCache; Update-TB }
-    if($ShellbagsCB.Checked){ Update-TB("Shellbags"); Shellbags; Update-TB }
-    if($ScheduledTasksCB.Checked){ Update-TB("Scheduled Tasks"); Scheduled-Tasks; Update-TB }
-    if($RDPCacheCB.Checked){ Update-TB("RDP Cache"); Remote-Desktop; Update-TB }
-    if($RecycleBinCB.Checked){ Update-TB("Recycle Bin"); Recycle-Bin; Update-TB }
-    if($PrefetchFilesCB.Checked){ Update-TB("Prefetch Files"); Prefetch; Update-TB }
-    if($MRUListsCB.Checked){ Update-TB("MRU Lists"); MRU; Update-TB }
-    if($LNKFilesCB.Checked){ Update-TB("LNK Files"); LNK; Update-TB }
-    if($DLLsCB.Checked){ Update-TB("DLLs"); DLL; Update-TB }
-    if($KeywordSearchesCB.Checked){ Update-TB("Keyword Searches"); KeyWord-Search; Update-TB }
-    if($JumpListsCB.Checked){ Update-TB("Jump Lists"); Jump-List; Update-TB }
-    if($InstalledProgramsCB.Checked){ Update-TB("Installed Programs"); Installed-Programs; Update-TB }
-    if($FileAssociationsCB.Checked){ Update-TB("File Associations"); File-Associations; Update-TB }
-    if($StartupProgramsCB.Checked){ Update-TB("Startup Programs"); Startup-Programs; Update-TB }
-    if($AmCacheCB.Checked){ Update-TB("AmCache"); AmCache; Update-TB }
-    if($MUICacheCB.Checked){ Update-TB("MUICache"); MUICache; Update-TB }
-    if($EventLogsCB.Checked){ Update-TB("Event Logs"); Event-Logs; Update-TB }
-    if($RegistryCB.Checked){ Update-TB("Registry"); Record-Registry; Update-TB }
-    if($ImageScanCB.Checked){ Update-TB("Image Scan"); Image-Scan; Update-TB }
-    if($PeripheralDevicesCB.Checked){ Update-TB("Peripheral Devices"); Peripheral-Devices; Update-TB }
-    if($BrowserDataCB.Checked){ Update-TB("Browser Data"); Browser-Data-Retrieval; Update-TB }
-    if($ScreenshotsCB.Checked){ Update-TB("Screenshots"); Screenshot; Update-TB }
+    if($NetworkShareInfoCB.Checked){ Update-TB("Network Share Info"); $FunctionsToExecute += (Get-Item -Path function:Network-Share-Info); Update-TB }
+    if($NetworkInterfacesCB.Checked){ Update-TB("Network Interfaces"); $FunctionsToExecute += (Get-Item -Path function:Network-Interfaces); Update-TB }
+    if($FileSystemInfoCB.Checked){ Update-TB("FileSystem Info"); $FunctionsToExecute += (Get-Item -Path function:Filesystem-Info); Update-TB }
+    if($AutoRunItemsCB.Checked){ Update-TB("AutoRun Items"); $FunctionsToExecute += (Get-Item -Path function:AutoRun-Items); Update-TB }
+    if($UserAssistInfoCB.Checked){ Update-TB("UserAssist Info"); $FunctionsToExecute += (Get-Item -Path function:UserAssist); Update-TB }
+    if($NetworkProfilesCB.Checked){ Update-TB("Network Profiles"); $FunctionsToExecute += (Get-Item -Path function:Net-Connection-Profile); Update-TB }
+    if($UserAccountsCB.Checked){ Update-TB("User Accounts"); $FunctionsToExecute += (Get-Item -Path function:User-Accounts); Update-TB }
+    if($TimezoneInfoCB.Checked){ Update-TB("Timezone Info"); $FunctionsToExecute += (Get-Item -Path function:Timezone-Info); Update-TB }
+    if($WindowsServicesCB.Checked){ Update-TB("Windows Services"); $FunctionsToExecute += (Get-Item -Path function:Windows-Services); Update-TB }
+    if($SRUMInfoCB.Checked){ Update-TB("SRUM Info"); $FunctionsToExecute += (Get-Item -Path function:SRUM); Update-TB }
+    if($RestorePointsCB.Checked){ Update-TB("Restore Points"); $FunctionsToExecute += (Get-Item -Path function:System-Restore-Points); Update-TB }
+    if($ShimCacheCB.Checked){ Update-TB("ShimCache"); $FunctionsToExecute += (Get-Item -Path function:ShimCache); Update-TB }
+    if($ShellbagsCB.Checked){ Update-TB("Shellbags"); $FunctionsToExecute += (Get-Item -Path function:Shellbags); Update-TB }
+    if($ScheduledTasksCB.Checked){ Update-TB("Scheduled Tasks"); $FunctionsToExecute += (Get-Item -Path function:Scheduled-Tasks); Update-TB }
+    if($RDPCacheCB.Checked){ Update-TB("RDP Cache"); $FunctionsToExecute += (Get-Item -Path function:Remote-Desktop); Update-TB }
+    if($RecycleBinCB.Checked){ Update-TB("Recycle Bin"); $FunctionsToExecute += (Get-Item -Path function:Recycle-Bin); Update-TB }
+    if($PrefetchFilesCB.Checked){ Update-TB("Prefetch Files"); $FunctionsToExecute += (Get-Item -Path function:Prefetch); Update-TB }
+    if($MRUListsCB.Checked){ Update-TB("MRU Lists"); $FunctionsToExecute += (Get-Item -Path function:MRU); Update-TB }
+    if($LNKFilesCB.Checked){ Update-TB("LNK Files"); $FunctionsToExecute += (Get-Item -Path function:LNK); Update-TB }
+    if($DLLsCB.Checked){ Update-TB("DLLs"); $FunctionsToExecute += (Get-Item -Path function:DLL); Update-TB }
+    if($KeywordSearchesCB.Checked){ Update-TB("Keyword Searches"); $FunctionsToExecute += (Get-Item -Path function:KeyWord-Search); Update-TB }
+    if($JumpListsCB.Checked){ Update-TB("Jump Lists"); $FunctionsToExecute += (Get-Item -Path function:Jump-List); Update-TB }
+    if($InstalledProgramsCB.Checked){ Update-TB("Installed Programs"); $FunctionsToExecute += (Get-Item -Path function:Installed-Programs); Update-TB }
+    if($FileAssociationsCB.Checked){ Update-TB("File Associations"); $FunctionsToExecute += (Get-Item -Path function:File-Associations); Update-TB }
+    if($StartupProgramsCB.Checked){ Update-TB("Startup Programs"); $FunctionsToExecute += (Get-Item -Path function:Startup-Programs); Update-TB }
+    if($AmCacheCB.Checked){ Update-TB("AmCache"); $FunctionsToExecute += (Get-Item -Path function:AmCache); Update-TB }
+    if($MUICacheCB.Checked){ Update-TB("MUICache"); $FunctionsToExecute += (Get-Item -Path function:MUICache); Update-TB }
+    if($EventLogsCB.Checked){ Update-TB("Event Logs"); $FunctionsToExecute += (Get-Item -Path function:Event-Logs); Update-TB }
+    if($RegistryCB.Checked){ Update-TB("Registry"); $FunctionsToExecute += (Get-Item -Path function:Record-Registry); Update-TB }
+    if($ImageScanCB.Checked){ Update-TB("Image Scan"); $FunctionsToExecute += (Get-Item -Path function:Image-Scan); Update-TB }
+    if($PeripheralDevicesCB.Checked){ Update-TB("Peripheral Devices"); $FunctionsToExecute += (Get-Item -Path function:Peripheral-Devices); Update-TB }
+    if($BrowserDataCB.Checked){ Update-TB("Browser Data"); $FunctionsToExecute += (Get-Item -Path function:Browser-Data-Retrieval); Update-TB }
+    if($ScreenshotsCB.Checked){ Update-TB("Screenshots"); $FunctionsToExecute += (Get-Item -Path function:Screenshot); Update-TB }
     if($MemoryImageCB.Checked -or $SwapFilesCB.Checked){
-		if($SwapFilesCB.Checked){ Update-TB("Swap Files"); Swap-Files; Update-TB }
-		else{ Update-TB("Physical Memory Imaging"); PhysicalMemory-Image; Update-TB }}
-    if($ActiveProcessesCB.Checked){ Update-TB("Active Processes"); Active-Processes; Update-TB }
-    if($SystemInfoCB.Checked){ Update-TB("System Info"); System-Info; Update-TB }
+		if($SwapFilesCB.Checked){ Update-TB("Swap Files"); $FunctionsToExecute += (Get-Item -Path function:Swap-Files); Update-TB }
+		else{ Update-TB("Physical Memory Imaging"); $FunctionsToExecute += (Get-Item -Path function:PhysicalMemory-Image); Update-TB }}
+    if($ActiveProcessesCB.Checked){ Update-TB("Active Processes"); $FunctionsToExecute += (Get-Item -Path function:Active-Processes); Update-TB }
+    if($SystemInfoCB.Checked){ Update-TB("System Info"); $FunctionsToExecute += (Get-Item -Path function:System-Info); Update-TB }
+
+
+    #Iterate and execute each function that correlates to a checkbox that is checked
+    foreach($funct in $FunctionsToExecute)
+    {
+       & $funct
+    }
 
     # Image drives that the user requested, if any
     if($DiskImgCBList.CheckedItems) { Update-TB("Image disks"); Disk-Image; Update-TB }
