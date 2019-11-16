@@ -1,4 +1,24 @@
 ﻿<#
+    Check whether the drive that F-Capture is on is formatted to NTFS filesystem;
+    If it isn't, VHDX format output won't work, so we set the global:ON_NTFS variable
+    in the main script with this function, and then use it to set the enabled and
+    the checked properties of the VHDX radio button when the program starts.
+#>
+function Check-RD-Filesystem
+{
+    $fcapDrive   = (Split-Path -Path $PSScriptRoot -Qualifier) + "\"
+    $fcapDriveFS = ([System.IO.DriveInfo]::GetDrives() | Where {$_.Name -eq $fcapDrive}).DriveFormat
+
+    return $fcapDriveFS -eq "NTFS"
+}
+
+# If the VHDX radio button is disabled, don't allow it to be checked by a loaded user profile
+function Handle-VHDX-Check
+{
+    if(!$VHDXOutputRBtn.Enabled -and $VHDXOutputRBtn.Checked){ $ZipOutputRBtn.Checked = $true }
+}
+
+<#
     This function takes all of the output folders and files that were created
     during the operation of the program and compresses them into a zip archive
     or puts them into a vhdx file, depending on the user's decision in the

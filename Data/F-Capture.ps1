@@ -19,6 +19,9 @@ $global:OUTPUT_DIR  = "$PSScriptRoot"
 $global:DEV_MODE    = $true
 if(!$DEV_MODE){ Hide-Console }
 
+# Checks whether the drive F-Capture is on is NTFS, true if NTFS, false otherwise
+$global:ON_NTFS     = Check-RD-Filesystem
+
 # Ordered Hash Table: Records all program configuration changes (aka state changes)
 # StateRecord keys are date/time, and values are states, which are hash tables themselves
 $global:StateRecord = [ordered]@{}
@@ -1042,7 +1045,8 @@ $VHDXOutputRBtn            = New-Object System.Windows.Forms.RadioButton
 $VHDXOutputRBtn.AutoSize   = $true
 $VHDXOutputRBtn.BackColor  = $CheckmarkBGColor
 $VHDXOutputRBtn.CheckAlign = [System.Drawing.ContentAlignment]::TopCenter
-$VHDXOutputRBtn.Checked    = $true
+$VHDXOutputRBtn.Checked    = $global:ON_NTFS
+$VHDXOutputRBtn.Enabled    = $global:ON_NTFS
 $VHDXOutputRBtn.Location   = New-Object System.Drawing.Point (770,169)
 $VHDXOutputRBtn.Name       = 'VHDXOutputRBtn'
 $VHDXOutputRBtn.Size       = New-Object System.Drawing.Size (39,32)
@@ -1056,6 +1060,7 @@ $ZipOutputRBtn            = New-Object System.Windows.Forms.RadioButton
 $ZipOutputRBtn.AutoSize   = $true
 $ZipOutputRBtn.BackColor  = $CheckmarkBGColor
 $ZipOutputRBtn.CheckAlign = [System.Drawing.ContentAlignment]::TopCenter
+$ZipOutputRBtn.Checked    = !$global:ON_NTFS
 $ZipOutputRBtn.Location   = New-Object System.Drawing.Point (815,169)
 $ZipOutputRBtn.Name       = 'ZipOutputRBtn'
 $ZipOutputRBtn.Size       = New-Object System.Drawing.Size (32,32)
@@ -1326,6 +1331,7 @@ $VNCServerBtn.Add_Click({ Start-VNC-Server })
 $DataRecoveryBtn.Add_Click({ Start-Recovery-Tool })
 $RegistryScanBtn.Add_Click({ Scan-Registry })
 $CheckUncheckAllCB.Add_CheckedChanged({ Toggle-All-Checkboxes })
+$VHDXOutputRBtn.Add_CheckedChanged({ Handle-VHDX-Check })
 
 # Results Page Events
 $MainMenuBtn.Add_Click({ Close-Results-Page })
