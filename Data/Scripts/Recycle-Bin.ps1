@@ -1,5 +1,18 @@
 
 function Get-Recycle-Bin {
+<<<<<<< Updated upstream
+=======
+#  ---Temporary function---
+
+    # This is a temporary function for use until the original function is bugfixed
+    $RBPath  = "$env:HOMEDRIVE\`$Recycle.Bin"
+    $outPath = "$global:OUTPUT_DIR\RecycleBinFiles"
+
+    Copy-Item -Path $RBPath -Destination $outPath -Recurse -Force -ErrorAction SilentlyContinue
+
+
+<# ---Original function---
+>>>>>>> Stashed changes
 
  [CmdletBinding()]
     param ( [string]$path, [string]$destination)
