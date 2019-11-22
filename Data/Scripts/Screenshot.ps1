@@ -11,69 +11,77 @@
 #------------------------------------------------
 
 function Screenshot {
-  param([Switch]$OfWindow)
+  try{
+    param([Switch]$OfWindow)
     
-  begin {
-    Add-Type -AssemblyName System.Drawing
-    Add-Type -AssemblyName System.Windows.Forms
+    begin {
+      Add-Type -AssemblyName System.Drawing
+      Add-Type -AssemblyName System.Windows.Forms
     
-    $jpegCodec = [Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | 
-    Where-Object { $_.FormatDescription -eq "JPEG" }
-  } # End of begin {}
+      $jpegCodec = [Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | 
+      Where-Object { $_.FormatDescription -eq "JPEG" }
+    } # End of begin {}
 
-  process {
-    $NumActiveWindow = Count-Windows
+    process {
+      $NumActiveWindow = Count-Windows
     
-    # Screencapture full screen once
-    Start-Sleep -Milliseconds 50
-    [Windows.Forms.Sendkeys]::SendWait("{PrtSc}")
-    Start-Sleep -Milliseconds 50
-    
-    Save-Screenshot
-    
-    # Maximize all hidden processes
-    (Get-Process | Where {$_.MainWindowTitle}).MainWindowTitle | % {
-      $WShell = (New-Object -ComObject wscript.shell)
-      $WShell.AppActivate($_)
-      sleep 1
-      $WShell.SendKeys("% x")
-      sleep 1
-    } | Out-Null
-    
-    # Skip FCapture Screenshot
-    [Windows.Forms.Sendkeys]::Send("%{ESC}")
-    start-sleep -Seconds 2
-    
-    # Cycle through active windows and screenshot them
-    for($i = 0;$i -le $NumActiveWindow; $i++){
-
-      # Screenshot
-      Start-Sleep -Milliseconds 250
-      [Windows.Forms.Sendkeys]::SendWait("%{PrtSc}")
+      # Screencapture full screen once
       Start-Sleep -Milliseconds 50
-      #start-sleep -Seconds 2 
+      [Windows.Forms.Sendkeys]::SendWait("{PrtSc}")
+      Start-Sleep -Milliseconds 50
+    
       Save-Screenshot
-      
-      # Got to next window
+    
+      # Maximize all hidden processes
+      (Get-Process | Where {$_.MainWindowTitle}).MainWindowTitle | % {
+        $WShell = (New-Object -ComObject wscript.shell)
+        $WShell.AppActivate($_)
+        sleep 1
+        $WShell.SendKeys("% x")
+        sleep 1
+      } | Out-Null
+    
+      # Skip FCapture Screenshot
       [Windows.Forms.Sendkeys]::Send("%{ESC}")
       start-sleep -Seconds 2
-    } # End of for loop {}
     
-    # Minimize all the Windows
-    $Shell = New-Object -ComObject "Shell.Application"
-    $Shell.MinimizeAll()
-    start-sleep -Seconds 2
+      # Cycle through active windows and screenshot them
+      for($i = 0;$i -le $NumActiveWindow; $i++){
+
+        # Screenshot
+        Start-Sleep -Milliseconds 250
+        [Windows.Forms.Sendkeys]::SendWait("%{PrtSc}")
+        Start-Sleep -Milliseconds 50
+        #start-sleep -Seconds 2 
+        Save-Screenshot
+      
+        # Got to next window
+        [Windows.Forms.Sendkeys]::Send("%{ESC}")
+        start-sleep -Seconds 2
+      } # End of for loop {}
     
-    # Screencapture desktop once
-    Start-Sleep -Milliseconds 250
-    [Windows.Forms.Sendkeys]::SendWait("{PrtSc}")
-    Start-Sleep -Milliseconds 50
+      # Minimize all the Windows
+      $Shell = New-Object -ComObject "Shell.Application"
+      $Shell.MinimizeAll()
+      start-sleep -Seconds 2
     
-    Save-Screenshot
+      # Screencapture desktop once
+      Start-Sleep -Milliseconds 250
+      [Windows.Forms.Sendkeys]::SendWait("{PrtSc}")
+      Start-Sleep -Milliseconds 50
     
-    # Undo minimize
-    $Shell.UndoMinimizeAll()
-  } # End of process {}
+      Save-Screenshot
+    
+      # Undo minimize
+      $Shell.UndoMinimizeAll()
+      Search-And-Add-Log-Entry $SUCCESS_LOG "Successfully ran Screenshot-Windows Function"
+      return $true
+    } # End of process {}
+  } # End of Try{} block
+  catch{
+    Search-And-Add-Log-Entry $FAIL_LOG "Failed to run Screenshot-Windows Function"
+    return $false
+  }
 } # End of Screenshot {}
 
 function Count-Windows{
@@ -90,6 +98,7 @@ function Count-Windows{
 }
 
 function Save-Screenshot{
+  try{
     $bitmap = [Windows.Forms.Clipboard]::GetImage()    
     $ep = New-Object Drawing.Imaging.EncoderParameters  
     $ep.Param[0] = New-Object Drawing.Imaging.EncoderParameter ([System.Drawing.Imaging.Encoder]::Quality, [long]100)  
@@ -100,4 +109,15 @@ function Save-Screenshot{
       $c++
     }
     $bitmap.Save("${screenCapturePathBase}${c}.jpg", $jpegCodec, $ep)
-}
+    
+    # Log Successful Action
+    Search-And-Add-Log-Entry $SUCCESS_LOG ("Successfully saved screenshot")
+        return $true
+        
+    } # End of Try Block
+    Catch{
+      # Log Failure
+      Search-And-Add-Log-Entry $FAIL_LOG ("Failed to save screenshot")
+        return $false
+    } # End of Catch Block
+} # End of Save-Screenshot helper function
