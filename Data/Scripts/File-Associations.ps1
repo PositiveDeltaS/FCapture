@@ -8,6 +8,6 @@ function File-Associations {
 	catch
 	{
 		Search-And-Add-Log-Entry $FAIL_LOG "File-Associations"
-		return $fail
+		return $false
 	}
 }
