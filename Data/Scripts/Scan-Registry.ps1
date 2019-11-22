@@ -6,9 +6,11 @@ function Scan-Registry {
 	{
 		iex $run 
 		Search-And-Add-Log-Entry $SUCCESS_LOG "Scan-Registry"
+		return $true
 	}
 	catch
 	{
 		Search-And-Add-Log-Entry $FAIL_LOG "Scan-Registry"
+		return $false
 	}
 }
