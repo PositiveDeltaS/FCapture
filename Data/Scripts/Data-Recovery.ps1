@@ -7,10 +7,12 @@
 	try 
 	{
 		Start-Process $run
-		Search-And-Add-Log-Entry $SUCCESS_LOG "TestDisk"
+		Search-And-Add-Log-Entry $SUCCESS_LOG "TestDisk: Started Recovery Tool"
+		return $true
 	}
 	catch
 	{
-		Search-And-Add-Log-Entry $FAIL_LOG "TestDisk"
+		Search-And-Add-Log-Entry $FAIL_LOG "TestDisk: Failed to Start"
+		return $false
 	}
 }

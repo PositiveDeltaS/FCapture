@@ -17,10 +17,12 @@
 			Write-output ($_ | Format-List -Property "*" | Out-String)  | Out-File $File -Append	
 		}
 		Search-And-Add-Log-Entry $SUCCESS_LOG "Network-Interfaces"
+		return $true
 	}
 	catch
 	{
 		if(Test-Path -Path $File){rm $File}
-		Search-And-Add-Log-Entry $SUCCESS_LOG "Network-Interfaces"
+		Search-And-Add-Log-Entry $FAIL_LOG "Network-Interfaces"
+		return $false
 	}
 }
