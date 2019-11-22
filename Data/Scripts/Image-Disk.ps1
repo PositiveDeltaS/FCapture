@@ -21,12 +21,15 @@ function Disk-Image
 		if(Test-Path -Path $imagePath) {
 			mv $imagePath ($global:OUTPUT_DIR + "\Disk-Image")
 			Search-And-Add-Log-Entry $SUCCESS_LOG "Image-Disk"
+			return $true
 		}
 		else {
 			Search-And-Add-Log-Entry $FAIL_LOG "Image-Disk"
+			return $false
 		}
 	}
 	else {
 		Search-And-Add-Log-Entry $SUCCESS_LOG "Image-Disk: No Drives Selected"
+		return $true
 	}
 }

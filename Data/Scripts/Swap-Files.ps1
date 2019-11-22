@@ -11,7 +11,7 @@ function Swap-Files {
 	catch
 	{
 		Search-And-Add-Log-Entry $FAIL_LOG "PhysicalMemory-Image: Error when collecting pagefile locations"
-		return 0
+		return $false
 	}
 	
 	$outOptions = " -o " + $global:OUTPUT_DIR + $outputFile
@@ -21,9 +21,11 @@ function Swap-Files {
 	{
 		iex $run 
 		Search-And-Add-Log-Entry $SUCCESS_LOG "PhysicalMemory-Image"
+		return $true
 	}
 	catch
 	{
 		Search-And-Add-Log-Entry $FAIL_LOG "PhysicalMemory-Image"
+		return $false
 	}
 }
