@@ -31,6 +31,7 @@ function Image-Scan {
 
     if(!Test-Path "$global:OUTPUT_DIR\Images") {
         Search-And-Add-Log-Entry $FAIL_LOG "Image output directory does not exist and images were not copied"
+        return $false
     }
 
     $Images.ForEach({
