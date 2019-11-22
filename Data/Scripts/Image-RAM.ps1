@@ -13,6 +13,6 @@ function PhysicalMemory-Image {
 	catch
 	{
 		Search-And-Add-Log-Entry $FAIL_LOG "PhysicalMemory-Image"
-		return $fail
+		return $false
 	}
 }
