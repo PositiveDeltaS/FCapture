@@ -1,7 +1,6 @@
 
 function Get-Recycle-Bin {
-<<<<<<< Updated upstream
-=======
+
 #  ---Temporary function---
 
     # This is a temporary function for use until the original function is bugfixed
@@ -10,6 +9,8 @@ function Get-Recycle-Bin {
 
     Copy-Item -Path $RBPath -Destination $outPath -Recurse -Force -ErrorAction SilentlyContinue
 
+    return true
+}
 
 <# ---Original function---
 >>>>>>> Stashed changes
@@ -43,3 +44,4 @@ function Get-Recycle-Bin {
 } 
 # This line is outside of the function so it's being called immediately upon starting the program and causing errors
 #Get-Recycle-Bin 'C:\$Recycle.Bin\*' "$global:OUTPUT_DIR\RecycleBinFiles" | Out-File "$global:OUTPUT_DIR\Recyclebincontents.txt"
+#>
