@@ -18,10 +18,12 @@ function Remote-Desktop
             New-Item -Path $RDPOutPath -ItemType Directory
             Copy-Item $RDPInPath -Destination $RDPOutPath -Recurse
             Search-And-Add-Log-Entry $SUCCESS_LOG "Copied RDPCache files at $RDPInPath"
+            return $true
         }
         catch
         { 
             Search-And-Add-Log-Entry $FAIL_LOG "Failed to copy RDPCache files at $RDPInPath"
+            return $false
         }
     }
 }

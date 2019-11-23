@@ -37,82 +37,242 @@ function OneForAll
     $startTime = Get-Date
 
     # Start packet capture
-    if($PacketCaptureCB.Checked){ Update-TB("Start packet capture"); Packet-Capture-Start; Update-TB }
+    if($PacketCaptureCB.Checked){
+        Update-TB "Start packet capture"
+        $success = Packet-Capture-Start
+        Update-TB "" $success
+    }
 
     # Do everything else
-    if($NetworkShareInfoCB.Checked){Update-TB("Network Share Info");Network-Share-Info;Update-TB}
-    if($NetworkInterfacesCB.Checked){ Update-TB("Network Interfaces"); Network-Interfaces; Update-TB }
-    if($FileSystemInfoCB.Checked){ Update-TB("FileSystem Info"); Filesystem-Info; Update-TB }
-    if($AutoRunItemsCB.Checked){ Update-TB("AutoRun Items"); AutoRun-Items; Update-TB }
-    if($UserAssistInfoCB.Checked){ Update-TB("UserAssist Info"); UserAssist; Update-TB }
-    if($NetworkProfilesCB.Checked){ Update-TB("Network Profiles"); Net-Connection-Profile; Update-TB }
-    if($UserAccountsCB.Checked){ Update-TB("User Accounts"); User-Accounts; Update-TB }
-    if($TimezoneInfoCB.Checked){ Update-TB("Timezone Info"); Timezone-Info; Update-TB }
-    if($WindowsServicesCB.Checked){ Update-TB("Windows Services"); Windows-Services; Update-TB }
-    if($SRUMInfoCB.Checked){ Update-TB("SRUM Info"); SRUM; Update-TB }
-    if($RestorePointsCB.Checked){ Update-TB("Restore Points"); System-Restore-Points; Update-TB }
-    if($ShimCacheCB.Checked){ Update-TB("ShimCache"); ShimCache; Update-TB }
-    if($ShellbagsCB.Checked){ Update-TB("Shellbags"); Shellbags; Update-TB }
-    if($ScheduledTasksCB.Checked){ Update-TB("Scheduled Tasks"); Scheduled-Tasks; Update-TB }
-    if($RDPCacheCB.Checked){ Update-TB("RDP Cache"); Remote-Desktop; Update-TB }
-    if($RecycleBinCB.Checked){ Update-TB("Recycle Bin"); Get-Recycle-Bin; Update-TB }
-    if($PrefetchFilesCB.Checked){ Update-TB("Prefetch Files"); Prefetch; Update-TB }
-    if($MRUListsCB.Checked){ Update-TB("MRU Lists"); MRU; Update-TB }
-    if($LNKFilesCB.Checked){ Update-TB("LNK Files"); LNK; Update-TB }
-    if($DLLsCB.Checked){ Update-TB("DLLs"); DLL; Update-TB }
-    if($KeywordSearchesCB.Checked){ Update-TB("Keyword Searches"); KeyWord-Search; Update-TB }
-    if($JumpListsCB.Checked){ Update-TB("Jump Lists"); Jump-List; Update-TB }
-    if($InstalledProgramsCB.Checked){ Update-TB("Installed Programs"); Installed-Programs; Update-TB }
-    if($FileAssociationsCB.Checked){ Update-TB("File Associations"); File-Associations; Update-TB }
-    if($StartupProgramsCB.Checked){ Update-TB("Startup Programs"); Startup-Programs; Update-TB }
-    if($AmCacheCB.Checked){ Update-TB("AmCache"); AmCache; Update-TB }
-    if($MUICacheCB.Checked){ Update-TB("MUICache"); MUICache; Update-TB }
-    if($EventLogsCB.Checked){ Update-TB("Event Logs"); Event-Logs; Update-TB }
-    if($RegistryCB.Checked){ Update-TB("Registry"); Record-Registry; Update-TB }
-    if($ImageScanCB.Checked){ Update-TB("Image Scan"); Image-Scan; Update-TB }
-    if($PeripheralDevicesCB.Checked){ Update-TB("Peripheral Devices"); Peripheral-Devices; Update-TB }
+    if($NetworkShareInfoCB.Checked){
+        Update-TB "Network Share Info"
+        $success = Network-Share-Info
+        Update-TB "" $success
+    }
+    if($NetworkInterfacesCB.Checked){
+        Update-TB "Network Interfaces"
+        $success = Network-Interfaces
+        Update-TB "" $success
+    }
+    if($FileSystemInfoCB.Checked){
+        Update-TB "FileSystem Info"
+        $success = Filesystem-Info
+        Update-TB "" $success
+    }
+    if($AutoRunItemsCB.Checked){
+        Update-TB "AutoRun Items"
+        $success = AutoRun-Items
+        Update-TB "" $success
+    }
+    if($UserAssistInfoCB.Checked){
+        Update-TB "UserAssist Info"
+        $success = UserAssist
+        Update-TB "" $success
+    }
+    if($NetworkProfilesCB.Checked){
+        Update-TB "Network Profiles"
+        $success = Net-Connection-Profile
+        Update-TB "" $success
+    }
+    if($UserAccountsCB.Checked){
+        Update-TB "User Accounts"
+        $success = User-Accounts
+        Update-TB "" $success
+    }
+    if($TimezoneInfoCB.Checked){
+        Update-TB "Timezone Info"
+        $success = Timezone-Info
+        Update-TB "" $success
+    }
+    if($WindowsServicesCB.Checked){
+        Update-TB "Windows Services"
+        $success = Windows-Services
+        Update-TB "" $success
+    }
+    if($SRUMInfoCB.Checked){
+        Update-TB "SRUM Info"
+        $success = SRUM
+        Update-TB "" $success
+    }
+    if($RestorePointsCB.Checked){
+        Update-TB "Restore Points"
+        $success = System-Restore-Points
+        Update-TB "" $success
+    }
+    if($ShimCacheCB.Checked){
+        Update-TB "ShimCache"
+        $success = ShimCache
+        Update-TB "" $success
+    }
+    if($ShellbagsCB.Checked){
+        Update-TB "Shellbags"
+        $success = Shellbags
+        Update-TB "" $success
+    }
+    if($ScheduledTasksCB.Checked){
+        Update-TB "Scheduled Tasks"
+        $success = Scheduled-Tasks
+        Update-TB "" $success
+    }
+    if($RDPCacheCB.Checked){
+        Update-TB "RDP Cache"
+        $success = Remote-Desktop
+        Update-TB "" $success
+    }
+    if($RecycleBinCB.Checked){
+        Update-TB "Recycle Bin"
+        $success = Get-Recycle-Bin
+        Update-TB "" $success
+    }
+    if($PrefetchFilesCB.Checked){
+        Update-TB "Prefetch Files"
+        $success = Prefetch
+        Update-TB "" $success
+    }
+    if($MRUListsCB.Checked){
+        Update-TB "MRU Lists"
+        $success = MRU
+        Update-TB "" $success
+    }
+    if($LNKFilesCB.Checked){
+        Update-TB "LNK Files"
+        $success = LNK
+        Update-TB "" $success
+    }
+    if($DLLsCB.Checked){
+        Update-TB "DLLs"
+        $success = DLL
+        Update-TB "" $success
+    }
+    if($KeywordSearchesCB.Checked){
+        Update-TB "Keyword Searches"
+        $success = KeyWord-Search
+        Update-TB "" $success
+    }
+    if($JumpListsCB.Checked){
+        Update-TB "Jump Lists"
+        $success = Jump-List
+        Update-TB "" $success
+    }
+    if($InstalledProgramsCB.Checked){
+        Update-TB "Installed Programs"
+        $success = Installed-Programs
+        Update-TB "" $success
+    }
+    if($FileAssociationsCB.Checked){
+        Update-TB "File Associations"
+        $success = File-Associations
+        Update-TB "" $success
+    }
+    if($StartupProgramsCB.Checked){
+        Update-TB "Startup Programs"
+        $success = Startup-Programs
+        Update-TB "" $success
+    }
+    if($AmCacheCB.Checked){
+        Update-TB "AmCache"
+        $success = AmCache
+        Update-TB "" $success
+    }
+    if($MUICacheCB.Checked){
+        Update-TB "MUICache"
+        $success = MUICache
+        Update-TB "" $success
+    }
+    if($EventLogsCB.Checked){
+        Update-TB "Event Logs"
+        $success = Event-Logs
+        Update-TB "" $success
+    }
+    if($RegistryCB.Checked){
+        Update-TB "Registry"
+        $success = Record-Registry
+        Update-TB "" $success
+    }
+    if($ImageScanCB.Checked){
+        Update-TB "Image Scan"
+        $success = Image-Scan
+        Update-TB "" $success
+    }
+    if($PeripheralDevicesCB.Checked){
+        Update-TB "Peripheral Devices"
+        $success = Peripheral-Devices
+        Update-TB "" $success
+    }
     if($BrowserDataCB.Checked){
+
         $boolArray = Browser-Data-Retrieval
-        if($boolArray[0]) {
-            Update-TB("Mozilla Browser Data")
-            Update-TB
+
+        Update-TB("Mozilla Browser Data")
+        Update-TB "" $boolArray[0]
+
+        Update-TB("Chrome Browser Data")
+        Update-TB "" $boolArray[1]
+
+        Update-TB("Opera Browser Data")
+        Update-TB "" $boolArray[2]
+
+        Update-TB("Edge Browser Data")
+        Update-TB "" $boolArray[3]
+
+        Update-TB("IE Browser Data")
+        Update-TB "" $boolArray[4]
+    }
+    if($ScreenshotsCB.Checked){
+        Update-TB "Screenshots"
+        $success = Screenshot
+        Update-TB "" $success
+    }
+    if($MemoryImageCB.Checked -or $SwapFilesCB.Checked){
+		if($SwapFilesCB.Checked){
+            Update-TB "Swap Files"
+            $success = Swap-Files
+            Update-TB "" $success
         }
-        if($boolArray[1]) {
-            Update-TB("Chrome Browser Data")
-            Update-TB
-        }
-        if($boolArray[2]) {
-            Update-TB("Opera Browser Data")
-            Update-TB
-        }
-        if($boolArray[3]) {
-            Update-TB("Edge Browser Data")
-            Update-TB
-        }
-        if($boolArray[4]) {
-            Update-TB("IE Browser Data")
-            Update-TB
+		else{
+            Update-TB "Physical Memory Imaging"
+            $success = PhysicalMemory-Image
+            Update-TB "" $success
         }
     }
-    if($ScreenshotsCB.Checked){ Update-TB("Screenshots"); Screenshot; Update-TB }
-    if($MemoryImageCB.Checked -or $SwapFilesCB.Checked){
-		if($SwapFilesCB.Checked){ Update-TB("Swap Files"); Swap-Files; Update-TB }
-		else{ Update-TB("Physical Memory Imaging"); PhysicalMemory-Image; Update-TB }}
-    if($ActiveProcessesCB.Checked){ Update-TB("Active Processes"); Active-Processes; Update-TB }
-    if($SystemInfoCB.Checked){ Update-TB("System Info"); System-Info; Update-TB }
+    if($ActiveProcessesCB.Checked){
+        Update-TB "Active Processes"
+        $success = Active-Processes
+        Update-TB "" $success
+    }
+    if($SystemInfoCB.Checked){
+        Update-TB "System Info"
+        $success = System-Info
+        Update-TB "" $success
+    }
 
     # Image drives that the user requested, if any
-    if($DiskImgCBList.CheckedItems) { Update-TB("Image disks"); Disk-Image; Update-TB }
-   
+    if($DiskImgCBList.CheckedItems) {
+        Update-TB "Image disks"
+        $success = Disk-Image
+        Update-TB "" $success
+    }
+
     # End packet capture
-    if($PacketCaptureCB.Checked){ Update-TB("Stop packet capture"); Packet-Capture-Stop; Update-TB }
+    if($PacketCaptureCB.Checked){
+        Update-TB "Stop packet capture"
+        $success = Packet-Capture-Stop
+        Update-TB "" $success
+    }
 
+    # Calculate and display the start, end, and total elapsed times to results textbox
+    $endTime          = Get-Date
+    Append-Time "Start time" $startTime
+    Append-Time "End time" $endTime
+    Append-Time "Elapsed time" ($endTime - $startTime)
+
+    # Create summary text file
+    New-Item -Path "$global:OUTPUT_DIR" -Name "FCAP_Summary.txt" -ItemType File -Value $ResultsTB.Text
+    
     # Package output data into .zip or .vhdx
-    Update-TB("Package data"); Package-Output-Data; Update-TB
-
-    # Calculate the elapsed time since the scan started, then diplay it in results textbox
-    $elapsedTime = "{0:HH:mm:ss}" -f ([datetime]($(Get-Date) - $startTime).Ticks)
-    $ResultsTB.AppendText("`r`nElapsed time: $elapsedTime`r`n")
+    Update-TB "`r`nPackage data"
+    $success = Package-Output-Data
+    Update-TB "" $success
 
     # Inform user that scan is complete
     $ScanningLbl.Text = 'Scan Complete'
@@ -125,14 +285,28 @@ function OneForAll
     $ExitResultsBtn.Enabled = $true
 }
 
-function Update-TB([string]$action)
+function Update-TB([string]$action, $success)
 {
-    if($action -ne "") # "" denotes the action is finished
+    if($action -ne "") # Something other than "" denotes the action is starting
     {
         $ResultsTB.AppendText("$action...")
     }
-    else # Otherwise the action is starting
+    else # Otherwise the action is ending, so print success/failure/NA
     {
-        $ResultsTB.AppendText("Done`r`n")
+        if($success -eq $true){
+            $ResultsTB.AppendText("OK`r`n")
+        }
+        elseif($success -eq $false){
+            $ResultsTB.AppendText("ERROR`r`n")
+        }
+        else{
+            $ResultsTB.AppendText("DONE`r`n") # Catch-all if function doesn't return boolean
+        }
     }
+}
+
+function Append-Time($label, $time)
+{
+    $timeFormatted = "{0:HH:mm:ss}" -f ([datetime]($time).Ticks)
+    $ResultsTB.AppendText("`r`n$label`: $timeFormatted`r`n")
 }

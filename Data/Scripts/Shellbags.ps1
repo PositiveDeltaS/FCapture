@@ -63,9 +63,11 @@ function Shellbags
     if ($success) # Validate the created filepaths to determine success; Log results
     {
         Search-And-Add-Log-Entry $SUCCESS_LOG ("Exported Shellbag registry files")
+        return $true
     }
     else
     {
         Search-And-Add-Log-Entry $FAIL_LOG ("Failed to export one or more Shellbag registry file")
+        return $false
     }
 }

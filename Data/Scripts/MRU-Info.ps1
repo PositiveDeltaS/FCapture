@@ -48,9 +48,11 @@ function MRU
     if ($success) # Validate the created filepaths to determine success; Log results
     {
         Search-And-Add-Log-Entry $SUCCESS_LOG ("Exported MRU registry files")
+        return $true
     }
     else
     {
         Search-And-Add-Log-Entry $FAIL_LOG ("Failed to export one or more MRU registry file")
+        return $false
     }
 }

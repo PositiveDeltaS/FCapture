@@ -10,9 +10,11 @@ function KeyWord-Search
     if (Test-Path $path) # Validate the created path to determine success; Log results
     {
         Search-And-Add-Log-Entry $SUCCESS_LOG ("Created KeywordSearches.reg")
+        return $true
     }
     else
     {
         Search-And-Add-Log-Entry $FAIL_LOG ("Failed to create KeywordSearches.reg")
+        return $false
     }
 }

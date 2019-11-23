@@ -7,9 +7,11 @@ function SRUM
     {
         Copy-Item $pathToSRUM -Destination "$global:OUTPUT_DIR\SRUDB.dat" -Force
         Search-And-Add-Log-Entry $SUCCESS_LOG "Copied SRUDB.dat file"
+        return $true
     }
     catch
     {
         Search-And-Add-Log-Entry $FAIL_LOG "Failed to copy SRUDB.dat file"
+        return $false
     }
 }
