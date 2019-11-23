@@ -8,10 +8,12 @@ function Windows-Services
 	if(!$success)
 	{
 		Search-And-Add-Log-Entry $FAIL_LOG ("Failed to create " + $fileName)
+        return $false
 	}
 	else
 	{
 		Search-And-Add-Log-Entry $SUCCESS_LOG ("Created " + $fileName)
+        return $true
 	}
 }
 

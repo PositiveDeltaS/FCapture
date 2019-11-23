@@ -19,10 +19,12 @@ function Jump-List
             New-Item -Path $JLOutPath -ItemType Directory
             Copy-Item $JLInPath -Destination $JLOutPath -Recurse
             Search-And-Add-Log-Entry $SUCCESS_LOG "Copied Jump List directories/files at $JLInPath"
+            return $true
         }
         catch
         { 
             Search-And-Add-Log-Entry $FAIL_LOG "Failed to copy Jump List directories/files at $JLInPath"
+            return $false
         }
     }
 }

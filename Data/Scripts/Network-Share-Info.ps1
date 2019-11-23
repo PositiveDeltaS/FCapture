@@ -59,9 +59,11 @@ function Network-Share-Info
     if ($success) # Validate the created filepaths to determine success; Log results
     {
         Search-And-Add-Log-Entry $SUCCESS_LOG ("Exported Network Share registry files")
+        return $true
     }
     else
     {
         Search-And-Add-Log-Entry $FAIL_LOG ("Failed to export one or more Network Share registry file")
+        return $false
     }
 }
