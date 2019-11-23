@@ -40,7 +40,7 @@ function OneForAll
     if($PacketCaptureCB.Checked){ Update-TB("Start packet capture"); Packet-Capture-Start; Update-TB }
 
     # Do everything else
-    if($NetworkShareInfoCB.Checked){ Update-TB("Network Share Info"); Network-Share-Info; Update-TB }
+    if($NetworkShareInfoCB.Checked){Update-TB("Network Share Info");Network-Share-Info;Update-TB}
     if($NetworkInterfacesCB.Checked){ Update-TB("Network Interfaces"); Network-Interfaces; Update-TB }
     if($FileSystemInfoCB.Checked){ Update-TB("FileSystem Info"); Filesystem-Info; Update-TB }
     if($AutoRunItemsCB.Checked){ Update-TB("AutoRun Items"); AutoRun-Items; Update-TB }
@@ -71,7 +71,29 @@ function OneForAll
     if($RegistryCB.Checked){ Update-TB("Registry"); Record-Registry; Update-TB }
     if($ImageScanCB.Checked){ Update-TB("Image Scan"); Image-Scan; Update-TB }
     if($PeripheralDevicesCB.Checked){ Update-TB("Peripheral Devices"); Peripheral-Devices; Update-TB }
-    if($BrowserDataCB.Checked){ Update-TB("Browser Data"); Browser-Data-Retrieval; Update-TB }
+    if($BrowserDataCB.Checked){
+        $boolArray = Browser-Data-Retrieval
+        if($boolArray[0]) {
+            Update-TB("Mozilla Browser Data")
+            Update-TB
+        }
+        if($boolArray[1]) {
+            Update-TB("Chrome Browser Data")
+            Update-TB
+        }
+        if($boolArray[2]) {
+            Update-TB("Opera Browser Data")
+            Update-TB
+        }
+        if($boolArray[3]) {
+            Update-TB("Edge Browser Data")
+            Update-TB
+        }
+        if($boolArray[4]) {
+            Update-TB("IE Browser Data")
+            Update-TB
+        }
+    }
     if($ScreenshotsCB.Checked){ Update-TB("Screenshots"); Screenshot; Update-TB }
     if($MemoryImageCB.Checked -or $SwapFilesCB.Checked){
 		if($SwapFilesCB.Checked){ Update-TB("Swap Files"); Swap-Files; Update-TB }
@@ -81,7 +103,7 @@ function OneForAll
 
     # Image drives that the user requested, if any
     if($DiskImgCBList.CheckedItems) { Update-TB("Image disks"); Disk-Image; Update-TB }
-
+   
     # End packet capture
     if($PacketCaptureCB.Checked){ Update-TB("Stop packet capture"); Packet-Capture-Stop; Update-TB }
 

@@ -12,6 +12,7 @@
 #       long the thorough scan will take. Not guaranteed to be accurate but may help
 #       in cases where images have not been concealed.
 
+# Scans all files in the system checking for images and copying them to an output directory
 function Image-Scan {
     [Byte[]] $jpegHdr   = 255, 216
     [Byte[]] $pngHdr    = 137, 80, 78, 71, 13, 10, 26, 10
@@ -28,11 +29,20 @@ function Image-Scan {
 
     [System.IO.FileInfo[]] $Images = @(Get-ChildItem "$env:HOMEDRIVE" -Recurse | ?{ChkPerm $_} | ?{IsImage $_})
 
+    if(!Test-Path "$global:OUTPUT_DIR\Images") {
+        Search-And-Add-Log-Entry $FAIL_LOG "Image output directory does not exist and images were not copied"
+        return $false
+    }
+
     $Images.ForEach({
         $_.CopyTo("$global:OUTPUT_DIR\Images\$($_.Name)") | Out-Null
     })
+
+    Search-And-Add-Log-Entry $SUCCESS_LOG "Image Scan completed successfully"
+    return $true
 }
 
+# Checks the passed in file to see if the executing user has permissions to read the file
 function ChkPerm($File) {
     # Initialize read bits
     $ReadVal = [System.Security.AccessControl.FileSystemRights]::Read -as [int]
@@ -65,6 +75,7 @@ function ChkPerm($File) {
 
 }
 
+# Checks to see if the file passed in is an image
 function IsImage($File) {
     if($File -isnot [System.IO.FileInfo]) {
         return $false

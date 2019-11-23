@@ -43,7 +43,8 @@ function Store-Main-State() {
         $Number = 1
         New-Item "$global:OUTPUT_DIR\Record" -ItemType Directory -ErrorAction SilentlyContinue
     }
-    $global:StateRecord | Export-Clixml "$global:OUTPUT_DIR\Record\Session$Number.xml" 
+    $global:StateRecord | Export-Clixml "$global:OUTPUT_DIR\Record\Session$Number.xml"
+    Search-And-Add-Log-Entry $SUCCESS_LOG "Record of user's actions successfully stored"
 }
 
 
