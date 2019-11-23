@@ -270,7 +270,7 @@ function OneForAll
     New-Item -Path "$global:OUTPUT_DIR" -Name "FCAP_Summary.txt" -ItemType File -Value $ResultsTB.Text
     
     # Package output data into .zip or .vhdx
-    Update-TB "Package data"
+    Update-TB "`r`nPackage data"
     $success = Package-Output-Data
     Update-TB "" $success
 
@@ -285,19 +285,22 @@ function OneForAll
     $ExitResultsBtn.Enabled = $true
 }
 
-function Update-TB([string]$action, [boolean]$success)
+function Update-TB([string]$action, $success)
 {
     if($action -ne "") # Something other than "" denotes the action is starting
     {
         $ResultsTB.AppendText("$action...")
     }
-    else # Otherwise the action is ending, so print success/failure
+    else # Otherwise the action is ending, so print success/failure/NA
     {
-        if($success){
+        if($success -eq $true){
             $ResultsTB.AppendText("OK`r`n")
         }
-        else{
+        elseif($success -eq $false){
             $ResultsTB.AppendText("ERROR`r`n")
+        }
+        else{
+            $ResultsTB.AppendText("DONE`r`n") # Catch-all if function doesn't return boolean
         }
     }
 }
