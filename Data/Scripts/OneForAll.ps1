@@ -293,10 +293,10 @@ function Update-TB([string]$action, $success)
     }
     else # Otherwise the action is ending, so print success/failure/NA
     {
-        if(($success -eq $true) -or ($success -eq $True)){
+        if($success -eq $true){
             $ResultsTB.AppendText("OK`r`n")
         }
-        elseif(($success -eq $false) -or ($success -eq $False)){
+        elseif($success -eq $false){
             $ResultsTB.AppendText("ERROR`r`n")
         }
         else{
