@@ -1,7 +1,7 @@
 function AmCache {
     
-   reg export “HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCompatCache” $global:OUTPUT_DIR\Amcache.reg
-   $outputFilename = Amcache.reg
+   reg export "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\AppCompatCache" $global:OUTPUT_DIR\Amcache.reg
+   $outputFilename = "Amcache.reg"
    if(Test-Path "$global:OUTPUT_DIR\Amcache.reg")
     {
         Search-And-Add-Log-Entry $SUCCESS_LOG ("Created $outputFilename output file successfully")
