@@ -22,7 +22,7 @@ function find-unsigned {
             Out-File "$global:OUTPUT_DIR\DllList.txt"
                 $outputFilename = "DllList.txt"
     
-      if(Test-Path "$global:OUTPUT_DIR\$outputFilename.*")
+      if(Test-Path "$global:OUTPUT_DIR\DllList.txt")
         {
             Search-And-Add-Log-Entry $SUCCESS_LOG ("Created $outputFilename output file successfully")
             return $true
