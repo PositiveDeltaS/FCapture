@@ -13,4 +13,3 @@ function AmCache {
         return $false
     }
  }
- AmCache
