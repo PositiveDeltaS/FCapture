@@ -1,9 +1,6 @@
 
 function Get-Recycle-Bin {
 
-#  ---Temporary function---
-
-    # This is a temporary function for use until the original function is bugfixed
     $RBPath  = "$env:HOMEDRIVE\`$Recycle.Bin"
     $outPath = "$global:OUTPUT_DIR\RecycleBinFiles"
 
@@ -13,7 +10,6 @@ function Get-Recycle-Bin {
 }
 
 <# ---Original function---
->>>>>>> Stashed changes
 
  [CmdletBinding()]
     param ( [string]$path, [string]$destination)
@@ -42,6 +38,4 @@ function Get-Recycle-Bin {
    }
  }
 } 
-# This line is outside of the function so it's being called immediately upon starting the program and causing errors
-#Get-Recycle-Bin 'C:\$Recycle.Bin\*' "$global:OUTPUT_DIR\RecycleBinFiles" | Out-File "$global:OUTPUT_DIR\Recyclebincontents.txt"
 #>
