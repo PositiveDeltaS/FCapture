@@ -2,25 +2,26 @@
 Generic function to get browser data for specified users. Copies everything
 at specified path to specified outpath.
 #>
-function Get-Browser-Data($users, [string] $desiredPath, [string] $outPath)
+function Get-Browser-Data($users, [string] $SavePath, [string] $FilePath)
 {
 #can possibly update to $users | ForEach-Object
 	ForEach($_ in $users)
 	{
 		$unqualifiedPath = Split-Path -Path $_ -NoQualifier
-		$completeOutPath   = "$global:OUTPUT_DIR\Browser Data\$unqualifiedPath\$outPath"
-		$filePath = "$env:HOMEDRIVE\Users\$_\$desiredPath"
+		$completeOutPath   = "$global:OUTPUT_DIR\Browser Data\$unqualifiedPath\$SavePath"
+		$FP = "$env:HOMEDRIVE\Users\$_\$FilePath"
 		
 		try
 		{ 
 			New-Item -Path $completeOutPath -ItemType Directory
-			Copy-Item $filePath -Destination $completeOutPath -Recurse
-			Search-And-Add-Log-Entry $SUCCESS_LOG "Copied files at $filePath"
+			Copy-Item $FP -Destination $completeOutPath -Recurse
+			Search-And-Add-Log-Entry $SUCCESS_LOG "Copied files at $FP"
 		}
 		catch
 		{ 
-			Search-And-Add-Log-Entry $FAIL_LOG "Failed to copy at $filePath"
-		}	
+			Search-And-Add-Log-Entry $FAIL_LOG "Failed to copy at $FP"
+		}
+		
 	}
 }
 
@@ -39,5 +40,5 @@ function Get-Desired-User-Profile-Names([string] $pathExtension)
 function Browser-Data-Wrapper([string] $SavePath, [string] $FilePath)
 {
 	$users = Get-Desired-User-Profile-Names $FilePath
-	Get-Browser-Data $users $FilePath $SavePath
+	Get-Browser-Data $users $SavePath $FilePath
 }
