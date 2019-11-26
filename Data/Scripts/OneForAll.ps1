@@ -202,17 +202,17 @@ function OneForAll
     if($BrowserDataCB.Checked){
 
         $boolArray = Browser-Data-Retrieval
-
-        Update-TB("Mozilla Browser Data")
+		
+		Update-TB("Edge Browser Data")
         Update-TB "" $boolArray[0]
-
-        Update-TB("Chrome Browser Data")
+		
+		Update-TB("Chrome Browser Data")
         Update-TB "" $boolArray[1]
 
-        Update-TB("Opera Browser Data")
+        Update-TB("Firefox Browser Data")
         Update-TB "" $boolArray[2]
 
-        Update-TB("Edge Browser Data")
+        Update-TB("Opera Browser Data")
         Update-TB "" $boolArray[3]
 
         Update-TB("IE Browser Data")
@@ -293,10 +293,10 @@ function Update-TB([string]$action, $success)
     }
     else # Otherwise the action is ending, so print success/failure/NA
     {
-        if($success -eq $true){
+        if(($success -eq $true) -or ($success -eq $True)){
             $ResultsTB.AppendText("OK`r`n")
         }
-        elseif($success -eq $false){
+        elseif(($success -eq $false) -or ($success -eq $False)){
             $ResultsTB.AppendText("ERROR`r`n")
         }
         else{
