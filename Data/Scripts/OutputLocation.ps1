@@ -25,10 +25,14 @@ function Output-Location
 	#Make sure the selected path is useable (or dev mode is on)
 	if((Assert-Path-Is-On-Removable-Device $selectedOutputPath) -or ($global:DEV_MODE))
 	{
-        # Set global directory location for other scripts to use
-        $global:OUTPUT_DIR = $selectedOutputPath
+        # Create a new folder in the chosen folder to hold output files
+        # This avoids complex issues when archiving files later on
+        New-Item -Name "F_Capture" -Path $selectedOutputPath -ItemType Directory -ErrorAction SilentlyContinue
 
-        # Let user know if they are in dev mode, and that they selected a local machine folder
+        # Set global directory location for other scripts to use
+        $global:OUTPUT_DIR = "$selectedOutputPath\F_Capture"
+
+        # Let user know if they are in dev mode, if they are
 		if($global:DEV_MODE){ Write-Host "(DEV MODE) Successfully selected output destination" }
         else{ Write-Host "Successfully selected removable output destination" }
 		
@@ -40,6 +44,8 @@ function Output-Location
 	}
 	else
     {
+        Add-Type -AssemblyName PresentationFramework
+        [System.Windows.MessageBox]::Show('You must choose an output directory that is not on the local machine.','Output Directory Error','OK','Error')
         Write-Host "Selected output destination was on local machine"
 		Add-Log-Entry $FAIL_LOG "Failed to change output directory"
 	}
@@ -57,8 +63,8 @@ function Assert-Path-Is-On-Removable-Device([string]$filePath)
 {
 	# -Qualifier removes everything except drive name from string
 	$pathRoot = Split-Path -Path $filePath -Qualifier # Example: "E:\1\2" -> "E:"
-    # Get an array of every removable drive, then just take the Name property for each drive
-	$removableDrives = ([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" }).Name
+    # Get an array of every removable drive that is actually usable, then just take the Name property for each drive
+	$removableDrives = ([System.IO.DriveInfo]::GetDrives() | Where-Object {$_.DriveType -eq "Removable" -and $_.IsReady -eq "True"}).Name
     
     # If there are no removable drive, just fail
     if($removableDrives.Count -eq 0)

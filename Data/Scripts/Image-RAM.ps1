@@ -8,9 +8,11 @@ function PhysicalMemory-Image {
 	{
 		iex $run 
 		Search-And-Add-Log-Entry $SUCCESS_LOG "PhysicalMemory-Image"
+		return $true
 	}
 	catch
 	{
 		Search-And-Add-Log-Entry $FAIL_LOG "PhysicalMemory-Image"
+		return $false
 	}
 }

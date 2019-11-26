@@ -41,8 +41,10 @@ function Store-Main-State() {
         $Number++
     } else {
         $Number = 1
+        New-Item "$global:OUTPUT_DIR\Record" -ItemType Directory -ErrorAction SilentlyContinue
     }
-    Write-Recoverable $global:StateRecord "$global:OUTPUT_DIR\Record\Session$Number.xml" 
+    $global:StateRecord | Export-Clixml "$global:OUTPUT_DIR\Record\Session$Number.xml"
+    Search-And-Add-Log-Entry $SUCCESS_LOG "Record of user's actions successfully stored"
 }
 
 
@@ -105,12 +107,4 @@ function Set-State($ElementArray, $State) {
             Set-State $_ $State
         }
     })
-}
-
-function Save-Recoverable($PSObj, $Path) {
-    $PSObj | Export-Clixml $Path
-}
-
-function Load-Recoverable($PSObj, $Path) {
-    $PSObj = Import-Clixml $Path
 }

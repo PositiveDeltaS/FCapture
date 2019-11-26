@@ -1,0 +1,18 @@
+{
+    "FilePath": {
+                    "Edge" : "AppData\\Local\\Packages\\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\\AC\\MicrosoftEdge\\User\\Default" ,
+                    "Chrome" : "AppData\\Local\\Google\\Chrome\\User Data\\Default",
+                    "Firefox" : "AppData\\Roaming\\Mozilla\\Firefox\\Profiles",
+                    "Opera"  : "AppData\\Roaming\\Opera Software\\Opera Stable",
+					          "IE" : "AppData\\Local\\Microsoft\\Windows\\History"
+    },
+
+    "SavePath": {
+                    "Edge" : "Microsoft Edge\\Data",
+                    "Chrome" : "Google Chrome\\Data",
+                    "Firefox" : "Firefox\\Data",
+                    "Opera" : "Opera\\Data",
+					          "IE" : "IE\\Data"
+    }
+
+}

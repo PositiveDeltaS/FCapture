@@ -1,35 +1,58 @@
 function MRU
 {
-    # Create an array of all of the ("most useful") MRU list registry locations
-    $keys    = ( "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU",
-                 "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedPidlMRU",
-                 "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs",
-                 "HKCU\Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU",
-                 "HKCU\Software\Microsoft\Internet Explorer\TypedURLs" )
+    # Create an array of all of the ("most useful") MRU list registry locations, minus the qualifier
+    $keys    = ( "Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\OpenSavePidlMRU",
+                 "Software\Microsoft\Windows\CurrentVersion\Explorer\ComDlg32\LastVisitedPidlMRU",
+                 "Software\Microsoft\Windows\CurrentVersion\Explorer\RecentDocs",
+                 "Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU",
+                 "Software\Microsoft\Internet Explorer\TypedURLs" )
 
-    $path    = "$global:OUTPUT_DIR\MRU" # Path to save all .reg files to
-
+    $SIDs       = Split-Path -Path (Resolve-Path -Path Registry::HKEY_USERS\*) -Leaf
+                 
     $success = $true # Remains true if all files export, false if one or more fail to export
 
-    New-Item -Path $path -ItemType Directory # Create the MRU folder to save files to
-
     # Export and save each registry key as keyname.reg
-    Foreach ($key in $keys)
+    Foreach ($index in 0..4)
     {
-        $MRUType      = Split-Path -Path $key -Leaf
-        $specificPath = "$path\$MRUType.reg"
+        Foreach ($SID in ($SIDs | Where { Test-Path "Registry::HKEY_USERS\$_\$($keys[$index])" }))
+        {
+            $path    = "$global:OUTPUT_DIR\MRU\$SID" # Path to save all of the users keys
+            # Make sure path folders are created
+            if(!(Test-Path $path)){ New-Item -Path $path -ItemType Directory }
 
-        reg export $key $specificPath /y
+            $MRUType      = Split-Path -Path $keys[$index] -Leaf
+            $specificPath = "$path\$MRUType.reg"
+            $fullKey      = "HKU\$SID\$($keys[$index])"
 
-        $success = $success -and (Test-Path $specificPath)
+            reg export $fullKey $specificPath /y
+
+            $success = $success -and (Test-Path $specificPath)
+        }
+        # Copy keys from HKCU (if present)
+        if (Test-Path "Registry::HKEY_CURRENT_USER\$($keys[$index])")
+        {
+            $path = "$global:OUTPUT_DIR\MRU\HKCU" # Path to save all of the users keys
+            # Make sure path folders are created
+            if(!(Test-Path $path)){ New-Item -Path $path -ItemType Directory }
+
+            $MRUType      = Split-Path -Path $keys[$index] -Leaf
+            $specificPath = "$path\$MRUType.reg"
+            $fullKey      = "HKCU\$($keys[$index])"
+
+            reg export $fullKey $specificPath /y
+
+            $success = $success -and (Test-Path $specificPath)
+        }
     }
 
     if ($success) # Validate the created filepaths to determine success; Log results
     {
         Search-And-Add-Log-Entry $SUCCESS_LOG ("Exported MRU registry files")
+        return $true
     }
     else
     {
         Search-And-Add-Log-Entry $FAIL_LOG ("Failed to export one or more MRU registry file")
+        return $false
     }
 }

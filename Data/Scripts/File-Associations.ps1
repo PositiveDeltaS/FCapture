@@ -3,9 +3,11 @@ function File-Associations {
 	{
 		cmd /c assoc | Out-File "$global:OUTPUT_DIR\File-Associations.txt"
 		Search-And-Add-Log-Entry $SUCCESS_LOG "File-Associations"
+		return $true
 	}
 	catch
 	{
 		Search-And-Add-Log-Entry $FAIL_LOG "File-Associations"
+		return $false
 	}
 }
