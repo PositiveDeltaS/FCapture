@@ -36,7 +36,5 @@ function Get-Recycle-Bin {
      Write-Information -MessageData "File copied successfully" -InformationAction Continue
    }
  }
- #>
-}
-# This line is outside of the function so it's being called immediately upon starting the program and causing errors
-# Get-Recycle-Bin 'C:\$Recycle.Bin\*' "$global:OUTPUT_DIR\RecycleBinFiles" | Out-File "$global:OUTPUT_DIR\RecycleBinContents.txt"
+} 
+#>
