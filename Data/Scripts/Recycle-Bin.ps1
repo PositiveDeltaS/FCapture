@@ -6,7 +6,7 @@ function Get-Recycle-Bin {
 
     Copy-Item -Path $RBPath -Destination $outPath -Recurse -Force -ErrorAction SilentlyContinue
 
-    return true
+    return $true
 }
 
 <# ---Original function---
