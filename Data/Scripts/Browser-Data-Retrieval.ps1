@@ -1,3 +1,9 @@
+<#
+Wrapper to retrieve data for each browser. Loads browser data storage paths and output paths
+from Browser-Data-Paths.json. For each browser that data is gathered for, for the current user,
+a success array is returned to the caller that indicates whether or not data was copied. 
+#>
+
 function Browser-Data-Retrieval
 {
     $browser = Get-Content "$PSScriptRoot\..\Scripts\Browser-Data-Paths.json" | Out-String | ConvertFrom-Json
@@ -14,7 +20,9 @@ function Browser-Data-Retrieval
 }
 
 
-
+<#
+	Generate and return success array for each browser that data is gathered for. 
+#>
 function Check-Success-Current-User-BrowserData
 {
 	$successFail = @($false,$false,$false,$false,$false)
