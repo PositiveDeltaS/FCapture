@@ -2,9 +2,12 @@
 # Fcapture : Windows Data Aggregation Forensic Tool
   A series of scripts that aggregate data from modern windows PCs.
   
-<img src="https://user-images.githubusercontent.com/32377243/69399902-b7709500-0ca4-11ea-870c-d7e286305c39.png"/>
+<img src="https://user-images.githubusercontent.com/32377243/107158422-b033b680-693e-11eb-8929-e297897265a3.png"/>
 
 #### Features
+
+All scripts are enabled and ran by default.
+
 https://github.com/PositiveDeltaS/FCapture/wiki
 https://github.com/PositiveDeltaS/FCapture/wiki/FCapture-Features
 
