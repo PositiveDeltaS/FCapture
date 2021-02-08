@@ -15,8 +15,8 @@ https://github.com/PositiveDeltaS/FCapture/wiki
 https://github.com/PositiveDeltaS/FCapture/wiki/FCapture-Features
 
 #### Summary
-  A series of scripts that aggregate data from modern windows PCs. 
-  This program, written for Portland General Electric, served as the capstone project for FcaptureTeam from Portland State University.
+  FCapture is series of scripts that aggregate data from modern windows PCs. Gathered data may include : memory imaging, swap files, recycling bin, and more. 
+  Information gathered is intended to be used in forensic analysis. FCapture, written for Portland General Electric Incident Response Team, served as the capstone project for Fcapture Team from Portland State University. Fcapture Team, comprised of eight student software engineers, gathered requirements, met with clients, designed the program, and wrote the code. Agile was used as the method of project organization and development.
 
 ### Usage
  Run on cmd: *csc YourPath/FCapture/Data/Resources/Make_FCAP_exe.cs*
@@ -59,6 +59,6 @@ https://github.com/PositiveDeltaS/FCapture/wiki/FCapture-Features
 
   
 #### Technologies : 
-Powershell, C#
+Powershell, C#, Trello, Slack, Git, HTML, Batch
   
   
