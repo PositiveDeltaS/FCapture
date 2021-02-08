@@ -40,8 +40,7 @@ https://github.com/PositiveDeltaS/FCapture/wiki/FCapture-Features
 # OR
 
 ### Usage
-  Download F-Capture.exe
-  Run : *YourPath/F-Capture.exe*
+  Download F-Capture.exe and Run : *YourPath/F-Capture.exe*
  
 1. **Permissions**
      - Allow Windows Powershell to run.
