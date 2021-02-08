@@ -1,5 +1,5 @@
 
-# FCapture : Windows Data Aggregation Forensic Tool
+# F-Capture : Windows Data Aggregation Forensic Tool
 
 
   
@@ -15,8 +15,8 @@ All included scripts are enabled by default.
 - https://github.com/PositiveDeltaS/FCapture/wiki/FCapture-Features
 
 ### Summary
-  FCapture is series of scripts that aggregate data from modern windows PCs. Gathered data may include : memory imaging, swap files, recycling bin, and more. 
-  Information gathered is intended to be used in forensic analysis. FCapture, written for Portland General Electric Incident Response Team, served as the capstone project for FCapture Team from Portland State University. FCapture Team, comprised of eight student software engineers, gathered requirements, met with clients, designed the program, and wrote the code. Agile was used as the method of project organization and development.
+  F-Capture is series of scripts that aggregate data from modern windows PCs. Gathered data may include : memory imaging, swap files, recycling bin, and more. 
+  Information gathered is intended to be used in forensic analysis. F-Capture, written for Portland General Electric Incident Response Team, served as the capstone project for F-Capture Team from Portland State University. F-Capture Team, comprised of eight student software engineers, gathered requirements, met with clients, designed the program, and wrote the code. Agile was used as the method of project organization and development.
 
 ### Usage
  Run on cmd: *csc YourPath/FCapture/Data/Resources/Make_FCAP_exe.cs*
