@@ -9,7 +9,7 @@
 
 #### Features
 
-All scripts are enabled and ran by default.
+All included scripts are enabled by default.
 
 https://github.com/PositiveDeltaS/FCapture/wiki
 https://github.com/PositiveDeltaS/FCapture/wiki/FCapture-Features
